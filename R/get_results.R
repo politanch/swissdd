@@ -119,7 +119,7 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
 #'
 #' \code{get_cantonalvotes} is one of the two main functions of swissvote package. It allows to retrieve the results and the counting status for national ballots.
 #'
-#'   get_swissvotes - retrieve real time vote results for cantonal ballots at district- or municipality level.
+#'   get_cantonalvotes - retrieve real time vote results for cantonal ballots at district- or municipality level.
 #'
 #' @param votedate date of the ballot. Default: most recent ballot available.
 #' @param geolevel geographical level for which the results should be loaded. options."canton","district" or "municipality"
