@@ -45,7 +45,7 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
 
   # retrieve data ------------
 
-  data <- jsonlite::fromJSON(paste0(votedate,"_eidg_Abstimmungsresultate_ogd.json"))
+  data <- jsonlite::fromJSON(paste0("data/",votedate,"_eidg_Abstimmungsresultate_ogd.json"))
 
 
  # swiss results
