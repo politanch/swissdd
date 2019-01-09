@@ -1,0 +1,14 @@
+Package: sdd
+Type: Package
+Title: Wrapper for the swiss real time data service
+Version: 0.0.0.9000
+Author: Thomas Lo Russo
+Maintainer: Thomas Lo Russo <th.lorusso@gmail.com>
+Description: API Wrapper for the Real Time data service (link to opendata.swiss).
+  allows to do this and that.
+License: GPL
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+Imports: purrr,dplyr,tidyr,jsonlite
+NeedsCompilation: no
