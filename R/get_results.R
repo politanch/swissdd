@@ -43,7 +43,7 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
   }
 
 
-  # retrieve data ------------
+  # retrieve data - modify link as soon data is available on opendata.swiss ------------
 
   data <- jsonlite::fromJSON(paste0("data/",votedate,"_eidg_Abstimmungsresultate_ogd.json"))
 
@@ -161,7 +161,7 @@ get_cantonalvotes <- function(votedate=NULL,geolevel="municipality"){
 
   # retrieve data ------------
 
-  data <- jsonlite::fromJSON(paste0(votedate,"_kant_Abstimmungsresultate_ogd.json"))
+  data <- jsonlite::fromJSON(paste0("data/",votedate,"_kant_Abstimmungsresultate_ogd.json"))
 
 
   # data <- jsonlite::fromJSON("20181125_kant_Abstimmungsresultate_ogd.json")
