@@ -1,6 +1,6 @@
 Package: sdd
 Type: Package
-Title: Wrapper for the swiss real time data service
+Title: Wrapper for the swiss real time vote result data service
 Version: 0.0.0.9000
 Author: Thomas Lo Russo
 Maintainer: Thomas Lo Russo <th.lorusso@gmail.com>

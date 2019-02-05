@@ -18,13 +18,13 @@ a tibble containing the results
 \code{get_cantonalvotes} is one of the two main functions of swissvote package. It allows to retrieve the results and the counting status for national ballots.
 }
 \details{
-get_swissvotes - retrieve real time vote results for cantonal ballots at district- or municipality level.
+get_cantonalvotes - retrieve real time vote results for cantonal ballots at district- or municipality level.
 
 placeholder
 }
 \examples{
  \donttest{
-results <- get_cantonalvotes(votedate="20181125",geolevel = "municipality")
+results <- get_cantonalvotes(votedate="20191002",geolevel = "municipality")
 
 glimpse(results)
 

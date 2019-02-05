@@ -17,7 +17,7 @@
 #' @return a tibble containing the results
 #' @examples
 #'  \donttest{
-#' results <- get_swissvotes(votedate="20181125", geolevel = "district")
+#' results <- get_swissvotes(votedate="20191002", geolevel = "district")
 #'
 #'glimpse(results)
 #'
@@ -44,11 +44,9 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
   }
 
 
-  # retrieve data - modify link as soon data is available on opendata.swiss ----
+  # retrieve data - switch to httr , remove supressWarnings! ----
 
-  data <- jsonlite::fromJSON(paste0("data/",votedate,"_eidg_Abstimmungsresultate_ogd.json"))
-
-
+ data <- suppressWarnings(jsonlite::fromJSON(urls$result$resources$download_url))
 
  # swiss results
 
@@ -85,7 +83,6 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
              municipality={geoindex<-5} ,
              district={geoindex<-4}
       )
-
 
       #reduce to tibble
       datas <-data$schweiz$vorlagen$vorlagenId %>% {
@@ -137,7 +134,7 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
 #' @return a tibble containing the results
 #' @examples
 #'  \donttest{
-#' results <- get_cantonalvotes(votedate="20181125",geolevel = "municipality")
+#' results <- get_cantonalvotes(votedate="20191002",geolevel = "municipality")
 #'
 #'glimpse(results)
 #'
@@ -154,7 +151,7 @@ get_cantonalvotes <- function(votedate=NULL,geolevel="municipality"){
   dates <- as.Date(substr(urls$result$temporals$start_date, 1, 10))
 
 
-  # set newest votedate as default
+  # to do - set newest votedate as default
   if (is.null(votedate)){
     votedate <- gsub("-","",max(dates))
   }
@@ -163,9 +160,9 @@ get_cantonalvotes <- function(votedate=NULL,geolevel="municipality"){
   }
 
 
-  # retrieve data ------------
+  # retrieve data - switch to httr !------------
 
-  data <- jsonlite::fromJSON(paste0("data/", votedate,"_kant_Abstimmungsresultate_ogd.json"))
+  data <- suppressWarnings(jsonlite::fromJSON(urls$result$resources$download_url))
 
 
   # data <- jsonlite::fromJSON("20181125_kant_Abstimmungsresultate_ogd.json")

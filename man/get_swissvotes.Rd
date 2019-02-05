@@ -24,10 +24,11 @@ placeholder
 }
 \examples{
  \donttest{
-results <- get_swissvotes(votedate="20181125",geolevel = "municipality")
+results <- get_swissvotes(votedate="20191002", geolevel = "district")
 
 glimpse(results)
 
 
 }
+
 }
