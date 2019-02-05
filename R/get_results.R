@@ -17,7 +17,7 @@
 #' @return a tibble containing the results
 #' @examples
 #'  \donttest{
-#' results <- get_swissvotes(votedate="20181125",geolevel = "district")
+#' results <- get_swissvotes(votedate="20181125", geolevel = "district")
 #'
 #'glimpse(results)
 #'
@@ -29,10 +29,11 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
 
   # get urls of distributions (change link when dataset is live) - make separate function for this -------------------
 
-  urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag")
+  urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen")
 
 
-  dates <- as.Date(substr(urls$result$resources$issued,1,10))
+  #dates <- as.Date(substr(urls$result$resources$issued,1,10))
+  dates <- as.Date(substr(urls$result$temporals$start_date, 1, 10))
 
   # set newest votedate as default
   if (is.null(votedate)){
@@ -43,9 +44,10 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
   }
 
 
-  # retrieve data - modify link as soon data is available on opendata.swiss ------------
+  # retrieve data - modify link as soon data is available on opendata.swiss ----
 
   data <- jsonlite::fromJSON(paste0("data/",votedate,"_eidg_Abstimmungsresultate_ogd.json"))
+
 
 
  # swiss results
@@ -98,7 +100,8 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
       gemdata  <- datas %>%
         unnest(res)
 
-     data <- gemdata %>% mutate(
+     data <- gemdata %>%
+       mutate(
         geoLevelnummer=map(gemdata$res,1),
         geoLevelname=map(gemdata$res,2),
         results=map(gemdata$res,4),
@@ -145,10 +148,11 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
 get_cantonalvotes <- function(votedate=NULL,geolevel="municipality"){
 
   # anpassen
-  urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag")
+  urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen")
 
+  #dates <- as.Date(substr(urls$result$resources$issued,1,10))
+  dates <- as.Date(substr(urls$result$temporals$start_date, 1, 10))
 
-  dates <- as.Date(substr(urls$result$resources$issued,1,10))
 
   # set newest votedate as default
   if (is.null(votedate)){
@@ -161,7 +165,7 @@ get_cantonalvotes <- function(votedate=NULL,geolevel="municipality"){
 
   # retrieve data ------------
 
-  data <- jsonlite::fromJSON(paste0("data/",votedate,"_kant_Abstimmungsresultate_ogd.json"))
+  data <- jsonlite::fromJSON(paste0("data/", votedate,"_kant_Abstimmungsresultate_ogd.json"))
 
 
   # data <- jsonlite::fromJSON("20181125_kant_Abstimmungsresultate_ogd.json")
