@@ -2,8 +2,9 @@ Package: sdd
 Type: Package
 Title: Wrapper for the swiss real time vote result data service
 Version: 0.0.0.9000
-Author: Thomas Lo Russo
-Maintainer: Thomas Lo Russo <th.lorusso@gmail.com>
+Authors@R: c(
+    person("Thomas", "Lo Russo", email = "th.lorusso@gmail.com", role = "cre"),
+    person("Thomas", "Willi", email = "thomas.willi@uzh.ch", role = "aut"))
 Description: API Wrapper for the Real Time data service (link to opendata.swiss).
   allows to do this and that.
 License: GPL
