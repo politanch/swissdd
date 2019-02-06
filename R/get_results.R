@@ -52,9 +52,9 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
 
   if(geolevel=="national"){
 
-  data <- tibble(
+  data <- tibble::tibble(
     id = data$schweiz$vorlagen$vorlagenId,
-    name = map_chr(data$schweiz$vorlagen$vorlagenTitel,c(2,1))) %>%
+    name = purrr::map_chr(data$schweiz$vorlagen$vorlagenTitel,c(2,1))) %>%
     bind_cols(data$schweiz$vorlagen$resultat)
 
   }
@@ -65,13 +65,13 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
 
   if(geolevel=="canton"){
 
-   data <- tibble(
-      ktid = map(data$schweiz$vorlagen$kantone, 1),
-      kantonname = map(data$schweiz$vorlagen$kantone, 2),
-      name = map_chr(data$schweiz$vorlagen$vorlagenTitel,c(2,1)),
+   data <- tibble::tibble(
+      ktid = purrr::map(data$schweiz$vorlagen$kantone, 1),
+      kantonname = purrr::map(data$schweiz$vorlagen$kantone, 2),
+      name = purrr::map_chr(data$schweiz$vorlagen$vorlagenTitel,c(2,1)),
       id = data$schweiz$vorlagen$vorlagenId,
-      res = map(data$schweiz$vorlagen$kantone,3)
-    ) %>% unnest(ktid,kantonname,res)
+      res = purrr::map(data$schweiz$vorlagen$kantone,3)
+    ) %>% tidyr::unnest(ktid,kantonname,res)
 
   }
 
@@ -87,24 +87,24 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
       #reduce to tibble
       datas <-data$schweiz$vorlagen$vorlagenId %>% {
         tibble(
-          name = map_chr(data$schweiz$vorlagen$vorlagenTitel,c(2,1)),
+          name = purrr::map_chr(data$schweiz$vorlagen$vorlagenTitel,c(2,1)),
           id = data$schweiz$vorlagen$vorlagenId,
-          res = map(data$schweiz$vorlagen$kantone,geoindex)
+          res = purrr::map(data$schweiz$vorlagen$kantone,geoindex)
         )
       }
 
 
       gemdata  <- datas %>%
-        unnest(res)
+        tidyr::unnest(res)
 
      data <- gemdata %>%
-       mutate(
+       dplyr::mutate(
         geoLevelnummer=map(gemdata$res,1),
         geoLevelname=map(gemdata$res,2),
         results=map(gemdata$res,4),
         results2=map(gemdata$res,"resultat")
       ) %>%
-        unnest(results2,geoLevelnummer,geoLevelname)
+        tidyr::unnest(results2,geoLevelnummer,geoLevelname)
   }
 
   return(data)
@@ -212,11 +212,11 @@ get_cantonalvotes <- function(votedate=NULL,geolevel="municipality"){
     ktdata2 <- tibble(
       id=ktdata$id,
       kt=ktdata$kanton,
-      geoid=map(ktdata$res,1),
-      geoname=map(ktdata$res,2),
-      district_id=map(ktdata$res,3),
-      resultat=map(ktdata$res,4)) %>%
-      unnest(resultat,geoid,geoname,district_id)
+      geoid=purrr::map(ktdata$res,1),
+      geoname=purrr::map(ktdata$res,2),
+      district_id=purrr::map(ktdata$res,3),
+      resultat=purrr::map(ktdata$res,4)) %>%
+      tidyr::unnest(resultat,geoid,geoname,district_id)
 
   }
 
@@ -226,19 +226,19 @@ get_cantonalvotes <- function(votedate=NULL,geolevel="municipality"){
   # vote names in all languages
 
   canton_vote_names  <-tibble(
-    id = map(data$kantone$vorlagen,1),
-    yes=map(c(1:length(data$kantone$vorlagen)),
+    id = purrr::map(data$kantone$vorlagen,1),
+    yes=purrr::map(c(1:length(data$kantone$vorlagen)),
             ~data$kantone$vorlagen[[.x]]$vorlagenTitel)) %>%
     # unnest lists with ids and the vote-names
-    unnest(id,yes) %>%
+    tidyr::unnest(id,yes) %>%
     # unnest list with language versions
-    unnest(yes) %>%
+    tidyr::unnest(yes) %>%
     #spread to wide to join descriptions to data
-    spread(langKey,text)
+    tidyr::spread(langKey,text)
 
   # join vote names to result
 
-  ktdata3 <-ktdata2 %>% left_join(canton_vote_names, by=c("id"="id"))
+  ktdata3 <-ktdata2 %>% dplyr::left_join(canton_vote_names, by=c("id"="id"))
 
   return(ktdata3)
 
