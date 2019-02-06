@@ -86,7 +86,7 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
 
       #reduce to tibble
       datas <-data$schweiz$vorlagen$vorlagenId %>% {
-        tibble(
+        tibble::tibble(
           name = purrr::map_chr(data$schweiz$vorlagen$vorlagenTitel,c(2,1)),
           id = data$schweiz$vorlagen$vorlagenId,
           res = purrr::map(data$schweiz$vorlagen$kantone,geoindex)
@@ -209,7 +209,7 @@ get_cantonalvotes <- function(votedate=NULL,geolevel="municipality"){
 
   if(geolevel=="municipality"){
 
-    ktdata2 <- tibble(
+    ktdata2 <- tibble::tibble(
       id=ktdata$id,
       kt=ktdata$kanton,
       geoid=purrr::map(ktdata$res,1),
@@ -225,7 +225,7 @@ get_cantonalvotes <- function(votedate=NULL,geolevel="municipality"){
 
   # vote names in all languages
 
-  canton_vote_names  <-tibble(
+  canton_vote_names  <-tibble::tibble(
     id = purrr::map(data$kantone$vorlagen,1),
     yes=purrr::map(c(1:length(data$kantone$vorlagen)),
             ~data$kantone$vorlagen[[.x]]$vorlagenTitel)) %>%
