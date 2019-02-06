@@ -12,6 +12,7 @@
 #' @importFrom dplyr "%>%"
 #' @importFrom dplyr mutate
 #' @importFrom tidyr unnest
+#' @export
 #' @rdname get_swissvotes
 #' @details placeholder
 #' @return a tibble containing the results
@@ -129,6 +130,7 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
 #' @importFrom dplyr "%>%"
 #' @importFrom dplyr mutate
 #' @importFrom tidyr unnest
+#' @export
 #' @rdname get_cantonalvotes
 #' @details placeholder
 #' @return a tibble containing the results
