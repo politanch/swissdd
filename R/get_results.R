@@ -99,10 +99,10 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
 
      data <- gemdata %>%
        dplyr::mutate(
-        geoLevelnummer=map(gemdata$res,1),
-        geoLevelname=map(gemdata$res,2),
-        results=map(gemdata$res,4),
-        results2=map(gemdata$res,"resultat")
+        geoLevelnummer=purrr::map(gemdata$res,1),
+        geoLevelname=purrr::map(gemdata$res,2),
+        results=purrr::map(gemdata$res,4),
+        results2=purrr::map(gemdata$res,"resultat")
       ) %>%
         tidyr::unnest(results2,geoLevelnummer,geoLevelname)
   }
