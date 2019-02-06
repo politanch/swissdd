@@ -1,4 +1,4 @@
-Package: sdd
+Package: swissdd
 Type: Package
 Title: Wrapper for the swiss real time vote result data service
 Version: 0.0.0.9000
