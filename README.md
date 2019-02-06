@@ -12,7 +12,7 @@ devtools::install_github(politanch/swissdd)
 
 federalvotes <- get_swissvotes(votedate="20191002", geolevel = "district")
 
-cantonalvotes <- get_swissvotes(votedate="20191002", geolevel = "municipality")
+cantonalvotes <- get_cantonalvotes(votedate="20191002", geolevel = "municipality")
 
 ´
 
