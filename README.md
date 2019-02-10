@@ -9,7 +9,7 @@ By now, the package wraps the real time data on vote sundays. On vote sundays fr
 So far, the package provides two functions (one for federal votes and one for cantonal votes).
 
 ```
-devtools::install_github(politanch/swissdd)
+devtools::install_github("politanch/swissdd")
 
 federalvotes <- get_swissvotes(votedate="20191002", geolevel = "district")
 
