@@ -4,7 +4,7 @@
 #'
 #'   get_swissvotes - retrieve real time vote results for national ballots at district- or municipality level.
 #'
-#' @param votedate date of the ballot. Default: most recent ballot available.
+#' @param votedate date of the ballot. Default: most recent ballot available. Format = YYYYMMDD
 #' @param geolevel geographical level for which the results should be loaded. options "district" or "municipality"
 #' @importFrom purrr map_dfr
 #' @importFrom purrr map_chr
@@ -12,6 +12,9 @@
 #' @importFrom dplyr "%>%"
 #' @importFrom dplyr mutate
 #' @importFrom tidyr unnest
+#' @importFrom rvest html
+#' @importFrom rvest html_node
+#' @importFrom rvest html_attr
 #' @export
 #' @rdname get_swissvotes
 #' @details placeholder
@@ -32,7 +35,15 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
 
   urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen")
 
-
+  if(is.null(votedate)) {votedate <- max(available_votedates())}
+  
+  bfssite <- rvest::html(paste0("https://www.bfs.admin.ch/asset/de/sd-t-17-02-",votedate,"-eidgAbstimmung"))
+  
+  damlink <- bfssite%>%
+    rvest::html_node(".js-ga-bfs-download-event")%>%
+    rvest::html_attr('href') 
+  
+  
   #dates <- as.Date(substr(urls$result$resources$issued,1,10))
   dates <- as.Date(substr(urls$result$temporals$start_date, 1, 10))
 
@@ -44,10 +55,12 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
     votedate<- gsub("-","",votedate)
   }
 
-
   # retrieve data - switch to httr , remove supressWarnings! ----
-
- data <- suppressWarnings(jsonlite::fromJSON(urls$result$resources$download_url))
+  
+ data <- suppressWarnings(jsonlite::fromJSON(paste0("https://www.bfs.admin.ch",damlink)))
+  
+  
+ # data <- suppressWarnings(jsonlite::fromJSON(urls$result$resources$download_url))
 
  # swiss results
 
@@ -112,7 +125,6 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
 
 
 }
-
 
 
 
