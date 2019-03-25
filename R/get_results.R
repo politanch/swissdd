@@ -128,6 +128,7 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
 
 
 
+
 #' Get cantonal results and counting status
 #'
 #' \code{get_cantonalvotes} is one of the two main functions of swissvote package. It allows to retrieve the results and the counting status for national ballots.
@@ -173,7 +174,10 @@ get_cantonalvotes <- function(votedate=NULL,geolevel="municipality"){
     votedate<- gsub("-","",votedate)
   }
 
-
+  
+  # Hier stimmt link noch -> allenfalls anpassen, falls BFS auf DAM Link umstellt
+  
+  
   # retrieve data - switch to httr !------------
 
   data <- suppressWarnings(jsonlite::fromJSON(urls$result$resources$download_url))
