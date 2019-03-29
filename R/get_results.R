@@ -37,6 +37,18 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
 
   if(is.null(votedate)) {votedate <- max(available_votedates())}
   
+  
+  #build in votedate-range selection!
+  
+  # swissdd::available_votedates()
+  # 
+  # d <- swissdd::available_votedates()
+  # 
+  # d[d>20170201]
+  # 
+  
+  
+  
   bfssite <- rvest::html(paste0("https://www.bfs.admin.ch/asset/de/sd-t-17-02-",votedate,"-eidgAbstimmung"))
   
   damlink <- bfssite%>%
