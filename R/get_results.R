@@ -30,7 +30,7 @@
 #' }
 #'
 
-get_swissvotes <- function(votedate=NULL,geolevel="municipality",from_date=NULL,to_date=NULL){
+get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
 
   # get urls of distributions (change link when dataset is live) - make separate function for this -------------------
 
@@ -47,16 +47,14 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality",from_date=NULL,
   # d[d>20170201]
   # 
   
-  
   bfssite <- rvest::html(paste0("https://www.bfs.admin.ch/asset/de/sd-t-17-02-",votedate,"-eidgAbstimmung"))
   
   damlink <- bfssite%>%
     rvest::html_node(".js-ga-bfs-download-event")%>%
     rvest::html_attr('href') 
   
-  
   #dates <- as.Date(substr(urls$result$resources$issued,1,10))
-  dates <- as.Date(substr(urls$result$temporals$start_date, 1, 10))
+  #dates <- as.Date(substr(urls$result$temporals$start_date, 1, 10))
 
   # set newest votedate as default
   if (is.null(votedate)){

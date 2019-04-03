@@ -3,6 +3,7 @@
 export(available_votedates)
 export(get_cantonalvotes)
 export(get_swissvotes)
+export(get_swissvotes_range)
 importFrom(dplyr,"%>%")
 importFrom(dplyr,mutate)
 importFrom(jsonlite,fromJSON)

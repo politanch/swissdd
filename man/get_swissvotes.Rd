@@ -4,8 +4,7 @@
 \alias{get_swissvotes}
 \title{Get national results and counting status}
 \usage{
-get_swissvotes(votedate = NULL, geolevel = "municipality",
-  from_date = NULL, to_date = NULL)
+get_swissvotes(votedate = NULL, geolevel = "municipality")
 }
 \arguments{
 \item{votedate}{date of the ballot. Default: most recent ballot available. Format = YYYYMMDD}

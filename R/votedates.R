@@ -33,7 +33,6 @@ dates <-substring(urls$result$resources$download_url, regexpr("[0-9]{8}",urls$re
 as.numeric(dates)
 
 
-
 }
 
 
