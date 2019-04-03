@@ -6,7 +6,7 @@
 #'
 #' @param votedate date of the ballot. Default: most recent ballot available. Format = YYYYMMDD
 #' @param geolevel geographical level for which the results should be loaded. options "district" or "municipality"
-#' @importFrom jsonlie fromJSON
+#' @importFrom jsonlite fromJSON
 #' @export
 #' @rdname available_votedates
 #' @details placeholder

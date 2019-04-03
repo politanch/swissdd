@@ -9,6 +9,7 @@
 #' @importFrom purrr map_dfr
 #' @importFrom purrr map_chr
 #' @importFrom purrr map
+#' @importFrom jsonlite fromJSON
 #' @importFrom dplyr "%>%"
 #' @importFrom dplyr mutate
 #' @importFrom tidyr unnest
@@ -29,14 +30,13 @@
 #' }
 #'
 
-get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
+get_swissvotes <- function(votedate=NULL,geolevel="municipality",from_date=NULL,to_date=NULL){
 
   # get urls of distributions (change link when dataset is live) - make separate function for this -------------------
 
   urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen")
 
   if(is.null(votedate)) {votedate <- max(available_votedates())}
-  
   
   #build in votedate-range selection!
   
@@ -46,7 +46,6 @@ get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
   # 
   # d[d>20170201]
   # 
-  
   
   
   bfssite <- rvest::html(paste0("https://www.bfs.admin.ch/asset/de/sd-t-17-02-",votedate,"-eidgAbstimmung"))

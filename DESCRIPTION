@@ -10,7 +10,7 @@ Description: API Wrapper for the Real Time data service (link to opendata.swiss)
 License: GPL
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 Imports: 
      purrr,dplyr,tidyr,jsonlite, magrittr,tibble,rvest
 NeedsCompilation: no
