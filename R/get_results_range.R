@@ -31,12 +31,15 @@
 
 get_swissvotes_range <- function(geolevel = "municipality",from_date=NULL,to_date=NULL){
 
+  #retrieve available dates
 dates <- swissdd::available_votedates()
 
+ #filter range
 if(!is.null(from_date)) dates <- dates[dates>=from_date]
 
 if(!is.null(to_date)) dates <- dates[dates<=to_date]
 
+ #iterate over dates and create dataframe - add votedate column?
 votedata <- purrr::map_dfr(dates, ~swissdd::get_swissvotes(votedate = .x,geolevel=geolevel))
 
 votedata
