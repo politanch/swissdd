@@ -25,12 +25,17 @@
 
 available_votedates <- function(list){
 
+  #Datum aus Ressourcenname lesen
+  # urls$result$resources$name$de
+  
+  urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen")
+  
+  dates <- substr(urls$result$resources$name$de,21,30)
+  
 
-urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen")
-
-dates <-substring(urls$result$resources$download_url, regexpr("[0-9]{8}",urls$result$resources$download_url),regexpr("[0-9]{8}",urls$result$resources$download_url)+7)
-
-as.numeric(dates)
+  as.Date(dates,format="%d.%m.%Y")
+  
+# dates <-substring(urls$result$resources$download_url, regexpr("[0-9]{8}",urls$result$resources$download_url),regexpr("[0-9]{8}",urls$result$resources$download_url)+7)
 
 
 }

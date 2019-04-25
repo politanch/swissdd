@@ -2,14 +2,19 @@
 % Please edit documentation in R/get_results.R
 \name{get_swissvotes}
 \alias{get_swissvotes}
-\title{Get national results and counting status}
+\title{Get national results and counting status for selected dates or a given period}
 \usage{
-get_swissvotes(votedate = NULL, geolevel = "municipality")
+get_swissvotes(geolevel = "municipality", votedates = NULL,
+  from_date = NULL, to_date = NULL)
 }
 \arguments{
-\item{votedate}{date of the ballot. Default: most recent ballot available. Format = YYYYMMDD}
-
 \item{geolevel}{geographical level for which the results should be loaded. options "district" or "municipality"}
+
+\item{votedates}{dates of the ballots to be selected. Default: most recent ballot available. Format = "YYYY-MM-DD"}
+
+\item{from_date}{starting point in time from which vote-results should be retrived. Format = "YYYY-MM-DD"}
+
+\item{to_date}{end point in time to which vote-results should be retrived. Format = "YYYY-MM-DD"}
 }
 \value{
 a tibble containing the results
@@ -18,13 +23,19 @@ a tibble containing the results
 \code{get_swissvotes} is one of the two main functions of swissvote package. It allows to retrieve the results and the counting status for national ballots.
 }
 \details{
-get_swissvotes - retrieve real time vote results for national ballots at district- or municipality level.
+get_swissvotes - retrieve vote results for national ballots at district- or municipality level for selected dates or a given date range.
 
 placeholder
 }
 \examples{
  \donttest{
-results <- get_swissvotes(votedate="20191002", geolevel = "district")
+results <-get_swissvotes(geolevel="district",from_date = 20180101,to_date=20181231)
+
+ get_swissvotes(to_date="1983-12-04")
+ 
+ OR
+ 
+ get_swissvotes(votedates="2019-02-10")
 
 glimpse(results)
 

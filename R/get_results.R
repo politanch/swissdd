@@ -1,28 +1,32 @@
-#' Get national results and counting status
+#' Get national results and counting status for selected dates or a given period
 #'
 #' \code{get_swissvotes} is one of the two main functions of swissvote package. It allows to retrieve the results and the counting status for national ballots.
 #'
-#'   get_swissvotes - retrieve real time vote results for national ballots at district- or municipality level.
+#'   get_swissvotes - retrieve vote results for national ballots at district- or municipality level for selected dates or a given date range.
 #'
-#' @param votedate date of the ballot. Default: most recent ballot available. Format = YYYYMMDD
+#' @param votedates dates of the ballots to be selected. Default: most recent ballot available. Format = "YYYY-MM-DD"
 #' @param geolevel geographical level for which the results should be loaded. options "district" or "municipality"
+#' @param from_date starting point in time from which vote-results should be retrived. Format = "YYYY-MM-DD"
+#' @param to_date end point in time to which vote-results should be retrived. Format = "YYYY-MM-DD"
 #' @importFrom purrr map_dfr
 #' @importFrom purrr map_chr
 #' @importFrom purrr map
-#' @importFrom jsonlite fromJSON
 #' @importFrom dplyr "%>%"
 #' @importFrom dplyr mutate
 #' @importFrom tidyr unnest
-#' @importFrom rvest html
-#' @importFrom rvest html_node
-#' @importFrom rvest html_attr
 #' @export
 #' @rdname get_swissvotes
 #' @details placeholder
 #' @return a tibble containing the results
 #' @examples
 #'  \donttest{
-#' results <- get_swissvotes(votedate="20191002", geolevel = "district")
+#' results <-get_swissvotes(geolevel="district",from_date = 20180101,to_date=20181231)
+#' 
+#'  get_swissvotes(to_date="1983-12-04")
+#'  
+#'  OR
+#'  
+#'  get_swissvotes(votedates="2019-02-10")
 #'
 #'glimpse(results)
 #'
@@ -30,244 +34,37 @@
 #' }
 #'
 
-get_swissvotes <- function(votedate=NULL,geolevel="municipality"){
+get_swissvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NULL,to_date=NULL){
 
-  # get urls of distributions (change link when dataset is live) - make separate function for this -------------------
-
-  urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen")
-
-  if(is.null(votedate)) {votedate <- max(available_votedates())}
+  #Warning - nur daten auswählen oder votedates
+  if(!is.null(votedates) & !is.null(from_date) | !is.null(votedates) & !is.null(to_date)) warning("please choose selected dates with the 'votedates' argument OR define a range via 'from_date' / 'to_date'), not both simultaneously")
   
-  #build in votedate-range selection!
   
-  # swissdd::available_votedates()
-  # 
-  # d <- swissdd::available_votedates()
-  # 
-  # d[d>20170201]
-  # 
-  
-  bfssite <- rvest::html(paste0("https://www.bfs.admin.ch/asset/de/sd-t-17-02-",votedate,"-eidgAbstimmung"))
-  
-  damlink <- bfssite%>%
-    rvest::html_node(".js-ga-bfs-download-event")%>%
-    rvest::html_attr('href') 
-  
-  #dates <- as.Date(substr(urls$result$resources$issued,1,10))
-  #dates <- as.Date(substr(urls$result$temporals$start_date, 1, 10))
-
-  # set newest votedate as default
-  if (is.null(votedate)){
-    votedate <- gsub("-","",max(dates))
+  # When range parameters haven been passed or "all" votes should be loaded
+  if(!is.null(from_date) |  !is.null(to_date)) {
+    
+    #retrieve available dates
+  dates <- swissdd::available_votedates()
+    
   }
-  else {
-    votedate<- gsub("-","",votedate)
+  
+  # available_votedates()
+  
+  # when keine range ausgewählt wurde
+  if(is.null(from_date) &  is.null(to_date) & !is.null(votedates)) {
+    
+    dates <- votedates
+    
   }
 
-  # retrieve data - switch to httr , remove supressWarnings! ----
-  
- data <- suppressWarnings(jsonlite::fromJSON(paste0("https://www.bfs.admin.ch",damlink)))
-  
-  
- # data <- suppressWarnings(jsonlite::fromJSON(urls$result$resources$download_url))
+ #filter range
+if(!is.null(from_date)) dates <- dates[dates>=from_date]
 
- # swiss results
+if(!is.null(to_date)) dates <- dates[dates<=to_date]
 
-  if(geolevel=="national"){
+ #iterate over dates and create dataframe - add votedate column?
+votedata <- purrr::map_dfr(dates, ~get_swissvotes_stream(votedate = .x,geolevel=geolevel) %>% dplyr::mutate(votedate=.x))
 
-  data <- tibble::tibble(
-    id = data$schweiz$vorlagen$vorlagenId,
-    name = purrr::map_chr(data$schweiz$vorlagen$vorlagenTitel,c(2,1))) %>%
-    bind_cols(data$schweiz$vorlagen$resultat)
-
-  }
-
-
-
-  #kantonsresultate
-
-  if(geolevel=="canton"){
-
-   data <- tibble::tibble(
-      ktid = purrr::map(data$schweiz$vorlagen$kantone, 1),
-      kantonname = purrr::map(data$schweiz$vorlagen$kantone, 2),
-      name = purrr::map_chr(data$schweiz$vorlagen$vorlagenTitel,c(2,1)),
-      id = data$schweiz$vorlagen$vorlagenId,
-      res = purrr::map(data$schweiz$vorlagen$kantone,3)
-    ) %>% tidyr::unnest(ktid,kantonname,res)
-
-  }
-
-  #------------------
-
-  if(geolevel %in% c("district","municipality")){
-
-      switch(geolevel,
-             municipality={geoindex<-5} ,
-             district={geoindex<-4}
-      )
-
-      #reduce to tibble
-      datas <-data$schweiz$vorlagen$vorlagenId %>% {
-        tibble::tibble(
-          name = purrr::map_chr(data$schweiz$vorlagen$vorlagenTitel,c(2,1)),
-          id = data$schweiz$vorlagen$vorlagenId,
-          res = purrr::map(data$schweiz$vorlagen$kantone,geoindex)
-        )
-      }
-
-
-      gemdata  <- datas %>%
-        tidyr::unnest(res)
-
-     data <- gemdata %>%
-       dplyr::mutate(
-        geoLevelnummer=purrr::map(gemdata$res,1),
-        geoLevelname=purrr::map(gemdata$res,2),
-        results=purrr::map(gemdata$res,4),
-        results2=purrr::map(gemdata$res,"resultat")
-      ) %>%
-        tidyr::unnest(results2,geoLevelnummer,geoLevelname)
-  }
-
-  return(data)
-
+votedata
 
 }
-
-
-
-
-#' Get cantonal results and counting status
-#'
-#' \code{get_cantonalvotes} is one of the two main functions of swissvote package. It allows to retrieve the results and the counting status for national ballots.
-#'
-#'   get_cantonalvotes - retrieve real time vote results for cantonal ballots at district- or municipality level.
-#'
-#' @param votedate date of the ballot. Default: most recent ballot available.
-#' @param geolevel geographical level for which the results should be loaded. options."canton","district" or "municipality"
-#' @importFrom purrr map_dfr
-#' @importFrom purrr map_chr
-#' @importFrom purrr map
-#' @importFrom dplyr "%>%"
-#' @importFrom dplyr mutate
-#' @importFrom tidyr unnest
-#' @export
-#' @rdname get_cantonalvotes
-#' @details placeholder
-#' @return a tibble containing the results
-#' @examples
-#'  \donttest{
-#' results <- get_cantonalvotes(votedate="20191002",geolevel = "municipality")
-#'
-#'glimpse(results)
-#'
-#'
-#' }
-#'
-
-get_cantonalvotes <- function(votedate=NULL,geolevel="municipality"){
-
-  # anpassen
-  urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen")
-
-  #dates <- as.Date(substr(urls$result$resources$issued,1,10))
-  dates <- as.Date(substr(urls$result$temporals$start_date, 1, 10))
-
-
-  # to do - set newest votedate as default
-  if (is.null(votedate)){
-    votedate <- gsub("-","",max(dates))
-  }
-  else {
-    votedate<- gsub("-","",votedate)
-  }
-
-  
-  # Hier stimmt link noch -> allenfalls anpassen, falls BFS auf DAM Link umstellt
-  
-  
-  # retrieve data - switch to httr !------------
-
-  data <- suppressWarnings(jsonlite::fromJSON(urls$result$resources$download_url))
-
-
-  # data <- jsonlite::fromJSON("20181125_kant_Abstimmungsresultate_ogd.json")
-
-
-  if(geolevel=="canton"){
-
-      #gesamtkanton
-      ktdata2 <-tibble::tibble(
-        name = data$kantone$geoLevelname,
-        id=purrr::map(data$kantone$vorlagen,1),
-        resultat=purrr::map(data$kantone$vorlagen,"resultat")
-      ) %>% tidyr::unnest(id,resultat)
-
-  }
-
-  if(!(geolevel=="canton")){
-    ## switch geolevel---
-        switch(geolevel,
-               municipality={geoindex<-9} ,
-               district={geoindex<-8})
-
-    ## tibble with data
-
-      ktdata <-tibble::tibble(
-        id = purrr::map(data$kantone$vorlagen,1),
-        kanton = data$kantone$geoLevelname,
-        res = purrr::map(data$kantone$vorlagen,c(geoindex))
-      ) %>%  tidyr::unnest(id,res)
-
-    }
-
-  if(geolevel=="district"){
-
-    ktdata2 <- tibble::tibble(
-      id=ktdata$id,
-      kt=ktdata$kanton,
-      geoid=purrr::map(ktdata$res,1),
-      geoname=purrr::map(ktdata$res,2),
-      resultat=purrr::map(ktdata$res,3)) %>%
-      tidyr::unnest(resultat,geoid,geoname)
-  }
-
-
-  if(geolevel=="municipality"){
-
-    ktdata2 <- tibble::tibble(
-      id=ktdata$id,
-      kt=ktdata$kanton,
-      geoid=purrr::map(ktdata$res,1),
-      geoname=purrr::map(ktdata$res,2),
-      district_id=purrr::map(ktdata$res,3),
-      resultat=purrr::map(ktdata$res,4)) %>%
-      tidyr::unnest(resultat,geoid,geoname,district_id)
-
-  }
-
-  # -----
-
-
-  # vote names in all languages
-
-  canton_vote_names  <-tibble::tibble(
-    id = purrr::map(data$kantone$vorlagen,1),
-    yes=purrr::map(c(1:length(data$kantone$vorlagen)),
-            ~data$kantone$vorlagen[[.x]]$vorlagenTitel)) %>%
-    # unnest lists with ids and the vote-names
-    tidyr::unnest(id,yes) %>%
-    # unnest list with language versions
-    tidyr::unnest(yes) %>%
-    #spread to wide to join descriptions to data
-    tidyr::spread(langKey,text)
-
-  # join vote names to result
-
-  ktdata3 <-ktdata2 %>% dplyr::left_join(canton_vote_names, by=c("id"="id"))
-
-  return(ktdata3)
-
-}
-# listviewer::jsonedit(data)
