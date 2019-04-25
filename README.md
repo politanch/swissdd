@@ -4,16 +4,23 @@
 
 `swissdd` builds upon the swiss real time data service for federal and cantonal votes. It brings the results of popular votes, aggregated at the federal level of choice, straight into R (national, cantons, districts and municipalities).
 
-By now, the package wraps the real time data on vote sundays. On vote sundays from 12:00 on, the datastream is continuosly updated, until the data for all municipalities is complete and the final results are available. We plan to integrate the data for past votes into the package as soon as it will be made available via the same web service.
-
-So far, the package provides two functions (one for federal votes and one for cantonal votes).
+By now, the package wraps the real time data on vote sundays. On vote sundays from 12:00 on, the datastream is continuosly updated, until the data for all municipalities is complete and the final results are available. Additionally, it allows to access the archive of all the passed national votes since 1983.
 
 ```
 devtools::install_github("politanch/swissdd")
 
-federalvotes <- get_swissvotes(votedate="20191002", geolevel = "district")
+#realtimedata on vote-sundays or the data of the last votations
+federalvotes <- get_swissvotes_stream(geolevel = "district")
 
-cantonalvotes <- get_cantonalvotes(votedate="20191002", geolevel = "municipality")
+#retrieve data for many votes, either by selecting indiviual dates...
+federalvotes <- get_swissvotes(votedates=c("2019-10-02","1984-09-23"), geolevel = "district")
+
+#... or defining a range.
+federalvotes <- get_swissvotes(from_date="20170101",to_date="2018-01-01", geolevel = "district")
+
+# cantonal results are also already available, however the functions to get the cantonal results will be slightly modified shortly.
+
+cantonalvotes <- get_cantonalvotes_stream(votedate="20191002", geolevel = "municipality")
 
 ```
 
