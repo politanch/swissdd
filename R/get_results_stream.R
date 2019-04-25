@@ -36,36 +36,7 @@ get_swissvotes_stream <- function(votedate=NULL,geolevel="municipality"){
   if(is.null(votedate)) {selection <- 1}
   
   #index des Abstimmungssonntags
-  selection <- match(as.Date(votedate),swissdd::available_votedates())
-  
-# selection <- which(available_votedates() %in% votedate)
- 
-  # anpassen damit es funktioniert
-  # 
-  
-  #build in votedate-range selection!
-  
-  # swissdd::available_votedates()
-  # 
-  # d <- swissdd::available_votedates()
-  # 
-  # d[d>20170201]
-  # 
-  
-  # bfssite <- rvest::html(paste0("https://www.bfs.admin.ch/asset/de/sd-t-17-02-",votedate,"-eidgAbstimmung"))
-  # 
-  # damlink <- bfssite%>%
-  #   rvest::html_node(".js-ga-bfs-download-event")%>%
-  #   rvest::html_attr('href') 
-  
-
-  # set newest votedate as default
-  if (is.null(votedate)){
-    votedate <- gsub("-","",max(dates))
-  }
-  else {
-    votedate<- gsub("-","",votedate)
-  }
+  if(!is.null(votedate)) selection <- match(as.Date(votedate),swissdd::available_votedates())
 
   # retrieve data - switch to httr , remove supressWarnings! ----
   
