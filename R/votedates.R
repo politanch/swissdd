@@ -5,7 +5,7 @@
 #'   get_swissvotes - retrieve real time vote results for national ballots at district- or municipality level.
 #'
 #' @param votedate date of the ballot. Default: most recent ballot available. Format = YYYYMMDD
-#' @param geolevel geographical level for which the results should be loaded. options "district" or "municipality"
+#' @param geoevel geographical level for which available votedates should be displayed. options "national" or "cantonal"
 #' @importFrom jsonlite fromJSON
 #' @export
 #' @rdname available_votedates
@@ -23,13 +23,16 @@
 #'
 
 
-available_votedates <- function(list){
+available_votedates <- function(geolevel="national"){
 
-  
+  #add option for cantonal votedates
+  if(geolevel=="national"){
+    
   urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen")
   
   dates <- substr(urls$result$resources$name$de,21,30)
-
+ 
+   }
   
   as.Date(dates,format="%d.%m.%Y")
   
