@@ -12,6 +12,7 @@
 #' @importFrom jsonlite fromJSON
 #' @importFrom dplyr "%>%"
 #' @importFrom dplyr mutate
+#' @importFrom dplyr bind_cols 
 #' @importFrom tidyr unnest
 #' @rdname get_swissvotes_stream
 #' @export
@@ -52,7 +53,7 @@ get_swissvotes_stream <- function(votedate=NULL,geolevel="municipality"){
   data <- tibble::tibble(
     id = data$schweiz$vorlagen$vorlagenId,
     name = purrr::map_chr(data$schweiz$vorlagen$vorlagenTitel,c(2,1))) %>%
-    bind_cols(data$schweiz$vorlagen$resultat)
+    dplyr::bind_cols(data$schweiz$vorlagen$resultat)
 
   }
 
