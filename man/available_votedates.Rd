@@ -4,12 +4,12 @@
 \alias{available_votedates}
 \title{Get a vector of available vote dates}
 \usage{
-available_votedates(list)
+available_votedates(geolevel = "national")
 }
 \arguments{
 \item{votedate}{date of the ballot. Default: most recent ballot available. Format = YYYYMMDD}
 
-\item{geolevel}{geographical level for which the results should be loaded. options "district" or "municipality"}
+\item{geoevel}{geographical level for which available votedates should be displayed. options "national" or "cantonal"}
 }
 \value{
 a vector of votedates (Format: YYYY-MM-DD)
