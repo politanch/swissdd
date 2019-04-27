@@ -7,8 +7,6 @@
 available_votedates(geolevel = "national")
 }
 \arguments{
-\item{votedate}{date of the ballot. Default: most recent ballot available. Format = YYYYMMDD}
-
 \item{geoevel}{geographical level for which available votedates should be displayed. options "national" or "cantonal"}
 }
 \value{
