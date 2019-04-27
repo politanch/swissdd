@@ -12,7 +12,7 @@ available_votedates(list)
 \item{geolevel}{geographical level for which the results should be loaded. options "district" or "municipality"}
 }
 \value{
-a vector of votedates (Format: YYYYMMDD)
+a vector of votedates (Format: YYYY-MM-DD)
 }
 \description{
 \code{available_votedates} is a utility function to get the available votedates.
@@ -25,9 +25,9 @@ placeholder
 \examples{
  \donttest{
 
-# Get data for four votedates 
-a <- available_votedates()
-votedata <- map_dfr(a[1:4],~get_swissvotes(votedate = .x))
+# Get vector of all available dates
+all <- available_votedates()
+
 
 
 }

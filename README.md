@@ -2,9 +2,9 @@
 
 ## the swiss direct democracy R package
 
-`swissdd` builds upon the swiss real time data service for federal and cantonal votes. It brings the results of popular votes, aggregated at the federal level of choice, straight into R (national, cantons, districts and municipalities).
+`swissdd` builds upon the swiss real time data service for federal and cantonal votes. It brings the results of popular votes, aggregated at the geographical level of choice, straight into R (national, cantons, districts and municipalities).
 
-By now, the package wraps the real time data on vote sundays. On vote sundays from 12:00 on, the datastream is continuosly updated, until the data for all municipalities is complete and the final results are available. Additionally, it allows to access the archive of all the passed national votes since 1983.
+The package wraps the real time data on vote sundays. On vote sundays from 12:00 on, the datastream is continuosly updated, until the data for all municipalities is complete and the final results are available. Additionally, it allows to access the archive national votes since 1983.
 
 ```
 devtools::install_github("politanch/swissdd")
