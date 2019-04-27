@@ -4,7 +4,7 @@
 #'
 #'   get_swissvotes - retrieve real time vote results for national ballots at district- or municipality level.
 #'
-#' @param geoevel geographical level for which available votedates should be displayed. options "national" or "cantonal"
+#' @param geolevel geographical level for which available votedates should be displayed. options "national" or "cantonal"
 #' @importFrom jsonlite fromJSON
 #' @export
 #' @rdname available_votedates
