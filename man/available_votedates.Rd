@@ -7,7 +7,7 @@
 available_votedates(geolevel = "national")
 }
 \arguments{
-\item{geoevel}{geographical level for which available votedates should be displayed. options "national" or "cantonal"}
+\item{geolevel}{geographical level for which available votedates should be displayed. options "national" or "cantonal"}
 }
 \value{
 a vector of votedates (Format: YYYY-MM-DD)
