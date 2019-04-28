@@ -22,9 +22,9 @@ federalvotes <- get_swissvotes(votedates=c("2019-10-02","1984-09-23"), geolevel 
 #... or defining a range.
 federalvotes <- get_swissvotes(from_date="2017-01-01",to_date="2018-01-01", geolevel = "district")
 
-# cantonal results are also already available, however the functions to get the cantonal results will be slightly modified shortly.
+# the results of cantonal votes are also available (2019-)
 
-cantonalvotes <- get_cantonalvotes_stream(votedate="20191002", geolevel = "municipality")
+cantonalvotes <- get_cantonalvotes(votedate="20191002", geolevel = "municipality")
 
 ```
 
