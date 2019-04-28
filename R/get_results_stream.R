@@ -161,7 +161,8 @@ get_cantonalvotes_stream <- function(votedate=NULL,geolevel="municipality"){
   
   # retrieve data - switch to httr !------------
 
-  data <- suppressWarnings(jsonlite::fromJSON(urls$result$resources$download_url))
+  # fix! two dates available
+  data <- suppressWarnings(jsonlite::fromJSON(urls$result$resources$download_url[1]))
 
 
   # data <- jsonlite::fromJSON("20181125_kant_Abstimmungsresultate_ogd.json")
