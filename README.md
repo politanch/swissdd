@@ -16,7 +16,7 @@ devtools::install_github("politanch/swissdd")
 #realtimedata on vote-sundays or the data of the last votations
 federalvotes <- get_swissvotes_stream(geolevel = "district")
 
-#retrieve data for many votes, either by selecting indiviual dates...
+#retrieve data for many votes from the archive, either by selecting indiviual dates...
 federalvotes <- get_swissvotes(votedates=c("2019-10-02","1984-09-23"), geolevel = "district")
 
 #... or defining a range.
