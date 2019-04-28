@@ -144,17 +144,11 @@ get_cantonalvotes_stream <- function(votedate=NULL,geolevel="municipality"){
   # anpassen
   urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen")
 
-  #dates <- as.Date(substr(urls$result$resources$issued,1,10))
-  dates <- as.Date(substr(urls$result$temporals$start_date, 1, 10))
 
-  # to do - set newest votedate as default
-  if (is.null(votedate)){
-    votedate <- gsub("-","",max(dates))
-  }
-  else {
-    votedate<- gsub("-","",votedate)
-  }
-
+    if(is.null(votedate)) {selection <- 1}
+  
+  #index des Abstimmungssonntags
+  if(!is.null(votedate)) selection <- match(as.Date(votedate),swissdd::available_votedates(geolevel="cantonal"))
   
   # Hier stimmt link noch -> allenfalls anpassen, falls BFS auf DAM Link umstellt
   
@@ -162,7 +156,7 @@ get_cantonalvotes_stream <- function(votedate=NULL,geolevel="municipality"){
   # retrieve data - switch to httr !------------
 
   # fix! two dates available
-  data <- suppressWarnings(jsonlite::fromJSON(urls$result$resources$download_url[1]))
+  data <- suppressWarnings(jsonlite::fromJSON(urls$result$resources$download_url[selection]))
 
 
   # data <- jsonlite::fromJSON("20181125_kant_Abstimmungsresultate_ogd.json")
@@ -243,4 +237,7 @@ get_cantonalvotes_stream <- function(votedate=NULL,geolevel="municipality"){
   return(ktdata3)
 
 }
-# listviewer::jsonedit(data)
+
+
+
+
