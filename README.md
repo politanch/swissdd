@@ -3,8 +3,9 @@
 # swissdd
 
 ## the swiss direct democracy R package
-
+<p align="center">
 <img src="swissdd_sticker.png" alt="" width="100"/>
+</p>
 
 `swissdd` builds upon the swiss real time data service for federal and cantonal votes. It brings the results of popular votes, aggregated at the geographical level of choice, straight into R (national, cantons, districts and municipalities).
 
