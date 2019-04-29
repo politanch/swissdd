@@ -34,7 +34,7 @@ cantonalvotes <- get_cantonalvotes(votedates="2019-02-10", geolevel = "municipal
 
 ```
 
-The webservice is documented on opendata.swiss:
+The webservice is documented on opendata.swiss (language settings can be found at the bottom of the page):
 
 https://opendata.swiss/de/dataset/echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen
 
