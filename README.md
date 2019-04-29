@@ -24,7 +24,7 @@ federalvotes <- get_swissvotes(from_date="2017-01-01",to_date="2018-01-01", geol
 
 # the results of cantonal votes are also available (2019-)
 
-cantonalvotes <- get_cantonalvotes(votedate="2019-10-02", geolevel = "municipality")
+cantonalvotes <- get_cantonalvotes(votedates="2019-10-02", geolevel = "municipality")
 
 ```
 
