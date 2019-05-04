@@ -37,14 +37,14 @@
 get_swissvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NULL,to_date=NULL){
   
   # when either range or dates are selected -> defaul value 
-  if(is.null(from_date) &  is.null(to_date)&is.null(votedates)) {
+  if(is.null(from_date) &  is.null(to_date) & is.null(votedates)) {
     
     #retrieve available dates
     dates <- max(swissdd::available_votedates())
     
   }
   
-  #Warning - nur daten auswählen oder votedates
+  #Warning - either select by range OR specified dates
   if(!is.null(votedates) & !is.null(from_date) | !is.null(votedates) & !is.null(to_date)) warning("please choose selected dates with the 'votedates' argument OR define a range via 'from_date' / 'to_date'), not both simultaneously")
   
   
@@ -57,21 +57,22 @@ get_swissvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NU
   }
   
   
-  # available_votedates()
-  
-  # when keine range ausgewählt wurde
+  # for selection by votedates
   if(is.null(from_date) &  is.null(to_date) & !is.null(votedates)) {
+    
+   # stop if votedate is not available
+    if (sum(!is.na(match(votedates, available_votedates())))==0) stop("no matching votedates found, please call available_votedates() to check which dates are available. Also check if the format is correct (YYYY-MM-DD).")
     
     dates <- votedates
     
   }
 
  #filter range
-if(!is.null(from_date)) dates <- dates[dates>=from_date]
+  if(!is.null(from_date)) dates <- dates[dates>=from_date]
+  
+  if(!is.null(to_date)) dates <- dates[dates<=to_date]
 
-if(!is.null(to_date)) dates <- dates[dates<=to_date]
-
- #iterate over dates and create dataframe - add votedate column?
+ #iterate over dates and create dataframe
 votedata <- purrr::map_dfr(dates, ~get_swissvotes_stream(votedate = .x,geolevel=geolevel) %>% dplyr::mutate(votedate=.x))
 
 votedata
