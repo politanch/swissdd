@@ -3,12 +3,18 @@
 # swissdd
 
 ## the swiss direct democracy R package
+<p align="center">
+<img src="swissdd_sticker.png" alt="" width="100"/>
+</p>
 
-<img src="swissdd.png" alt="" width="180"/>
+`swissdd` builds upon real time data service for federal and cantonal votes provided by [opendata.swiss](https://opendata.swiss/de/). It brings the results of popular votes, aggregated at the geographical level of choice, straight into R. Available levels are 
 
-`swissdd` builds upon the swiss real time data service for federal and cantonal votes. It brings the results of popular votes, aggregated at the geographical level of choice, straight into R (national, cantons, districts and municipalities).
+* national
+* cantons
+* districts
+* municipalities
 
-The package wraps the real time data on vote sundays. On vote sundays from 12:00 on, the datastream is continuosly updated, until the data for all municipalities is complete and the final results are available. Additionally, it allows to access the archive and to retrieve the *harmonized* results of national votes since 1981.
+The package wraps the real time data on vote Sundays. As soon as the ballot close (from 12:00 on), the datastream is continuosly updated, until the data for all municipalities is complete and the final results are available. Additionally, it allows to access the archive and to retrieve the *harmonized* results of national votes since 1981.
 
 ```
 devtools::install_github("politanch/swissdd")
@@ -17,18 +23,18 @@ devtools::install_github("politanch/swissdd")
 federalvotes <- get_swissvotes_stream(geolevel = "district")
 
 #retrieve data for many votes from the archive, either by selecting indiviual dates...
-federalvotes <- get_swissvotes(votedates=c("2019-10-02","1984-09-23"), geolevel = "district")
+federalvotes <- get_swissvotes(votedates=c("2019-02-10","1984-09-23"), geolevel = "district")
 
 #... or defining a range.
 federalvotes <- get_swissvotes(from_date="2017-01-01",to_date="2018-01-01", geolevel = "district")
 
 # the results of cantonal votes are also available (2019-)
 
-cantonalvotes <- get_cantonalvotes(votedate="2019-10-02", geolevel = "municipality")
+cantonalvotes <- get_cantonalvotes(votedates="2019-02-10", geolevel = "municipality")
 
 ```
 
-The webservice is documented on opendata.swiss:
+The webservice is documented on opendata.swiss (language settings can be found at the bottom of the page):
 
 https://opendata.swiss/de/dataset/echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen
 
