@@ -11,6 +11,7 @@ BugReports: https://github.com/politanch/swissdd/issues
 Suggests: testthat
 License: GPL-2
 Encoding: UTF-8
+Suggests: testthat
 LazyData: true
 RoxygenNote: 6.1.1
 Imports: 
