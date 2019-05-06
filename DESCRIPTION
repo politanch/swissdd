@@ -8,7 +8,6 @@ Authors@R: c(
 Description: swissdd builds upon real time data service as well as the archive for federal and cantonal votes provided via opendata.swiss. It brings the results of swiss popular votes, aggregated at the geographical level of choice, into R. 
 URL: https://github.com/politanch/swissdd
 BugReports: https://github.com/politanch/swissdd/issues
-Suggests: testthat
 License: GPL-2
 Encoding: UTF-8
 Suggests: testthat
