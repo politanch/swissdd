@@ -14,9 +14,9 @@
 #'  \donttest{
 #' 
 #' # Get vector of all available dates
-#' all <- available_votedates()
+#' federal_votedates <- available_votedates()
 #' 
-#'
+#' cantonal_votedates <- available_votedates(geolevel="cantonal)
 #'
 #' }
 #'
@@ -33,7 +33,9 @@ available_votedates <- function(geolevel="national"){
     
   urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen")
   
-  dates <- substr(urls$result$resources$name$de,21,30)
+  # dates <- substr(urls$result$resources$name$de,21,30)
+  
+  dates <- urls$result$resources$coverage
  
   }
   
@@ -43,11 +45,14 @@ available_votedates <- function(geolevel="national"){
   urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen")
     
     
-  dates <- substr(urls$result$resources$name$de,21,30)
+  # dates <- substr(urls$result$resources$name$de,21,30)
+  dates <- urls$result$resources$coverage
     
   }
   
-  as.Date(dates,format="%d.%m.%Y")
+  # as.Date(dates,format="%d.%m.%Y")
+  
+  as.Date(dates)
   
 # dates <-substring(urls$result$resources$download_url, regexpr("[0-9]{8}",urls$result$resources$download_url),regexpr("[0-9]{8}",urls$result$resources$download_url)+7)
 
