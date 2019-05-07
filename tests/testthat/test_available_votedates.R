@@ -6,7 +6,7 @@ test_that("available votedates works", {
   
   expect_is(swissdates, "Date")
   
-  cantdates <- available_votedates(geolevel = "cantonal")
+  cantdates <- available_votedates(geolevel = "canton")
   
   expect_is(cantdates, "Date")
   
