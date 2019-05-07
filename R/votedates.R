@@ -22,7 +22,7 @@
 #'
 
 
-available_votedates <- function(geolevel="national"){
+available_votedates <- function(geolevel="national", dataOwner=T){
   
   # datum aus coverage attribut auslesen -> urls$result$resources$coverage
   
@@ -54,6 +54,7 @@ available_votedates <- function(geolevel="national"){
   
   as.Date(dates)
   
+  #if(dataOwner==T) message("Data provided by the Federal Statistical Office of Switzerland.")
 # dates <-substring(urls$result$resources$download_url, regexpr("[0-9]{8}",urls$result$resources$download_url),regexpr("[0-9]{8}",urls$result$resources$download_url)+7)
 
 
