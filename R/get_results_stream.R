@@ -148,7 +148,7 @@ get_cantonalvotes_stream <- function(votedate=NULL,geolevel="municipality"){
     if(is.null(votedate)) {selection <- 1}
   
   #index des Abstimmungssonntags
-  if(!is.null(votedate)) selection <- match(as.Date(votedate),swissdd::available_votedates(geolevel="cantonal"))
+  if(!is.null(votedate)) selection <- match(as.Date(votedate),swissdd::available_votedates(geolevel="canton"))
   
   # Hier stimmt link noch -> allenfalls anpassen, falls BFS auf DAM Link umstellt
   
