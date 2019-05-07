@@ -14,15 +14,17 @@
 #'  \donttest{
 #' 
 #' # Get vector of all available dates
-#' all <- available_votedates()
+#' federal_votedates <- available_votedates()
 #' 
-#'
+#' cantonal_votedates <- available_votedates(geolevel="cantonal)
 #'
 #' }
 #'
 
 
 available_votedates <- function(geolevel="national", dataOwner=T){
+  
+  # datum aus coverage attribut auslesen -> urls$result$resources$coverage
   
   if(!geolevel %in% c("national","cantonal")) stop("geolevel must be set to either 'national' or 'cantonal'")
 
@@ -31,7 +33,9 @@ available_votedates <- function(geolevel="national", dataOwner=T){
     
   urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen")
   
-  dates <- substr(urls$result$resources$name$de,21,30)
+  # dates <- substr(urls$result$resources$name$de,21,30)
+  
+  dates <- urls$result$resources$coverage
  
   }
   
@@ -41,11 +45,14 @@ available_votedates <- function(geolevel="national", dataOwner=T){
   urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen")
     
     
-  dates <- substr(urls$result$resources$name$de,21,30)
+  # dates <- substr(urls$result$resources$name$de,21,30)
+  dates <- urls$result$resources$coverage
     
   }
   
-  as.Date(dates,format="%d.%m.%Y")
+  # as.Date(dates,format="%d.%m.%Y")
+  
+  as.Date(dates)
   
   #if(dataOwner==T) message("Data provided by the Federal Statistical Office of Switzerland.")
 # dates <-substring(urls$result$resources$download_url, regexpr("[0-9]{8}",urls$result$resources$download_url),regexpr("[0-9]{8}",urls$result$resources$download_url)+7)
