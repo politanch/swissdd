@@ -62,7 +62,7 @@ get_swissvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NU
   if(is.null(from_date) &  is.null(to_date) & !is.null(votedates)) {
     
    # stop if votedate is not available
-    if (sum(is.na(match(as.Date(votedates), available_votedates())))>0) warning("one or more votedates not found, please call available_votedates() to check which dates are available. Also check if the format is correct (YYYY-MM-DD).")
+    if (sum(is.na(match(as.Date(votedates), available_votedates())))>0) stop("one or more votedates not found, please call available_votedates() to check which dates are available. Also check if the format is correct (YYYY-MM-DD).")
     
     dates <- votedates
     
@@ -124,7 +124,7 @@ get_cantonalvotes <- function(geolevel = "municipality",votedates=NULL,from_date
   if(is.null(from_date) &  is.null(to_date)&is.null(votedates)) {
     
     #retrieve available dates
-    dates <- max(swissdd::available_votedates(geolevel="cantonal"))
+    dates <- max(swissdd::available_votedates(geolevel="canton"))
     
   }
 
