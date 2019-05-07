@@ -16,7 +16,7 @@
 #' # Get vector of all available dates
 #' federal_votedates <- available_votedates()
 #' 
-#' cantonal_votedates <- available_votedates(geolevel="cantonal)
+#' cantonal_votedates <- available_votedates(geolevel="canton")
 #'
 #' }
 #'
@@ -26,7 +26,7 @@ available_votedates <- function(geolevel="national", dataOwner=T){
   
   # datum aus coverage attribut auslesen -> urls$result$resources$coverage
   
-  if(!geolevel %in% c("national","cantonal")) stop("geolevel must be set to either 'national' or 'cantonal'")
+  if(!geolevel %in% c("national","canton")) stop("geolevel must be set to either 'national' or 'cantonal'")
 
   #add option for cantonal votedates
   if(geolevel=="national"){
@@ -40,7 +40,7 @@ available_votedates <- function(geolevel="national", dataOwner=T){
   }
   
   
-  if(geolevel=="cantonal"){
+  if(geolevel=="canton"){
     
   urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen")
     
