@@ -137,7 +137,7 @@ get_cantonalvotes <- function(geolevel = "municipality",votedates=NULL,from_date
   if(!is.null(from_date) |  !is.null(to_date)) {
     
     #retrieve available dates
-    dates <- swissdd::available_votedates(geolevel="cantonal")
+    dates <- swissdd::available_votedates(geolevel="canton")
     
   }
   
