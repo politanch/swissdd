@@ -26,7 +26,7 @@ available_votedates <- function(geolevel="national", dataOwner=T){
   
   # datum aus coverage attribut auslesen -> urls$result$resources$coverage
   
-  if(!geolevel %in% c("national","canton")) stop("geolevel must be set to either 'national' or 'cantonal'")
+  if(!geolevel %in% c("national","canton")) stop("geolevel must be set to either 'national' or 'canton'")
 
   #add option for cantonal votedates
   if(geolevel=="national"){
