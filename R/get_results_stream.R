@@ -5,7 +5,7 @@
 #'   get_swissvote_stream - retrieve real time vote results for national ballots at district- or municipality level.
 #'
 #' @param votedate date of the ballot. Default: most recent ballot available. To select multiple ballots use the 'get_swissvotes'-function. Format = YYYYMMDD
-#' @param geolevel geographical level for which the results should be loaded. options "district" or "municipality"
+#' @param geolevel geographical level for which the results should be loaded. options "national", "canton", "district" or "municipality"
 #' @importFrom purrr map_dfr
 #' @importFrom purrr map_chr
 #' @importFrom purrr map
