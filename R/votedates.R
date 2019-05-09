@@ -4,7 +4,7 @@
 #'
 #'  available_votedates - get available votedates of federal and cantonal popular votes
 #'
-#' @param geolevel geographical level for which available votedates should be displayed. options "national" or "cantonal"
+#' @param geolevel geographical level for which available votedates should be displayed. options "national" or "canton"
 #' @importFrom jsonlite fromJSON
 #' @export
 #' @rdname available_votedates

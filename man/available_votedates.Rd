@@ -7,7 +7,7 @@
 available_votedates(geolevel = "national")
 }
 \arguments{
-\item{geolevel}{geographical level for which available votedates should be displayed. options "national" or "cantonal"}
+\item{geolevel}{geographical level for which available votedates should be displayed. options "national" or "canton"}
 }
 \value{
 a vector of votedates (Format: YYYY-MM-DD)
@@ -16,7 +16,7 @@ a vector of votedates (Format: YYYY-MM-DD)
 \code{available_votedates} is a utility function to get the available votedates.
 }
 \details{
-get_swissvotes - retrieve real time vote results for national ballots at district- or municipality level.
+available_votedates - get available votedates of federal and cantonal popular votes
 }
 \examples{
  \donttest{
