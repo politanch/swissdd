@@ -2,13 +2,12 @@
 #'
 #' \code{available_votedates} is a utility function to get the available votedates.
 #'
-#'   get_swissvotes - retrieve real time vote results for national ballots at district- or municipality level.
+#'  available_votedates - get available votedates of federal and cantonal popular votes
 #'
 #' @param geolevel geographical level for which available votedates should be displayed. options "national" or "cantonal"
 #' @importFrom jsonlite fromJSON
 #' @export
 #' @rdname available_votedates
-#' @details placeholder
 #' @return a vector of votedates (Format: YYYY-MM-DD)
 #' @examples
 #'  \donttest{
@@ -22,7 +21,7 @@
 #'
 
 
-available_votedates <- function(geolevel="national", dataOwner=T){
+available_votedates <- function(geolevel="national"){
   
   # datum aus coverage attribut auslesen -> urls$result$resources$coverage
   
@@ -54,8 +53,4 @@ available_votedates <- function(geolevel="national", dataOwner=T){
   
   as.Date(dates)
   
-  #if(dataOwner==T) message("Data provided by the Federal Statistical Office of Switzerland.")
-# dates <-substring(urls$result$resources$download_url, regexpr("[0-9]{8}",urls$result$resources$download_url),regexpr("[0-9]{8}",urls$result$resources$download_url)+7)
-
-
 }

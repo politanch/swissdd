@@ -8,7 +8,7 @@ get_swissvotes(geolevel = "municipality", votedates = NULL,
   from_date = NULL, to_date = NULL)
 }
 \arguments{
-\item{geolevel}{geographical level for which the results should be loaded. options "district" or "municipality"}
+\item{geolevel}{geographical level for which the results should be loaded. options:  options: "national", "canton", "district" or "municipality"}
 
 \item{votedates}{dates of the ballots to be selected. Default: most recent ballot available. Format = "YYYY-MM-DD"}
 
@@ -24,18 +24,16 @@ a tibble containing the results
 }
 \details{
 get_swissvotes - retrieve vote results for national ballots at district- or municipality level for selected dates or a given date range.
-
-placeholder
 }
 \examples{
  \donttest{
-results <-get_swissvotes(geolevel="district",from_date = 20180101,to_date=20181231)
 
+# Selection by enddate only
  get_swissvotes(to_date="1983-12-04")
  
- OR
- 
- get_swissvotes(votedates="2019-02-10")
+
+ # Selection of a specific votedate
+ get_swissvotes(votedates="2014-02-09")
 
 glimpse(results)
 

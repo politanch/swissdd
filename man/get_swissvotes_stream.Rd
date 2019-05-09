@@ -9,7 +9,7 @@ get_swissvotes_stream(votedate = NULL, geolevel = "municipality")
 \arguments{
 \item{votedate}{date of the ballot. Default: most recent ballot available. To select multiple ballots use the 'get_swissvotes'-function. Format = YYYYMMDD}
 
-\item{geolevel}{geographical level for which the results should be loaded. options "district" or "municipality"}
+\item{geolevel}{geographical level for which the results should be loaded. options "national", "canton", "district" or "municipality"}
 }
 \value{
 a tibble containing the results

@@ -8,7 +8,7 @@ get_cantonalvotes(geolevel = "municipality", votedates = NULL,
   from_date = NULL, to_date = NULL)
 }
 \arguments{
-\item{geolevel}{geographical level for which the results should be loaded. options "district" or "municipality"}
+\item{geolevel}{geographical level for which the results should be loaded.  options: "canton", "district" or "municipality"}
 
 \item{votedates}{dates of the ballots to be selected. Default: most recent ballot available. Format = "YYYY-MM-DD"}
 

@@ -17,16 +17,14 @@ a vector of votedates (Format: YYYY-MM-DD)
 }
 \details{
 get_swissvotes - retrieve real time vote results for national ballots at district- or municipality level.
-
-placeholder
 }
 \examples{
  \donttest{
 
 # Get vector of all available dates
-all <- available_votedates()
+federal_votedates <- available_votedates()
 
-
+cantonal_votedates <- available_votedates(geolevel="canton")
 
 }
 
