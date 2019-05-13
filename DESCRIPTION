@@ -1,11 +1,11 @@
 Package: swissdd
 Type: Package
-Title: Get Swiss federal and cantonal vote results from opendata.swiss
+Title: Get Swiss Federal and Cantonal Vote Results from Opendata.swiss
 Version: 0.0.0.9000
 Authors@R: c(
     person("Thomas", "Lo Russo", email = "th.lorusso@gmail.com", role = c("cre","aut")),
     person("Thomas", "Willi", email = "thomas.willi@uzh.ch", role = "aut"))
-Description: swissdd builds upon real time data service as well as the archive for federal and cantonal votes provided via opendata.swiss. It brings the results of swiss popular votes, aggregated at the geographical level of choice, into R. 
+Description: swissdd builds upon real time data service as well as the archive for federal and cantonal votes provided via opendata.swiss. It brings the results of Swiss popular votes, aggregated at the geographical level of choice, into R. 
 URL: https://github.com/politanch/swissdd
 BugReports: https://github.com/politanch/swissdd/issues
 License: GPL-2
