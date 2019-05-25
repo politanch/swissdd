@@ -42,3 +42,7 @@ https://opendata.swiss/de/dataset/echtzeitdaten-am-abstimmungstag-zu-eidgenoessi
 
 https://opendata.swiss/de/dataset/echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen
 
+## More data on Swiss politics 
+- [DigDemLab](https://digdemlab.io/)  
+- [swissparl](https://github.com/zumbov2/swissparl)
+
