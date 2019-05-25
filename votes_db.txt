@@ -1,9 +1,0 @@
-bfsnr		Identifikationssnummer
-curiavistanr	parlamentarische identifikationsnr
-swacceptja	Schlussabstimmung NR Ja
-swacceptnein	Schlussabstimmung NR Nein
-sracceptja	Schlussabstimmung SR Ja
-sracceptnein	Schlussabstimmung SR Nein
-partpo		Beteiligungsrate
-formec		Rechtsform der Vorlage
-acceptpo 	Ja-Stimmenanteil
