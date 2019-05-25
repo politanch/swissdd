@@ -1,11 +1,21 @@
 Package: swissdd
 Type: Package
 Title: Get Swiss Federal and Cantonal Vote Results from Opendata.swiss
+Depends:
+R (>= 3.4.4)
+Imports: 
+     purrr,
+     dplyr,
+     tidyr,
+     jsonlite, 
+     magrittr,
+     tibble,
+     curl
 Version: 1.0.0
 Authors@R: c(
     person("Thomas", "Lo Russo", email = "th.lorusso@gmail.com", role = c("cre","aut")),
     person("Thomas", "Willi", email = "thomas.willi@uzh.ch", role = "aut"))
-Description: builds upon the real time data service as well as the archive for federal and cantonal votes provided via opendata.swiss. It brings the results of Swiss popular votes, aggregated at the geographical level of choice, into R. 
+Description: Builds upon the real time data service as well as the archive for federal and cantonal votes provided via opendata.swiss. It brings the results of Swiss popular votes, aggregated at the geographical level of choice, into R. 
 URL: https://github.com/politanch/swissdd
 BugReports: https://github.com/politanch/swissdd/issues
 License: GPL-2
@@ -13,6 +23,4 @@ Encoding: UTF-8
 Suggests: testthat
 LazyData: true
 RoxygenNote: 6.1.1
-Imports: 
-     purrr,dplyr,tidyr,jsonlite, magrittr,tibble,curl
 NeedsCompilation: no
