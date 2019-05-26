@@ -5,7 +5,7 @@ Imports:
      purrr,
      dplyr,
      tidyr,
-     jsonlite, 
+     jsonlite,
      magrittr,
      tibble,
      curl
