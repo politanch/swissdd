@@ -30,20 +30,17 @@
 
 get_swissvotes_stream <- function(votedate=NULL,geolevel="municipality"){
 
-  # get urls of distributions (change link when dataset is live) - make separate function for this -------------------
+  # get urls of available distributions on opendata.swiss 
 
   urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen")
 
+  #default when no votedate is specified : latest
   if(is.null(votedate)) {selection <- 1}
   
-  #index des Abstimmungssonntags
+  #get index of the selected votedate
   if(!is.null(votedate)) selection <- match(as.Date(votedate),swissdd::available_votedates())
-
-  # retrieve data - switch to httr , remove supressWarnings! ----
   
- # data <- suppressWarnings(jsonlite::fromJSON(paste0("https://www.bfs.admin.ch",damlink)))
-  
-  # get index of date that has been chosen and select position of url
+  # retrieve the data for the selected votedate
  data <- suppressWarnings(jsonlite::fromJSON(urls$result$resources$download_url[selection]))
 
  # swiss results
@@ -59,7 +56,7 @@ get_swissvotes_stream <- function(votedate=NULL,geolevel="municipality"){
 
 
 
-  #kantonsresultate
+  #cantonal results
 
   if(geolevel=="canton"){
 
@@ -73,7 +70,7 @@ get_swissvotes_stream <- function(votedate=NULL,geolevel="municipality"){
 
   }
 
-  #------------------
+  # apply switch according to the chosen geographical level
 
   if(geolevel %in% c("district","municipality")){
 
@@ -91,10 +88,11 @@ get_swissvotes_stream <- function(votedate=NULL,geolevel="municipality"){
         )
       }
 
-
+      # unnest columns
       gemdata  <- datas %>%
         tidyr::unnest(res)
 
+      #compose final dataframe
      data <- gemdata %>%
        dplyr::mutate(
         geoLevelnummer=purrr::map(gemdata$res,1),
@@ -141,25 +139,18 @@ get_swissvotes_stream <- function(votedate=NULL,geolevel="municipality"){
 
 get_cantonalvotes_stream <- function(votedate=NULL,geolevel="municipality"){
 
-  # anpassen
+  # get urls of available distributions on opendata.swiss 
   urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen")
 
-
+  #default when no votedate is specified : latest
     if(is.null(votedate)) {selection <- 1}
   
   #index des Abstimmungssonntags
   if(!is.null(votedate)) selection <- match(as.Date(votedate),swissdd::available_votedates(geolevel="canton"))
   
-  # Hier stimmt link noch -> allenfalls anpassen, falls BFS auf DAM Link umstellt
-  
-  
-  # retrieve data - switch to httr !------------
 
-  # fix! two dates available
   data <- suppressWarnings(jsonlite::fromJSON(urls$result$resources$download_url[selection]))
 
-
-  # data <- jsonlite::fromJSON("20181125_kant_Abstimmungsresultate_ogd.json")
 
 
   if(geolevel=="canton"){

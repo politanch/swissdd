@@ -36,7 +36,7 @@
 
 get_swissvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NULL,to_date=NULL){
   
-  # when either range or dates are selected -> defaul value 
+  # when either range or dates are selected -> default value 
   if(is.null(from_date) &  is.null(to_date) & is.null(votedates)) {
     
     #retrieve available dates
