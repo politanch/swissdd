@@ -1,8 +1,6 @@
 Package: swissdd
 Type: Package
 Title: Get Swiss Federal and Cantonal Vote Results from Opendata.swiss
-Depends:
-R (>= 3.4.4)
 Imports: 
      purrr,
      dplyr,
