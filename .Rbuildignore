@@ -1,5 +1,8 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^.*\.png$
-^.*\.yml$
+^\.travis\.yml$
 ^.*\.txt$
+^README\.Rmd$
+^NEWS\.md$
+^cran-comments\.md$
