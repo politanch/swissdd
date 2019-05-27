@@ -145,7 +145,7 @@ get_cantonalvotes_stream <- function(votedate=NULL,geolevel="municipality"){
   #default when no votedate is specified : latest
     if(is.null(votedate)) {selection <- 1}
   
-  #index des Abstimmungssonntags
+  #index of the selected votedate
   if(!is.null(votedate)) selection <- match(as.Date(votedate),swissdd::available_votedates(geolevel="canton"))
   
 
@@ -155,7 +155,7 @@ get_cantonalvotes_stream <- function(votedate=NULL,geolevel="municipality"){
 
   if(geolevel=="canton"){
 
-      #gesamtkanton
+      #cantonal results
       ktdata2 <-tibble::tibble(
         name = data$kantone$geoLevelname,
         id=purrr::map(data$kantone$vorlagen,1),
@@ -165,7 +165,7 @@ get_cantonalvotes_stream <- function(votedate=NULL,geolevel="municipality"){
   }
 
   if(!(geolevel=="canton")){
-    ## switch geolevel---
+    ## switch geolevel
         switch(geolevel,
                municipality={geoindex<-9} ,
                district={geoindex<-8})
@@ -204,8 +204,6 @@ get_cantonalvotes_stream <- function(votedate=NULL,geolevel="municipality"){
       tidyr::unnest(resultat,geoid,geoname,district_id)
 
   }
-
-  # -----
 
 
   # vote names in all languages
