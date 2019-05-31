@@ -19,8 +19,6 @@ a tibble containing the results
 }
 \details{
 get_swissvote_stream - retrieve real time vote results for national ballots at district- or municipality level.
-
-placeholder
 }
 \examples{
  \donttest{
