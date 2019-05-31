@@ -16,7 +16,6 @@
 #' @importFrom tidyr unnest
 #' @rdname get_swissvotes_stream
 #' @export
-#' @details placeholder
 #' @return a tibble containing the results
 #' @examples
 #'  \donttest{
