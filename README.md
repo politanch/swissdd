@@ -1,4 +1,7 @@
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/swissdd)](https://cran.r-project.org/package=swissdd)
 [![Build Status](https://travis-ci.org/politanch/swissdd.svg?branch=master)](https://travis-ci.org/politanch/swissdd/)
+[![Licence](https://img.shields.io/badge/licence-GPL--2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.en.html)
+[![cranlogs](https://cranlogs.r-pkg.org/badges/grand-total/swissdd)](http://cran.rstudio.com/web/packages/swissdd/index.html)
 
 # swissdd
 
@@ -17,6 +20,10 @@
 The package wraps the real time data on vote Sundays. As soon as the ballot close (from 12:00 on), the datastream is continuosly updated, until the data for all municipalities is complete and the final results are available. Additionally, it allows to access the archive and to retrieve the *harmonized* results of national votes since 1981.
 
 ```
+# Version 1.0.0 can be installed from CRAN (stable)
+install.packages("swissdd")
+
+# Alternative: installation from github (ongoing updates)
 devtools::install_github("politanch/swissdd")
 
 #realtimedata on vote-sundays or the data of the last votations
