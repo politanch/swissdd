@@ -13,6 +13,7 @@
 #' @importFrom dplyr select
 #' @importFrom dplyr "%>%"
 #' @importFrom dplyr mutate
+#' @importFrom dplyr mutate_all
 #' @importFrom dplyr filter
 #' @importFrom dplyr rename
 #' @importFrom dplyr arrange
@@ -44,7 +45,6 @@ similar_votes <- function(federalvotes=NULL, id=NULL, corr=T, from=NULL, to=NULL
     stop("Need tibble returned by 'get_swissvotes'")
   }
   
-  
   if(!is.null(id)){
     if(nchar(id)!=4) stop("bfnr needs to be four digits")
     to_return <- "col"
@@ -52,15 +52,27 @@ similar_votes <- function(federalvotes=NULL, id=NULL, corr=T, from=NULL, to=NULL
     to_return <- "mat"
   }
   
-  fed <- federalvotes %>% 
-    dplyr::select(id, ktid, jaStimmenInProzent) %>%
-    mutate(id=paste0("V_", id))%>%
-    tidyr::spread(id, jaStimmenInProzent)%>%
-    dplyr::select(-ktid)
-  
+  #this block may be redundant when ktid == geoLevelnummer
+  var_i <- "geoLevelnummer"%in%colnames(federalvotes)
+  if(var_i){
+    
+    fed <- federalvotes %>% 
+      dplyr::select(id, geoLevelnummer, jaStimmenInProzent) %>%
+      mutate(id=paste0("V_", id))%>%
+      tidyr::spread(id, jaStimmenInProzent)%>%
+      dplyr::select(-geoLevelnummer)
+
+      }else{
+    fed <- federalvotes %>% 
+      dplyr::select(id, ktid, jaStimmenInProzent) %>%
+      mutate(id=paste0("V_", id))%>%
+      tidyr::spread(id, jaStimmenInProzent)%>%
+      dplyr::select(-ktid)
+
+  }
   
   if(corr==T){
-    fedcor <- cor(fed)
+    fedcor <- cor(fed, use="complete.obs")
   }else{
     if(!is.null(id)) {
       to_return <- "mat"
@@ -86,7 +98,6 @@ similar_votes <- function(federalvotes=NULL, id=NULL, corr=T, from=NULL, to=NULL
     
     #if range is specified
     if(!is.null(from)){
-      
       if(!is.null(to)){
         dat <- dat %>% 
           filter(correlation<=to & correlation >= from)
@@ -99,21 +110,15 @@ similar_votes <- function(federalvotes=NULL, id=NULL, corr=T, from=NULL, to=NULL
         dat <- dat %>% 
           filter(correlation<=to)
       }
-      
     }
     
     return(as_tibble(dat))
     
   }
   
-  
-  
   if(to_return=="mat"){
-    
     return(as_tibble(fedcor))
   }
-  
-
   
 }
 
