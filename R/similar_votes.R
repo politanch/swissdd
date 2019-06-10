@@ -9,6 +9,7 @@
 #' @param from lower limit of correlations.
 #' @param to upper limit of correlations.
 #' @importFrom tibble rownames_to_column
+#' @importFrom tibble as_tibble
 #' @importFrom dplyr select
 #' @importFrom dplyr "%>%"
 #' @importFrom dplyr mutate
