@@ -59,7 +59,7 @@ get_swissvotes_stream <- function(votedate=NULL,geolevel="municipality"){
 
 
 
-  #kantonsresultate
+#cantonal results
 
   if(geolevel=="canton"){
 
@@ -73,40 +73,76 @@ get_swissvotes_stream <- function(votedate=NULL,geolevel="municipality"){
 
   }
 
-  #------------------
+ 
+ # switch(geolevel,
+ #        municipality={geoindex<-5} ,
+ #        district={geoindex<-4}
+ # )
+ 
+ 
+ #district results
 
-  if(geolevel %in% c("district","municipality")){
+  if(geolevel == "district"){
 
-      switch(geolevel,
-             municipality={geoindex<-5} ,
-             district={geoindex<-4}
+    
+    #reduce to tibble
+    datas <-data$schweiz$vorlagen$vorlagenId %>% {
+      tibble::tibble(
+        name = purrr::map_chr(data$schweiz$vorlagen$vorlagenTitel,c(2,1)),
+        id = data$schweiz$vorlagen$vorlagenId,
+        canton_id = purrr::map(data$schweiz$vorlagen$kantone, 1),
+        canton_name = purrr::map(data$schweiz$vorlagen$kantone, 2),
+        res = purrr::map(data$schweiz$vorlagen$kantone,4)
       )
+    }
+    
+    
+    district_data  <- datas %>%
+      tidyr::unnest(res,canton_id,canton_name)
+    
+    data <- district_data %>%
+      dplyr::mutate(
+        district_id=purrr::map(gemdata$res,1),
+        district_name=purrr::map(gemdata$res,2),
+        results=purrr::map(gemdata$res,4),
+        results2=purrr::map(gemdata$res,"resultat")
+      ) %>%
+      tidyr::unnest(results2,disttict_id,district_name)
+  }
+    
+#municipal results
+ 
+ # add district id & label
+
+ if(geolevel == "municipality"){   
+
 
       #reduce to tibble
       datas <-data$schweiz$vorlagen$vorlagenId %>% {
         tibble::tibble(
           name = purrr::map_chr(data$schweiz$vorlagen$vorlagenTitel,c(2,1)),
           id = data$schweiz$vorlagen$vorlagenId,
-          res = purrr::map(data$schweiz$vorlagen$kantone,geoindex)
+          canton_id = purrr::map(data$schweiz$vorlagen$kantone, 1),
+          canton_name = purrr::map(data$schweiz$vorlagen$kantone, 2),
+          res = purrr::map(data$schweiz$vorlagen$kantone,5)
         )
       }
 
 
       gemdata  <- datas %>%
-        tidyr::unnest(res)
+        tidyr::unnest(res,canton_id,canton_name)
 
      data <- gemdata %>%
        dplyr::mutate(
-        geoLevelnummer=purrr::map(gemdata$res,1),
-        geoLevelname=purrr::map(gemdata$res,2),
+        mun_id=purrr::map(gemdata$res,1),
+        mun_name=purrr::map(gemdata$res,2),
         results=purrr::map(gemdata$res,4),
         results2=purrr::map(gemdata$res,"resultat")
       ) %>%
-        tidyr::unnest(results2,geoLevelnummer,geoLevelname)
+        tidyr::unnest(results2,mun_id,mun_name)
   }
 
   return(data)
-
 
 }
 
