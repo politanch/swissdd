@@ -73,7 +73,7 @@ get_swissvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NU
   if(!is.null(to_date)) dates <- dates[dates<=to_date]
 
  #iterate over dates and create dataframe
-votedata <- purrr::map_dfr(dates, ~get_swissvotes_stream(votedate = .x,geolevel=geolevel) %>% dplyr::mutate(votedate=.x))
+votedata <- purrr::map_dfr(dates, ~get_swissvotes_stream(votedate = .x, geolevel=geolevel) %>% dplyr::mutate(votedate=.x))
 
 votedata
 
