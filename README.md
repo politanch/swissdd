@@ -26,7 +26,7 @@ install.packages("swissdd")
 # Alternative: installation from github (ongoing updates)
 devtools::install_github("politanch/swissdd")
 
-#realtimedata on vote-sundays or the data of the last votations
+#realtimedata on vote-sundays or the data of the last votes.
 federalvotes <- get_swissvotes_stream(geolevel = "district")
 
 #retrieve data for many votes from the archive, either by selecting indiviual dates...
