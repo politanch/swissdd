@@ -36,6 +36,12 @@
 
 get_swissvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NULL,to_date=NULL){
   
+  urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen")
+  # 
+  # #Message if opendata.swiss API does not respond properly
+  if(!is.list(urls)) {message("The Opendata.swiss DCAT Power API does not respond. Do you have internet-connection and an open proxy?")}
+
+  
   # when either range or dates are selected -> defaul value 
   if(is.null(from_date) &  is.null(to_date) & is.null(votedates)) {
     
@@ -73,7 +79,7 @@ get_swissvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NU
   if(!is.null(to_date)) dates <- dates[dates<=to_date]
 
  #iterate over dates and create dataframe
-votedata <- purrr::map_dfr(dates, ~get_swissvotes_stream(votedate = .x, geolevel=geolevel) %>% dplyr::mutate(votedate=.x))
+votedata <- purrr::map_dfr(dates, ~get_swissvotes_stream(votedate = .x, geolevel=geolevel,urls) %>% dplyr::mutate(votedate=.x))
 
 votedata
 
@@ -118,6 +124,12 @@ votedata
 
 get_cantonalvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NULL,to_date=NULL){
   
+  # anpassen
+  urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen")
+  
+  #Message if opendata.swiss API does not respond properly
+  if(!is.list(urls)) {message("The Opendata.swiss DCAT Power API does not respond. Do you have internet-connection and an open proxy?")}
+  
   
   # when either range or dates are selected -> defaul value = max date
   if(is.null(from_date) &  is.null(to_date)&is.null(votedates)) {
@@ -155,7 +167,7 @@ get_cantonalvotes <- function(geolevel = "municipality",votedates=NULL,from_date
   if(!is.null(to_date)) dates <- dates[dates<=to_date]
   
   #iterate over dates and create dataframe - add votedate column?
-  votedata <- purrr::map_dfr(dates, ~get_cantonalvotes_stream(votedate = .x,geolevel=geolevel) %>% dplyr::mutate(votedate=.x))
+  votedata <- purrr::map_dfr(dates, ~get_cantonalvotes_stream(votedate = .x,geolevel=geolevel,urls) %>% dplyr::mutate(votedate=.x))
   
   votedata
   

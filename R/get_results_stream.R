@@ -28,15 +28,8 @@
 #' }
 #'
 
-get_swissvotes_stream <- function(votedate=NULL,geolevel="municipality"){
+get_swissvotes_stream <- function(votedate=NULL,geolevel="municipality",urls){
 
-  # get urls of distributions (change link when dataset is live) - make separate function for this -------------------
-
-  urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen")
-
-  #Message if opendata.swiss API does not respond properly
-  if(!is.list(urls)) {message("The Opendata.swiss DCAT Power API does not respond. Do you have internet-connection and an open proxy?")}
-  
   if(is.null(votedate)) {selection <- 1}
   
   #index des Abstimmungssonntags
@@ -178,14 +171,8 @@ get_swissvotes_stream <- function(votedate=NULL,geolevel="municipality"){
 #' }
 #'
 
-get_cantonalvotes_stream <- function(votedate=NULL,geolevel="municipality"){
+get_cantonalvotes_stream <- function(votedate=NULL,geolevel="municipality",urls){
 
-  # anpassen
-  urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen")
-
-  #Message if opendata.swiss API does not respond properly
-  if(!is.list(urls)) {message("The Opendata.swiss DCAT Power API does not respond. Do you have internet-connection and an open proxy?")}
-  
   
     if(is.null(votedate)) {selection <- 1}
   
