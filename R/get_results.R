@@ -53,7 +53,7 @@ get_swissvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NU
     
     #retrieve available dates
   dates <- swissdd::available_votedates()
-    
+  
   }
   
   

@@ -45,6 +45,25 @@ available_votedates <- function(geolevel="national"){
     
   }
   
+  # Message if the ressources coverage attributes are available and if they can be transformed to dates
+  
+  tryCatch(
+    # test if dates stored in the coverage attribute can be converted to dates
+    {
+      as.Date(dates)
+    },
+    # Error message if conversion fails
+    error=function(error_message) {
+      message("Available dates cannot be retrieved from opendata.swiss OR are corrupt.")
+      message("Original error:")
+      message(error_message)
+      # return(NA)
+    })
+  
+  
+  
+  
   as.Date(dates)
+  
   
 }
