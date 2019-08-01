@@ -1,11 +1,10 @@
-#' Get national results and counting status in real time
+#' Transform swiss results-json into tibble
 #'
-#' \code{get_swissvote_stream} Allows to retrieve the results and the counting status for national ballots in realtime.
-#'
-#'   get_swissvote_stream - retrieve real time vote results for national ballots at district- or municipality level.
+#' \code{swiss_json_to_dfr} Tranforms a .json containing the results of a selected federal votedate in an tibble.
 #'
 #' @param votedate date of the ballot. Default: most recent ballot available. To select multiple ballots use the 'get_swissvotes'-function. Format = YYYYMMDD
 #' @param geolevel geographical level for which the results should be loaded. options "national", "canton", "district" or "municipality"
+#' @param dataurl url of the dataset on opendata-swiss
 #' @importFrom purrr map_dfr
 #' @importFrom purrr map_chr
 #' @importFrom purrr map
@@ -14,19 +13,27 @@
 #' @importFrom dplyr mutate
 #' @importFrom dplyr bind_cols 
 #' @importFrom tidyr unnest
-#' @rdname get_swissvotes_stream
+#' @rdname swiss_json_to_dfr
 #' @return a tibble containing the results
 #' @examples
 #'  \donttest{
-#' results <- get_swissvotes(votedate="20191002", geolevel = "district")
 #'
-#'glimpse(results)
+#' # get most recent vote
+#' results <- swiss_json_to_dfr()
+#'
+#' glimpse(results)
+#' 
+#' #get a selected votedate
+#' 
+#' swiss_json_to_dfr(votedate = "2019-02-10")
 #'
 #'
 #' }
-#'
 
-get_swissvotes_stream <- function(votedate=NULL,geolevel="municipality",urls){
+swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL){
+  
+  # if no urls-list is passed on to the function (allows to use function without wrapper)
+  if(is.null(dataurl)) {urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen")} else {urls <- dataurl}
 
   if(is.null(votedate)) {selection <- 1}
   
@@ -141,37 +148,39 @@ get_swissvotes_stream <- function(votedate=NULL,geolevel="municipality",urls){
 }
 
 
-#' Get cantonal results and counting status in real time
+#' Transform cantonal results-json into tibble
 #'
-#' \code{get_cantonalvotes_stream} is one of the two main functions of swissvote package. It allows to retrieve the results and the counting status for national ballots on vote sundays.
-#'
-#'   get_cantonalvotes_stream - retrieve real time vote results for cantonal ballots at district- or municipality level.
+#' \code{canton_json_to_dfr} tranforms a single vote result .json for a selected cantonal votedata into a tibble.
 #'
 #' @param votedate date of the ballot. Default: most recent ballot available.
 #' @param geolevel geographical level for which the results should be loaded. options."canton","district" or "municipality"
+#' @param dataurl list of datasets / metadata for the given dataset and its resources OR url of the dcat dataset on opendata.swiss
 #' @importFrom purrr map_dfr
 #' @importFrom purrr map_chr
 #' @importFrom purrr map
 #' @importFrom dplyr "%>%"
 #' @importFrom dplyr mutate
 #' @importFrom tidyr unnest
-#' @export
-#' @rdname get_cantonalvotes_stream
+#' @rdname canton_json_to_dfr
 #' @details placeholder
 #' @return a tibble containing the results
 #' @examples
 #'  \donttest{
-#' results <- get_cantonalvotes_stream(votedate="20191002",geolevel = "municipality")
 #'
-#'glimpse(results)
+#'#most recent vote
+#' results <- canton_json_to_dfr()
+#'
+#' glimpse(results)
 #'
 #'
 #' }
 #'
 
-get_cantonalvotes_stream <- function(votedate=NULL,geolevel="municipality",urls){
-
+canton_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL){
   
+  # if no urls-list is passed on to the function (allows to use the function without wrapper)
+  if(is.null(dataurl)) {urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen")} else {urls <- dataurl}
+
     if(is.null(votedate)) {selection <- 1}
   
   #index des Abstimmungssonntags

@@ -79,7 +79,7 @@ get_swissvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NU
   if(!is.null(to_date)) dates <- dates[dates<=to_date]
 
  #iterate over dates and create dataframe
-votedata <- purrr::map_dfr(dates, ~get_swissvotes_stream(votedate = .x, geolevel=geolevel,urls) %>% dplyr::mutate(votedate=.x))
+votedata <- purrr::map_dfr(dates, ~swiss_json_to_dfr(votedate = .x, geolevel=geolevel,dataurl=urls) %>% dplyr::mutate(votedate=.x))
 
 votedata
 
@@ -167,7 +167,7 @@ get_cantonalvotes <- function(geolevel = "municipality",votedates=NULL,from_date
   if(!is.null(to_date)) dates <- dates[dates<=to_date]
   
   #iterate over dates and create dataframe - add votedate column?
-  votedata <- purrr::map_dfr(dates, ~get_cantonalvotes_stream(votedate = .x,geolevel=geolevel,urls) %>% dplyr::mutate(votedate=.x))
+  votedata <- purrr::map_dfr(dates, ~canton_json_to_dfr(votedate = .x,geolevel=geolevel,urls) %>% dplyr::mutate(votedate=.x))
   
   votedata
   
