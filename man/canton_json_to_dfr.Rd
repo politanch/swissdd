@@ -18,7 +18,7 @@ canton_json_to_dfr(votedate = NULL, geolevel = "municipality",
 a tibble containing the results
 }
 \description{
-\code{canton_json_to_dfr} tranforms a single vote result .json for a selected cantonal votedata into a tibble.
+\code{canton_json_to_dfr} Tranforms a single results json for a selected cantonal votedata into a tibble.
 }
 \details{
 placeholder

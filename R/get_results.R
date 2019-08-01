@@ -104,7 +104,6 @@ votedata
 #' @importFrom tidyr unnest
 #' @export
 #' @rdname get_cantonalvotes
-#' @details placeholder
 #' @return a tibble containing the results
 #' @examples
 #'  \donttest{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/json_to_dfr.R
 \name{swiss_json_to_dfr}
 \alias{swiss_json_to_dfr}
-\title{Transform swiss results-json into tibble}
+\title{Transform federal results json into tibble}
 \usage{
 swiss_json_to_dfr(votedate = NULL, geolevel = "municipality",
   dataurl = NULL)
@@ -18,17 +18,17 @@ swiss_json_to_dfr(votedate = NULL, geolevel = "municipality",
 a tibble containing the results
 }
 \description{
-\code{swiss_json_to_dfr} Tranforms a .json containing the results of a selected federal votedate in an tibble.
+\code{swiss_json_to_dfr} Transforms the json containing the results of a selected federal votedate into a tibble.
 }
 \examples{
  \donttest{
 
-# get most recent vote
+# transform the json of the most recent vote
 results <- swiss_json_to_dfr()
 
 glimpse(results)
 
-#get a selected votedate
+# transform the json of a selected votedate
 
 swiss_json_to_dfr(votedate = "2019-02-10")
 

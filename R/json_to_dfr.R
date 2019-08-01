@@ -1,6 +1,6 @@
-#' Transform swiss results-json into tibble
+#' Transform federal results json into tibble
 #'
-#' \code{swiss_json_to_dfr} Tranforms a .json containing the results of a selected federal votedate in an tibble.
+#' \code{swiss_json_to_dfr} Transforms the json containing the results of a selected federal votedate into a tibble.
 #'
 #' @param votedate date of the ballot. Default: most recent ballot available. To select multiple ballots use the 'get_swissvotes'-function. Format = YYYYMMDD
 #' @param geolevel geographical level for which the results should be loaded. options "national", "canton", "district" or "municipality"
@@ -13,17 +13,16 @@
 #' @importFrom dplyr mutate
 #' @importFrom dplyr bind_cols 
 #' @importFrom tidyr unnest
-#' @rdname swiss_json_to_dfr
 #' @return a tibble containing the results
 #' @examples
 #'  \donttest{
 #'
-#' # get most recent vote
+#' # transform the json of the most recent vote
 #' results <- swiss_json_to_dfr()
 #'
 #' glimpse(results)
 #' 
-#' #get a selected votedate
+#' # transform the json of a selected votedate
 #' 
 #' swiss_json_to_dfr(votedate = "2019-02-10")
 #'
@@ -148,9 +147,9 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
 }
 
 
-#' Transform cantonal results-json into tibble
+#' Transform cantonal results json into tibble
 #'
-#' \code{canton_json_to_dfr} tranforms a single vote result .json for a selected cantonal votedata into a tibble.
+#' \code{canton_json_to_dfr} Tranforms a single results json for a selected cantonal votedata into a tibble.
 #'
 #' @param votedate date of the ballot. Default: most recent ballot available.
 #' @param geolevel geographical level for which the results should be loaded. options."canton","district" or "municipality"
