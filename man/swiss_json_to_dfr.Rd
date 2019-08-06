@@ -5,7 +5,7 @@
 \title{Transform federal results json into tibble}
 \usage{
 swiss_json_to_dfr(votedate = NULL, geolevel = "municipality",
-  dataurl = NULL)
+  dataurl = NULL, index = NULL)
 }
 \arguments{
 \item{votedate}{date of the ballot. Default: most recent ballot available. To select multiple ballots use the 'get_swissvotes'-function. Format = YYYYMMDD}
@@ -13,6 +13,8 @@ swiss_json_to_dfr(votedate = NULL, geolevel = "municipality",
 \item{geolevel}{geographical level for which the results should be loaded. options "national", "canton", "district" or "municipality"}
 
 \item{dataurl}{url of the dataset on opendata-swiss}
+
+\item{index}{selection by index of the resource (last published = 1).}
 }
 \value{
 a tibble containing the results

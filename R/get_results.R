@@ -130,7 +130,7 @@ get_cantonalvotes <- function(geolevel = "municipality",votedates=NULL,from_date
   if(!is.list(urls)) {message("The Opendata.swiss DCAT Power API does not respond. Do you have internet-connection and an open proxy?")}
   
   
-  # when either range or dates are selected -> defaul value = max date
+  # when either range or dates are selected -> default value = max date
   if(is.null(from_date) &  is.null(to_date)&is.null(votedates)) {
     
     #retrieve available dates

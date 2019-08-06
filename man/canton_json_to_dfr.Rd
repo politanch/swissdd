@@ -5,7 +5,7 @@
 \title{Transform cantonal results json into tibble}
 \usage{
 canton_json_to_dfr(votedate = NULL, geolevel = "municipality",
-  dataurl = NULL)
+  dataurl = NULL, index = NULL)
 }
 \arguments{
 \item{votedate}{date of the ballot. Default: most recent ballot available.}
@@ -13,6 +13,8 @@ canton_json_to_dfr(votedate = NULL, geolevel = "municipality",
 \item{geolevel}{geographical level for which the results should be loaded. options."canton","district" or "municipality"}
 
 \item{dataurl}{list of datasets / metadata for the given dataset and its resources OR url of the dcat dataset on opendata.swiss}
+
+\item{index}{selection by index of the resource (last published = 1).}
 }
 \value{
 a tibble containing the results

@@ -5,6 +5,7 @@
 #' @param votedate date of the ballot. Default: most recent ballot available. To select multiple ballots use the 'get_swissvotes'-function. Format = YYYYMMDD
 #' @param geolevel geographical level for which the results should be loaded. options "national", "canton", "district" or "municipality"
 #' @param dataurl url of the dataset on opendata-swiss
+#' @param index selection by index of the resource (last published = 1).
 #' @importFrom purrr map_dfr
 #' @importFrom purrr map_chr
 #' @importFrom purrr map
@@ -30,12 +31,17 @@
 #'
 #' }
 
-swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL){
+swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL,index=NULL){
   
   # if no urls-list is passed on to the function (allows to use function without wrapper)
   if(is.null(dataurl)) {urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen")} else {urls <- dataurl}
-
-  if(is.null(votedate)) {selection <- 1}
+  
+  if (is.null(votedate)&is.null(index)) {
+    selection <- 1
+  }
+  if (!is.null(index)&is.null(votedate)) {
+    selection <- index
+  }
   
   #index des Abstimmungssonntags
   if(!is.null(votedate)) selection <- match(as.Date(votedate),swissdd::available_votedates())
@@ -155,6 +161,7 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
 #' @param votedate date of the ballot. Default: most recent ballot available.
 #' @param geolevel geographical level for which the results should be loaded. options."canton","district" or "municipality"
 #' @param dataurl list of datasets / metadata for the given dataset and its resources OR url of the dcat dataset on opendata.swiss
+#' @param index selection by index of the resource (last published = 1).
 #' @importFrom purrr map_dfr
 #' @importFrom purrr map_chr
 #' @importFrom purrr map
@@ -177,12 +184,19 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
 #' }
 #'
 
-canton_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL){
+canton_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL,index=NULL){
   
   # if no urls-list is passed on to the function (allows to use the function without wrapper)
   if(is.null(dataurl)) {urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen")} else {urls <- dataurl}
 
     if(is.null(votedate)) {selection <- 1}
+  
+  if (is.null(votedate)&is.null(index)) {
+    selection <- 1
+  }
+  if (!is.null(index)&is.null(votedate)) {
+    selection <- index
+  }
   
   #index des Abstimmungssonntags
   if(!is.null(votedate)) selection <- match(as.Date(votedate),swissdd::available_votedates(geolevel="canton"))
