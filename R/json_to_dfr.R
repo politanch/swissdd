@@ -14,6 +14,7 @@
 #' @importFrom dplyr bind_cols 
 #' @importFrom tidyr unnest
 #' @return a tibble containing the results
+#' @export
 #' @examples
 #'  \donttest{
 #'
@@ -149,7 +150,7 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
 
 #' Transform cantonal results json into tibble
 #'
-#' \code{canton_json_to_dfr} Tranforms a single results json for a selected cantonal votedata into a tibble.
+#' \code{canton_json_to_dfr} Tranforms a single results json for a selected cantonal votedate into a tibble.
 #'
 #' @param votedate date of the ballot. Default: most recent ballot available.
 #' @param geolevel geographical level for which the results should be loaded. options."canton","district" or "municipality"
@@ -163,6 +164,7 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
 #' @rdname canton_json_to_dfr
 #' @details placeholder
 #' @return a tibble containing the results
+#' @export
 #' @examples
 #'  \donttest{
 #'

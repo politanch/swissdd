@@ -2,7 +2,7 @@
 % Please edit documentation in R/json_to_dfr.R
 \name{canton_json_to_dfr}
 \alias{canton_json_to_dfr}
-\title{Transform cantonal results-json into tibble}
+\title{Transform cantonal results json into tibble}
 \usage{
 canton_json_to_dfr(votedate = NULL, geolevel = "municipality",
   dataurl = NULL)
@@ -18,7 +18,7 @@ canton_json_to_dfr(votedate = NULL, geolevel = "municipality",
 a tibble containing the results
 }
 \description{
-\code{canton_json_to_dfr} Tranforms a single results json for a selected cantonal votedata into a tibble.
+\code{canton_json_to_dfr} Tranforms a single results json for a selected cantonal votedate into a tibble.
 }
 \details{
 placeholder
