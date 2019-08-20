@@ -11,3 +11,5 @@ test_that("available votedates works", {
   expect_is(cantdates, "Date")
   
 })
+
+

@@ -3,7 +3,7 @@
 .onAttach <- function(lib, pkg)
 {
   packageStartupMessage('**************************************************************')
-  packageStartupMessage('*                          swissdd 0.0.9                     *')
+  packageStartupMessage('*                          swissdd 1.0.1                     *')
   packageStartupMessage('*                     provided by politan.ch                 *')
   packageStartupMessage('*                                                            *')
   packageStartupMessage('*                                                            *')
@@ -15,8 +15,11 @@
 
 # suppress notes
 
-utils::globalVariables(c("id", "resultat",
-                         "res","geoid","langKey",
+utils::globalVariables(c("id", "resultat","res","geoid",
+                         "canton_id","canton_name",
+                         "district_id","district_name",
+                         "mun_id","mun_name",
+                         "langKey",
                          "yes","kantonname",
                          "results2","geoLevelnummer",
                          "geoname","district_id",

@@ -8,4 +8,16 @@ test_that("get_swissvotes works", {
   
   expect_is(swissvotes, "data.frame")
   
+  swissvotes <- get_swissvotes(geolevel="district")
+  
+  expect_is(swissvotes, "data.frame")
+  
+  swissvotes <- get_swissvotes(geolevel="canton")
+  
+  expect_is(swissvotes, "data.frame")
+  
+  swissvotes <- get_swissvotes(geolevel="national")
+  
+  expect_is(swissvotes, "data.frame")
+  
 })

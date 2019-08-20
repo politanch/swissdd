@@ -71,12 +71,12 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
   if(geolevel=="canton"){
 
    data <- tibble::tibble(
-      ktid = purrr::map(data$schweiz$vorlagen$kantone, 1),
-      kantonname = purrr::map(data$schweiz$vorlagen$kantone, 2),
+      canton_id = purrr::map(data$schweiz$vorlagen$kantone, 1),
+      canton_name = purrr::map(data$schweiz$vorlagen$kantone, 2),
       name = purrr::map_chr(data$schweiz$vorlagen$vorlagenTitel,c(2,1)),
       id = data$schweiz$vorlagen$vorlagenId,
       res = purrr::map(data$schweiz$vorlagen$kantone,3)
-    ) %>% tidyr::unnest(ktid,kantonname,res)
+    ) %>% tidyr::unnest(canton_id,canton_name,res)
 
   }
 
@@ -109,12 +109,12 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
     
     data <- district_data %>%
       dplyr::mutate(
-        district_id=purrr::map(gemdata$res,1),
-        district_name=purrr::map(gemdata$res,2),
-        results=purrr::map(gemdata$res,4),
-        results2=purrr::map(gemdata$res,"resultat")
+        district_id=purrr::map(district_data$res,1),
+        district_name=purrr::map(district_data$res,2),
+        results=purrr::map(district_data$res,4),
+        results2=purrr::map(district_data$res,"resultat")
       ) %>%
-      tidyr::unnest(results2,disttict_id,district_name)
+      tidyr::unnest(results2,district_id,district_name)
   }
     
 #municipal results
@@ -212,7 +212,7 @@ canton_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NUL
 
   # data <- jsonlite::fromJSON("20181125_kant_Abstimmungsresultate_ogd.json")
 
-
+# GEOLEVEL BEZEICHNUNGEN ANPASSEN - einheitlich!
   if(geolevel=="canton"){
 
       #gesamtkanton
