@@ -52,7 +52,7 @@ available_votedates <- function(geolevel="national"){
 
   
 # Convert to Date Format - fallback if coverage attribute contains no information: get date from resource title 
-tryCatch(as.Date(dates), error=function(e) as.Date(substr(urls$result$resources$name$de,21,29),format="%d.%m.%Y"))
+tryCatch(as.Date(dates), error=function(e) as.Date(substr(urls$result$resources$name$de,21,30),format="%d.%m.%Y"))
   
   
   # as.Date(dates,format="%d.%m.%Y")
