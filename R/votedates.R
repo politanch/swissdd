@@ -34,7 +34,6 @@ available_votedates <- function(geolevel="national"){
   
   # dates <- substr(urls$result$resources$name$de,21,30)
   
-  dates <- urls$result$resources$coverage
  
   }
   
@@ -45,12 +44,19 @@ available_votedates <- function(geolevel="national"){
     
     
   # dates <- substr(urls$result$resources$name$de,21,30)
-  dates <- urls$result$resources$coverage
     
   }
   
+  dates <- urls$result$resources$coverage
+  
+
+  
+# Convert to Date Format - fallback if coverage attribute contains no information: get date from resource title 
+tryCatch(as.Date(dates), error=function(e) as.Date(substr(urls$result$resources$name$de,21,29),format="%d.%m.%Y"))
+  
+  
   # as.Date(dates,format="%d.%m.%Y")
   
-  as.Date(dates)
+  # as.Date(dates)
   
 }
