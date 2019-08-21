@@ -201,23 +201,18 @@ canton_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NUL
   #index des Abstimmungssonntags
   if(!is.null(votedate)) selection <- match(as.Date(votedate),swissdd::available_votedates(geolevel="canton"))
   
-  # Hier stimmt link noch -> allenfalls anpassen, falls BFS auf DAM Link umstellt
-  
-  
   # retrieve data - switch to httr !------------
 
-  # fix! two dates available
   data <- suppressWarnings(jsonlite::fromJSON(urls$result$resources$download_url[selection]))
 
 
   # data <- jsonlite::fromJSON("20181125_kant_Abstimmungsresultate_ogd.json")
 
-# GEOLEVEL BEZEICHNUNGEN ANPASSEN - einheitlich!
   if(geolevel=="canton"){
 
       #gesamtkanton
       ktdata2 <-tibble::tibble(
-        name = data$kantone$geoLevelname,
+        canton_name = data$kantone$geoLevelname,
         id=purrr::map(data$kantone$vorlagen,1),
         resultat=purrr::map(data$kantone$vorlagen,"resultat")
       ) %>% tidyr::unnest(id,resultat)
@@ -243,25 +238,25 @@ canton_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NUL
   if(geolevel=="district"){
 
     ktdata2 <- tibble::tibble(
-      id=ktdata$id,
-      kt=ktdata$kanton,
-      geoid=purrr::map(ktdata$res,1),
-      geoname=purrr::map(ktdata$res,2),
+      canton_id=ktdata$id,
+      canton_name=ktdata$kanton,
+      district_id=purrr::map(ktdata$res,1),
+      district_name=purrr::map(ktdata$res,2),
       resultat=purrr::map(ktdata$res,3)) %>%
-      tidyr::unnest(resultat,geoid,geoname)
+      tidyr::unnest(resultat,district_id,district_name)
   }
 
 
   if(geolevel=="municipality"){
 
     ktdata2 <- tibble::tibble(
-      id=ktdata$id,
-      kt=ktdata$kanton,
-      geoid=purrr::map(ktdata$res,1),
-      geoname=purrr::map(ktdata$res,2),
+      canton_id=ktdata$id,
+      canton_name=ktdata$kanton,
+      mun_id=purrr::map(ktdata$res,1),
+      mun_name=purrr::map(ktdata$res,2),
       district_id=purrr::map(ktdata$res,3),
       resultat=purrr::map(ktdata$res,4)) %>%
-      tidyr::unnest(resultat,geoid,geoname,district_id)
+      tidyr::unnest(resultat,mun_id,mun_name,district_id)
 
   }
 
