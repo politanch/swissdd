@@ -238,7 +238,7 @@ canton_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NUL
   if(geolevel=="district"){
 
     ktdata2 <- tibble::tibble(
-      canton_id=ktdata$id,
+      id=ktdata$id,
       canton_name=ktdata$kanton,
       district_id=purrr::map(ktdata$res,1),
       district_name=purrr::map(ktdata$res,2),
@@ -250,7 +250,7 @@ canton_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NUL
   if(geolevel=="municipality"){
 
     ktdata2 <- tibble::tibble(
-      canton_id=ktdata$id,
+      id=ktdata$id,
       canton_name=ktdata$kanton,
       mun_id=purrr::map(ktdata$res,1),
       mun_name=purrr::map(ktdata$res,2),
