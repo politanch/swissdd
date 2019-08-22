@@ -20,10 +20,15 @@ utils::globalVariables(c("id", "resultat","res","geoid",
                          "district_id","district_name",
                          "mun_id","mun_name",
                          "langKey",
-                         "yes","kantonname",
-                         "results2","geoLevelnummer",
-                         "geoname","district_id",
-                         "geoLevelname","text","ktid"))
+                         "yes",
+                         # "kantonname",
+                         "results2",
+                         "geoLevelnummer",
+                         # "geoname",
+                         "jaStimmenInProzent",
+                         "cor","cov","correlation",
+                         # "geoLevelname",
+                         "text","ktid"))
 
 
 

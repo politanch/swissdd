@@ -18,6 +18,8 @@
 #' @importFrom dplyr rename
 #' @importFrom dplyr arrange
 #' @importFrom tidyr spread
+#' @importFrom stats cor
+#' @importFrom stats cov
 #' @export
 #' @rdname similar_votes
 #' @details placeholder
@@ -27,11 +29,13 @@
 #'  federalvotes <- get_swissvotes(geolevel = "canton",from_date = "2010-03-07",to_date="2019-02-10")
 #'  results <- similar_votes(federalvotes, id=6260) #Zersiedelungsinitiative, 2019-02-10
 #' 
-#'  results <- similar_votes(federalvotes, id=6260, from = 0.5) #Zersiedelungsinitiative, 2019-02-10
+#' #Zersiedelungsinitiative, 2019-02-10
+#'  results <- similar_votes(federalvotes, id=6260, from = 0.5) 
 #'  
 #'  OR
 #'  
-#'  results <- similar_votes(federalvotes, id=6260, from = 0.1, to = 0.2) #Zersiedelungsinitiative, 2019-02-10
+#'#Zersiedelungsinitiative, 2019-02-10
+#'  results <- similar_votes(federalvotes, id=6260, from = 0.1, to = 0.2) 
 #'
 #'glimpse(results)
 #'
