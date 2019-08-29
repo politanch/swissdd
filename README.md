@@ -20,10 +20,7 @@
 The package wraps the real time data on vote Sundays. As soon as the ballot close (from 12:00 on), the datastream is continuosly updated, until the data for all municipalities is complete and the final results are available. Additionally, it allows to access the archive and to retrieve the *harmonized* results of national votes since 1981.
 
 ```
-# Version 1.0.0 can be installed from CRAN (stable)
-install.packages("swissdd")
-
-# Alternative: installation from github (ongoing updates)
+# installation from github (ongoing updates)
 devtools::install_github("politanch/swissdd")
 
 #realtimedata on vote-sundays or the data of the last votes
