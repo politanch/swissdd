@@ -36,7 +36,13 @@
 
 get_swissvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NULL,to_date=NULL){
   
-  # when either range or dates are selected -> default value 
+  urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen")
+  # 
+  # #Message if opendata.swiss API does not respond properly
+  if(!is.list(urls)) {message("The Opendata.swiss DCAT Power API does not respond. Do you have internet-connection and an open proxy?")}
+
+  
+  # when either range or dates are selected -> defaul value 
   if(is.null(from_date) &  is.null(to_date) & is.null(votedates)) {
     
     #retrieve available dates
@@ -53,7 +59,7 @@ get_swissvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NU
     
     #retrieve available dates
   dates <- swissdd::available_votedates()
-  
+    
   }
   
   
@@ -73,7 +79,7 @@ get_swissvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NU
   if(!is.null(to_date)) dates <- dates[dates<=to_date]
 
  #iterate over dates and create dataframe
-votedata <- purrr::map_dfr(dates, ~get_swissvotes_stream(votedate = .x,geolevel=geolevel) %>% dplyr::mutate(votedate=.x))
+votedata <- purrr::map_dfr(dates, ~swiss_json_to_dfr(votedate = .x, geolevel=geolevel,dataurl=urls) %>% dplyr::mutate(votedate=.x))
 
 votedata
 
@@ -98,7 +104,6 @@ votedata
 #' @importFrom tidyr unnest
 #' @export
 #' @rdname get_cantonalvotes
-#' @details placeholder
 #' @return a tibble containing the results
 #' @examples
 #'  \donttest{
@@ -118,8 +123,14 @@ votedata
 
 get_cantonalvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NULL,to_date=NULL){
   
+  # anpassen
+  urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen")
   
-  # when either range or dates are selected -> defaul value = max date
+  #Message if opendata.swiss API does not respond properly
+  if(!is.list(urls)) {message("The Opendata.swiss DCAT Power API does not respond. Do you have internet-connection and an open proxy?")}
+  
+  
+  # when either range or dates are selected -> default value = max date
   if(is.null(from_date) &  is.null(to_date)&is.null(votedates)) {
     
     #retrieve available dates
@@ -155,7 +166,7 @@ get_cantonalvotes <- function(geolevel = "municipality",votedates=NULL,from_date
   if(!is.null(to_date)) dates <- dates[dates<=to_date]
   
   #iterate over dates and create dataframe - add votedate column?
-  votedata <- purrr::map_dfr(dates, ~get_cantonalvotes_stream(votedate = .x,geolevel=geolevel) %>% dplyr::mutate(votedate=.x))
+  votedata <- purrr::map_dfr(dates, ~canton_json_to_dfr(votedate = .x,geolevel=geolevel,urls) %>% dplyr::mutate(votedate=.x))
   
   votedata
   

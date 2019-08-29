@@ -24,8 +24,6 @@ a tibble containing the results
 }
 \details{
 get_cantonalvotes - retrieve vote results for cantonal ballots at district- or municipality level for selected dates or a given date range.
-
-placeholder
 }
 \examples{
  \donttest{
