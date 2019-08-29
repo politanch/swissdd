@@ -3,6 +3,7 @@
 ^.*\.png$
 ^\.travis\.yml$
 ^.*\.txt$
+^README\.md$
 ^README\.Rmd$
 ^NEWS\.md$
 ^tests$
