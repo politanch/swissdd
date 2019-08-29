@@ -22,7 +22,6 @@
 #' @importFrom stats cov
 #' @export
 #' @rdname similar_votes
-#' @details placeholder
 #' @return a tibble containing the results
 #' @examples
 #'  \donttest{
@@ -59,22 +58,33 @@ similar_votes <- function(federalvotes=NULL, id=NULL, corr=T, from=NULL, to=NULL
     to_return <- "mat"
   }
   
+  
   #this block may be redundant when ktid == geoLevelnummer
-  var_i <- "geoLevelnummer"%in%colnames(federalvotes)
-  if(var_i){
+  var_mun <- "mun_id"%in%colnames(federalvotes)
+  var_dist <- "district_id"%in%colnames(federalvotes)
+  
+  if(var_mun){
     
     fed <- federalvotes %>% 
-      dplyr::select(id, geoLevelnummer, jaStimmenInProzent) %>%
+      dplyr::select(id, mun_id, jaStimmenInProzent) %>%
       mutate(id=paste0("V_", id))%>%
       tidyr::spread(id, jaStimmenInProzent)%>%
-      dplyr::select(-geoLevelnummer)
+      dplyr::select(-mun_id)
 
-      }else{
+      }else if(var_dist){
+      
+      fed <- federalvotes %>% 
+          dplyr::select(id, district_id, jaStimmenInProzent) %>%
+          mutate(id=paste0("V_", id))%>%
+          tidyr::spread(id, jaStimmenInProzent)%>%
+          dplyr::select(-district_id)
+        
+      }else {  
     fed <- federalvotes %>% 
-      dplyr::select(id, ktid, jaStimmenInProzent) %>%
+      dplyr::select(id,canton_id, jaStimmenInProzent) %>%
       mutate(id=paste0("V_", id))%>%
       tidyr::spread(id, jaStimmenInProzent)%>%
-      dplyr::select(-ktid)
+      dplyr::select(-canton_id)
 
   }
   

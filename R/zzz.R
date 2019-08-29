@@ -28,7 +28,8 @@ utils::globalVariables(c("id", "resultat","res","geoid",
                          "jaStimmenInProzent",
                          "cor","cov","correlation",
                          # "geoLevelname",
-                         "text","ktid"))
+                         "text"#,"ktid"
+                         ))
 
 
 
