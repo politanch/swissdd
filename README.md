@@ -52,3 +52,4 @@ https://opendata.swiss/de/dataset/echtzeitdaten-am-abstimmungstag-zu-kantonalen-
 ## More data on Swiss politics 
 - [DigDemLab](https://digdemlab.io/)  
 - [swissparl](https://github.com/zumbov2/swissparl)
+- [swissvotes](https://swissvotes.ch/)
