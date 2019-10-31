@@ -117,6 +117,10 @@ votedata
 #'
 #'glimpse(results)
 #'
+#' # get the results at counting district level
+#' # yields the same result as the municipality level, with the exception of Winterthur and Zurich, where detailed counting district results are returned
+#' get_cantonalvotes(votedate="2019-09-22",geolevel = "zh_counting_districts")
+#'
 #'
 #' }
 #'
