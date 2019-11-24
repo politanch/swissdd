@@ -1,16 +1,9 @@
----
-title: "Example: Plot Vote Shares"
-output:
-  html_document:
-    keep_md: true
----
-
-
-
+Example: Plot Vote Shares
+================
 
 ### plot voteshares on the cantonal level
 
-```r
+``` r
 # installation from CRAN (stable)
 # install.packages("swissdd")
 # install.packages("dplyr")
@@ -36,13 +29,11 @@ can.plot(mei_nat$canton_id, mei_nat$jaStimmenInProzent, 2016,
          caption = "Data:swissdd/FSO\nPlot:RSwissMaps")
 ```
 
-![](plot_voteshares_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
-
+![](plot_voteshares_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 ### plot voteshares on the municipal level
 
-
-```r
+``` r
 #get data from API for the 2014 Swiss immigration initiative (mei)
 mei_mun <- get_swissvotes(votedates="2014-02-09", geolevel = "municipality")%>%
   dplyr::filter(id == 5800)%>%
@@ -57,5 +48,4 @@ mun.plot(mei_mun$mun_id, mei_mun$jaStimmenInProzent, 2016,
          caption = "Data:swissdd/FSO\nPlot:RSwissMaps")
 ```
 
-![](plot_voteshares_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
-
+![](plot_voteshares_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->

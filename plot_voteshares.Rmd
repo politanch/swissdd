@@ -1,8 +1,6 @@
 ---
 title: "Example: Plot Vote Shares"
-output:
-  html_document:
-    keep_md: true
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
@@ -34,7 +32,7 @@ mei_nat <- get_swissvotes(votedates="2014-02-09", geolevel = "canton")%>%
 can.plot(mei_nat$canton_id, mei_nat$jaStimmenInProzent, 2016,
          title = "2014 Swiss immigration initiative ",
          subtitle = "Swiss Cantons, 2016", 
-         caption = "Data:swissdd/FSO\nPlot:RSwissMaps")
+         caption = "Data:swissdd/FSO\nPlot:RSwissMaps", dpi=300)
 ```
 
 
