@@ -1,13 +1,16 @@
-# swissdd
+---
+title: "Example: Plot Vote Shares"
+output:
+  html_document:
+    keep_md: true
+---
 
-## the swiss direct democracy R package
-<p align="center">
-<img src="swissdd_sticker.png" alt="" width="100"/>
-</p>
 
-## plot voteshares on a cantonal level
 
-```
+
+### plot voteshares on the cantonal level
+
+```r
 # installation from CRAN (stable)
 # install.packages("swissdd")
 # install.packages("dplyr")
@@ -31,8 +34,15 @@ can.plot(mei_nat$canton_id, mei_nat$jaStimmenInProzent, 2016,
          title = "2014 Swiss immigration initiative ",
          subtitle = "Swiss Cantons, 2016", 
          caption = "Data:swissdd/FSO\nPlot:RSwissMaps")
+```
+
+![](plot_voteshares_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
 
 
+### plot voteshares on the municipal level
+
+
+```r
 #get data from API for the 2014 Swiss immigration initiative (mei)
 mei_mun <- get_swissvotes(votedates="2014-02-09", geolevel = "municipality")%>%
   dplyr::filter(id == 5800)%>%
@@ -45,6 +55,7 @@ mun.plot(mei_mun$mun_id, mei_mun$jaStimmenInProzent, 2016,
          title = "2014 Swiss immigration initiative ",
          subtitle = "Swiss Municipalities, 2016", 
          caption = "Data:swissdd/FSO\nPlot:RSwissMaps")
-
-
 ```
+
+![](plot_voteshares_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+
