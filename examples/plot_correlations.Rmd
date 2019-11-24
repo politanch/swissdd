@@ -1,0 +1,47 @@
+---
+title: "Example: Plot Vote Shares"
+output: github_document 
+date: "Last Updated: `r format(Sys.time(), '%d, %B, %Y at %H:%M')`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### plot voteshares on the cantonal level
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+# installation from CRAN (stable)
+# install.packages("swissdd")
+# install.packages("dplyr")
+
+
+# installation from github (ongoing updates)
+# devtools::install_github("politanch/swissdd")
+
+library(swissdd)
+library(dplyr)
+library(ggplot2)
+
+
+#get data from API for the 2010-2019 (feb) 
+federalvotes <- get_swissvotes(geolevel = "canton",from_date = "2010-03-07",to_date="2019-02-10")
+
+#get correlations for votes on cantonal level
+results <- similar_votes(federalvotes, id=6260) %>%
+  mutate(id=as.numeric(id))
+
+#extract names of votes
+ballots <- federalvotes1 %>%
+  dplyr::select(name, id)%>%
+  distinct()
+
+#paste together
+results <- results %>%
+  left_join(ballots, by="id")
+
+ggplot(results, aes(id, correlation))+
+  geom_point()
+
+
+```
