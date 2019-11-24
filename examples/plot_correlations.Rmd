@@ -22,26 +22,35 @@ knitr::opts_chunk$set(echo = TRUE)
 library(swissdd)
 library(dplyr)
 library(ggplot2)
-
+library(tidyr)
 
 #get data from API for the 2010-2019 (feb) 
-federalvotes <- get_swissvotes(geolevel = "canton",from_date = "2010-03-07",to_date="2019-02-10")
+federalvotes3 <- get_swissvotes(geolevel = "municipality", from_date = "2010-03-07", to_date = "2019-02-10")
 
-#get correlations for votes on cantonal level
-results <- similar_votes(federalvotes, id=6260) %>%
-  mutate(id=as.numeric(id))
+#get correlations for votes on municipal level with mei
+sim_votes <- similar_votes(federalvotes3, id=5800, from=.4, to=.6)
+sim_votes
 
-#extract names of votes
-ballots <- federalvotes1 %>%
-  dplyr::select(name, id)%>%
+#extract names of correlated votes
+ballotnames <- federalvotes3 %>%
+  dplyr::select(name, id, mun_id)%>%
+  filter(id%in%c(5800, sim_votes[1,1]))%>%
   distinct()
 
-#paste together
-results <- results %>%
-  left_join(ballots, by="id")
 
-ggplot(results, aes(id, correlation))+
-  geom_point()
+#subset for correlated votes
+corrvotes <- federalvotes3 %>% 
+  filter(id%in%c(5800, sim_votes[1,1]))%>%
+  dplyr::select(id, jaStimmenInProzent, mun_id)%>%
+  mutate(id=as.character(id))
 
+#plot
+spread(corrvotes , id, jaStimmenInProzent)%>%
+  ggplot(aes(y=`5800`, x=`5990`))+
+  geom_point()+
+  scale_y_continuous(limits=c(0,100))+
+  scale_x_continuous(limits=c(0,100))+
+  geom_abline(intercept = 0, slope=1,  size=.1)+
+  geom_smooth(method="lm", size=.1, color="orange")
 
 ```
