@@ -1,7 +1,7 @@
 
 #' Get national results and counting status for selected dates or a given period
 #'
-#' \code{get_apsdata} downloads additional data collected by annee politique suisse. It allows for completely downloading their database. Please cite data.
+#' \code{get_swissvotes} downloads additional data collected by annee politique suisse. It allows for completely downloading their database. Please cite data.
 #'
 #'   get_apsdata - retrieve data on votes. The unit of analysis are votes.
 #'
@@ -27,7 +27,7 @@
 #'
 #'
 #'
-get_apsdata <- function(DB=T, savecitation=F, codebook=F){
+get_swissvotes <- function(DB=T, savecitation=F, codebook=F){
   
   if(DB){
     swissvotesDB <- read.csv("https://swissvotes.ch/storage/49cda3153ff1dc17b6c0a9893bc3a15b67a863e4ab64a35bc518c41964e6dc6b",
