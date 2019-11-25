@@ -16,4 +16,8 @@ test_that("get_cantonalvotes works", {
   
   expect_is(cantvotes, "data.frame")
   
+  cantvotes <- get_cantonalvotes(geolevel = "zh_counting_districts")
+  
+  expect_is(cantvotes, "data.frame")
+  
 })

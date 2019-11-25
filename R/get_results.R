@@ -5,7 +5,7 @@
 #'   get_swissvotes - retrieve vote results for national ballots at district- or municipality level for selected dates or a given date range.
 #'
 #' @param votedates dates of the ballots to be selected. Default: most recent ballot available. Format = "YYYY-MM-DD"
-#' @param geolevel geographical level for which the results should be loaded. options:  options: "national", "canton", "district" or "municipality"
+#' @param geolevel geographical level for which the results should be loaded. options:  options: "national", "canton", "district", "municipality" or "zh_counting_districts"
 #' @param from_date starting point in time from which vote-results should be retrived. Format = "YYYY-MM-DD"
 #' @param to_date end point in time to which vote-results should be retrived. Format = "YYYY-MM-DD"
 #' @importFrom purrr map_dfr
@@ -29,6 +29,8 @@
 #'  get_swissvotes(votedates="2014-02-09")
 #'
 #'glimpse(results)
+#'
+#' 
 #'
 #'
 #' }
@@ -93,7 +95,7 @@ votedata
 #'   get_cantonalvotes - retrieve vote results for cantonal ballots at district- or municipality level for selected dates or a given date range.
 #'
 #' @param votedates dates of the ballots to be selected. Default: most recent ballot available. Format = "YYYY-MM-DD"
-#' @param geolevel geographical level for which the results should be loaded.  options: "canton", "district" or "municipality"
+#' @param geolevel geographical level for which the results should be loaded.  options: "canton", "district","municipality" or "zh_counting_districts"
 #' @param from_date starting point in time from which vote-results should be retrived. Format = "YYYY-MM-DD"
 #' @param to_date end point in time to which vote-results should be retrived. Format = "YYYY-MM-DD"
 #' @importFrom purrr map_dfr

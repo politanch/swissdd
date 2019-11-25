@@ -20,4 +20,8 @@ test_that("get_swissvotes works", {
   
   expect_is(swissvotes, "data.frame")
   
+  swissvotes <- swissdd::get_swissvotes(geolevel = "zh_counting_districts",from_date = "2017-12-11")
+  
+  expect_is(swissvotes, "data.frame")
+  
 })
