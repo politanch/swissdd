@@ -1,7 +1,7 @@
 
 #' Get national results and counting status for selected dates or a given period
 #'
-#' \code{get_apsdata} downloads additional data collected by annee politique suisse. It allows for completely downloading their database. Please cite data.
+#' \code{get_swissvotes} downloads additional data collected by annee politique suisse. It allows for completely downloading their database. Please cite data.
 #'
 #'   get_apsdata - retrieve data on votes. The unit of analysis are votes.
 #'
@@ -27,15 +27,15 @@
 #'
 #'
 #'
-get_apsdata <- function(DB=T, savecitation=F, codebook=F){
+get_swissvotes <- function(DB=T, savecitation=F, codebook=F){
   
   if(DB){
-    swissvotesDB <- read.csv("https://swissvotes.ch/storage/49cda3153ff1dc17b6c0a9893bc3a15b67a863e4ab64a35bc518c41964e6dc6b",
+    swissvotesDB <- read.csv("https://swissvotes.ch/storage/7a811d141834e316aaae398bc298fcf46946777def27830fce919f67a28d48ee",
                              sep=";", stringsAsFactors = F)
   }
   
   
-  if(codebook) browseURL("https://swissvotes.onegovcloud.ch/storage/3ba1067a120e2190c5a2ddcea78dc76b505639d36bfb53605c80dad0e32eeb89")
+  if(codebook) browseURL("https://swissvotes.ch/storage/3ea287c640534b5ba9c483a6a8a4aa7eee4adf40c9ef85ea68b12d3384cb9cac")
   
   
   if(DB) {
@@ -66,6 +66,11 @@ get_apsdata <- function(DB=T, savecitation=F, codebook=F){
       write.table(hb, "swissvotes.txt", col.names=F, row.names=F, quote=F)
       
     }
+    
+    #change id of ballot according swissdd codebook.
+    
+    swissvotesDB <- swissvotesDB %>%
+      mutate(anr = as.numeric(anr)*10)
     
     return(swissvotesDB)
     
