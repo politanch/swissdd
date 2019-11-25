@@ -1,6 +1,6 @@
 Example: Plot Vote Shares
 ================
-Last Updated: 25, November, 2019 at 22:23
+Last Updated: 25, November, 2019 at 22:27
 
 ### How to Use Swissvotes Data
 
@@ -26,10 +26,10 @@ library(dplyr)
 ```
 
 By default, function extracts only the database provided by
-<https://swissvotes.ch>. However, you can specify that you want the
-codebook as well (or just the codebook for that matter). Additionally,
-there is a specification to save the citation. If you work with
-Swissvotes data, we recommend to save the citation.
+[Swissvotes](https://swissvotes.ch). However, you can specify that you
+want the codebook as well (or just the codebook for that matter).
+Additionally, there is a specification to save the citation. If you work
+with data from Swissvotes, we recommend to save the citation.
 
 If you don’t specify anything the function will be executed with the
 following specifications.
