@@ -165,7 +165,7 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
      
      
      # add results for counting districts 
-     if(geolevel=="zh_counting_districts"){
+     if(geolevel=="zh_counting_districts"& is.list(data$schweiz$vorlagen$kantone[[1]]$zaehlkreise)){
        
        # funktoniert nicht
        ktdata_zh <-  tibble::tibble(
@@ -324,7 +324,7 @@ canton_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NUL
 
   # extract data for counting districts
   
-  if(geolevel=="zh_counting_districts"){
+  if(geolevel=="zh_counting_districts" & is.list(data$kantone$vorlagen[[1]]$zaehlkreise)){
     
     ktdata_zh <- tibble::tibble(
       id=zaehlkreise$id,
@@ -337,9 +337,9 @@ canton_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NUL
     
     #remove winterthur and zurich as single municipalities
   ktdata2 <-  ktdata2 %>% 
-    filter(!(mun_id%in%c(261,230))) %>% 
+    dplyr::filter(!(mun_id%in%c(261,230))) %>% 
     #add counting district level results instead
-    bind_rows(ktdata_zh)
+    dplyr::bind_rows(ktdata_zh)
   
   }
 

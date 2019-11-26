@@ -1,8 +1,8 @@
 #' Get national results and counting status for selected dates or a given period
 #'
-#' \code{get_swissvotes} is one of the two main functions of swissvote package. It allows to retrieve the results and the counting status for national ballots.
+#' \code{get_nationalvotes} is one of the two main functions of swissvote package. It allows to retrieve the results and the counting status for national ballots.
 #'
-#'   get_swissvotes - retrieve vote results for national ballots at district- or municipality level for selected dates or a given date range.
+#'   get_nationalvotes - retrieve vote results for national ballots at district- or municipality level for selected dates or a given date range.
 #'
 #' @param votedates dates of the ballots to be selected. Default: most recent ballot available. Format = "YYYY-MM-DD"
 #' @param geolevel geographical level for which the results should be loaded. options:  options: "national", "canton", "district", "municipality" or "zh_counting_districts"
@@ -15,18 +15,18 @@
 #' @importFrom dplyr mutate
 #' @importFrom tidyr unnest
 #' @export
-#' @rdname get_swissvotes
+#' @rdname get_nationalvotes
 #' @return a tibble containing the results
 #' @examples
 #'  \donttest{
-# results <-get_swissvotes(geolevel="district",from_date = "2018-01-01",to_date="2018-12-31")
+# results <-get_nationalvotes(geolevel="district",from_date = "2018-01-01",to_date="2018-12-31")
 #' 
 #' # Selection by enddate only
-#'  get_swissvotes(to_date="1983-12-04")
+#'  get_nationalvotes(to_date="1983-12-04")
 #'  
 #' 
 #'  # Selection of a specific votedate
-#'  get_swissvotes(votedates="2014-02-09")
+#'  get_nationalvotes(votedates="2014-02-09")
 #'
 #'glimpse(results)
 #'
@@ -36,7 +36,7 @@
 #' }
 #'
 
-get_swissvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NULL,to_date=NULL){
+get_nationalvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NULL,to_date=NULL){
   
   urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen")
   # 

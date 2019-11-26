@@ -3,7 +3,7 @@
 export(available_votedates)
 export(canton_json_to_dfr)
 export(get_cantonalvotes)
-export(get_swissvotes)
+export(get_nationalvotes)
 export(similar_votes)
 export(swiss_json_to_dfr)
 importFrom(dplyr,"%>%")

@@ -24,9 +24,6 @@ a tibble containing the results
 \description{
 \code{similar_votes} allows to obtain correlations of specified vote with other votes.
 }
-\details{
-placeholder
-}
 \examples{
  \donttest{
  federalvotes <- get_swissvotes(geolevel = "canton",from_date = "2010-03-07",to_date="2019-02-10")
