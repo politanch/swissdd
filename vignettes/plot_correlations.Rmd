@@ -1,8 +1,18 @@
 ---
-title: "Example: Plot Vote Shares"
-output: github_document 
-date: "Last Updated: `r format(Sys.time(), '%d, %B, %Y at %H:%M')`"
+title: "Find and plot correlated vote results"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{test}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -25,7 +35,7 @@ library(ggplot2)
 library(tidyr)
 
 #get data from API for the 2010-2019 (feb) 
-federalvotes3 <- get_swissvotes(geolevel = "municipality", from_date = "2010-03-07", to_date = "2019-02-10")
+federalvotes3 <- get_nationalvotes(geolevel = "municipality", from_date = "2010-03-07", to_date = "2019-02-10")
 
 #get correlations for votes on municipal level with mei
 sim_votes <- similar_votes(federalvotes3, id=5800, from=.4, to=.6)

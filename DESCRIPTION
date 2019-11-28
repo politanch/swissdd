@@ -15,3 +15,7 @@ RoxygenNote: 6.1.1
 Imports: 
      purrr,dplyr,tidyr,jsonlite, magrittr,tibble,curl
 NeedsCompilation: no
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

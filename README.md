@@ -20,13 +20,13 @@ The package wraps the real time data on vote Sundays. As soon as the ballot clos
 devtools::install_github("politanch/swissdd")
 
 #realtimedata on vote-sundays or the data of the last votations
-federalvotes <- get_swissvotes_stream(geolevel = "district")
+federalvotes <- get_nationalvotes(geolevel = "district")
 
 #retrieve data for many votes from the archive, either by selecting indiviual dates...
-federalvotes <- get_swissvotes(votedates=c("2019-02-10","1984-09-23"), geolevel = "district")
+federalvotes <- get_nationalvotes(votedates=c("2019-02-10","1984-09-23"), geolevel = "district")
 
 #... or defining a range.
-federalvotes <- get_swissvotes(from_date="2017-01-01",to_date="2018-01-01", geolevel = "district")
+federalvotes <- get_nationalvotes(from_date="2017-01-01",to_date="2018-01-01", geolevel = "district")
 
 # the results of cantonal votes are also available (2019-)
 

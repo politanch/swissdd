@@ -1,13 +1,18 @@
 ---
-title: "Example: Plot Vote Shares"
-output: github_document 
-date: "Last Updated: `r format(Sys.time(), '%d, %B, %Y at %H:%M')`"
+title: "Retrieve Swissvotes-Data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{test}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
 ```
-
 
 ### How to Use Swissvotes Data
 

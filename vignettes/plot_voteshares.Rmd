@@ -1,13 +1,18 @@
 ---
-title: "Example: Plot Vote Shares"
-output: github_document 
-date: "Last Updated: `r format(Sys.time(), '%d, %B, %Y at %H:%M')`"
+title: "Plot Vote Shares"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{test}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
 ```
-
 
 ### plot voteshares on the cantonal level
 ```{r echo=TRUE, warning=FALSE, message=FALSE}
@@ -24,7 +29,7 @@ library(dplyr)
 library(RSwissMaps)
 
 #get data from API for the 2014 Swiss immigration initiative (mei)
-mei_nat <- get_swissvotes(votedates="2014-02-09", geolevel = "canton")%>%
+mei_nat <- get_nationalvotes(votedates="2014-02-09", geolevel = "canton")%>%
   dplyr::filter(id == 5800)%>%
   dplyr::select(canton_id, jaStimmenInProzent)%>%
   mutate(canton_id=as.numeric(canton_id))
@@ -41,7 +46,7 @@ can.plot(mei_nat$canton_id, mei_nat$jaStimmenInProzent, 2016,
 
 ```{r echo=TRUE, warning=FALSE, message=FALSE}
 #get data from API for the 2014 Swiss immigration initiative (mei)
-mei_mun <- get_swissvotes(votedates="2014-02-09", geolevel = "municipality")%>%
+mei_mun <- get_nationalvotes(votedates="2014-02-09", geolevel = "municipality")%>%
   dplyr::filter(id == 5800)%>%
   dplyr::select(mun_id, jaStimmenInProzent)%>%
   mutate(mun_id=as.numeric(mun_id))
