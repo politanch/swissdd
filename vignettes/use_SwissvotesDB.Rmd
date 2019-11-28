@@ -61,7 +61,7 @@ Since we loaded the data already, there is no need to download it again.
 get_swissvotes(DB=F, codebook=T)
 ```
 
-For illustration, we are interested in the upcoming vote on affordable housing (date of vote 9th of February, 2020). The variable `titel_kurz_d` or `titel_kurz_f` contains the title of a vote (shorter version than the official title `titel_off_d` or `titel_off_f`). Please note that the letter `d` indicates the German title, while the letter `f` gives you the French title. 
+For the sake of illustration, we are interested in the upcoming vote on affordable housing (date of vote 9th of February, 2020). The variable `titel_kurz_d` or `titel_kurz_f` contains the title of a vote (shorter version than the official title `titel_off_d` or `titel_off_f`). Please note that the letter `d` indicates the German title, while the letter `f` gives you the French title. 
 
 Since we don't know too much about the initiative we can read about it as well. First, we find the position in the data and then use the hyperlink provided to read in more detail about the vote.
 
