@@ -52,7 +52,7 @@ simvotes
 #extract names of correlated votes
 ballotnames <- federalvotes %>%
   dplyr::select(name, id, mun_id)%>%
-  filter(id%in%c(5800, sim_votes[1,1]))%>%
+  filter(id%in%c(5800, simvotes[1,1]))%>%
   distinct()
 
 #subset for correlated votes
