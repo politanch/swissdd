@@ -12,19 +12,13 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-#<img class="plain"  src="https://swissvotes.ch/static/images/logo.svg"/>
-#usethis::use_vignette("tolle_beispiele", "geiles zeug mit dem swissdd packe tun")
 ```
 
-## How to Use get Swissvotes Data
+### How to Use Swissvotes Data
 
-First, you have to make sure that your machine is connected to the internet. The function `get_swissvotes` fetches all data stored within the swissvotes database. Swissvotes offers one of the most comprehensive data platforms in relation to Swiss referendums an initiatives.
-
-![](https://swissvotes.ch/static/images/logo.svg)
-
+First, you have to make sure that your machine is connected to the internet. 
 
 ```{r echo=TRUE, warning=FALSE, message=FALSE}
-
 # installation from CRAN (stable)
 # install.packages("swissdd")
 # install.packages("dplyr")
@@ -36,10 +30,11 @@ Sys.setlocale('LC_ALL','C')
 
 library(swissdd)
 library(dplyr)
+
 ```
 
 
-By default, function extracts only the database provided by [Swissvotes](https://swissvotes.ch){target="_blank"}. However, you can specify that you want the codebook as well (or just the codebook for that matter). Additionally, there is a specification to save the citation. If you work with data from Swissvotes, we recommend to save the citation for later on.
+By default, function extracts only the database provided by [Swissvotes](https://swissvotes.ch){target="_blank"}. However, you can specify that you want the codebook as well (or just the codebook for that matter). Additionally, there is a specification to save the citation. If you work with data from Swissvotes, we recommend to save the citation.
 
 If you don't specify anything the function will be executed with the following specifications.
 
@@ -53,19 +48,20 @@ swissvotesDB <- get_swissvotes(DB=T, savecitation=F, codebook=F)
 swissvotesDB <- get_swissvotes()
 ```
 
-If you use the parameter `codebook=T` the function will download the data first and direct your browser automatically to the codebook. If you're only interested in the codebook (you accessed the data already, for example), set the parameter `DB` to `FALSE`. 
+If you use the parameter `codebook=T` the function will download the data and direct your browser automatically to the codebook. If you're only interested in the codebook (you accessed the data already, for example), set the parameter `DB` to `FALSE`. 
 
 Since we loaded the data already, there is no need to download it again.
 
 ```{r echo=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
+
 get_swissvotes(DB=F, codebook=T)
+
 ```
 
-For the sake of illustration, we are interested in the upcoming vote on affordable housing (date of vote 9th of February, 2020). The variable `titel_kurz_d` or `titel_kurz_f` contains the title of a vote (shorter version than the official title `titel_off_d` or `titel_off_f`). Please note that the letter `d` indicates the German title, while the letter `f` gives you the French title. 
-
-Since we don't know too much about the initiative we can read about it as well. First, we find the position in the data and then use the hyperlink provided to read in more detail about the vote.
+For illustration, we are interested in the upcoming vote on affordable housing (date of vote 9th of February, 2020). The variable `titel_kurz_d` or `titel_kurz_f` contains the title of a vote (shorter version than the official title `titel_off_d` or `titel_off_f`). Please note that the letter `d` indicates the German title, while the letter `f` gives you the French title. Since we don't know too much about the initiative we can read about it as well. First, we find the position in the data and then use the hyperlink provided to read about it.
 
 ```{r echo=TRUE, warning=FALSE, message=FALSE, eval=TRUE}
+
 #get position in dataset
 pos_ah <- grep("bezahlbare Wohnungen", swissvotesDB$titel_kurz_d)
 
