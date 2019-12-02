@@ -135,8 +135,35 @@
 <a href="#swissdd-1-0-1-9000" class="anchor"></a>swissdd 1.0.1.9000<small> Unreleased </small>
 </h1>
 <ul>
-<li>option to retrieve counting district level data (Winterthur &amp; Zürich) added</li>
+<li><p>option to retrieve counting district level data (Winterthur &amp; Zürich) added</p></li>
+<li>Added parent level ids to district and municipality level results (canton / district)</li>
+<li>New function that calculates correlations between votes added: <code><a href="../reference/similar_votes.html">similar_votes()</a></code>
+</li>
+<li>Better error handling with fallback if votedate information provided on opendata.swiss is corrupt</li>
+<li><p>Improved speed of data-retrieval. Comparison:</p></li>
 </ul>
+<p><code>system.time(get_swissvotes(to_date="1983-12-04")))</code></p>
+<p><strong>swissdd 1.0.0</strong></p>
+<p>user system elapsed</p>
+<p>3.120 0.276 64.693</p>
+<p><strong>swissdd 1.0.1</strong></p>
+<p>user system elapsed</p>
+<p>2.492 0.160 47.024</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>master</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
 </div>
   </div>
 

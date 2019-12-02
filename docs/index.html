@@ -97,7 +97,7 @@
 <a href="#the-swiss-direct-democracy-r-package" class="anchor"></a>the swiss direct democracy R package</h2>
 <p align="center">
 <img src="swissdd_sticker.png" alt="" width="100"></p>
-<p><code>swissdd</code> builds upon real time data service for federal and cantonal votes provided by the <strong>Federal Statistical Office</strong> via <a href="https://opendata.swiss/de/">opendata.swiss</a>. It brings the results of popular votes, aggregated at the geographical level of choice, straight into R. Available levels are</p>
+<p><code>swissdd</code> builds upon the real time data service for federal and cantonal votes provided by the <strong>Federal Statistical Office</strong> via <a href="https://opendata.swiss/de/">opendata.swiss</a>. It brings the results of popular votes, aggregated at the geographical level of choice, straight into R. Available levels are</p>
 <ul>
 <li>national</li>
 <li>cantons</li>
@@ -105,7 +105,11 @@
 <li>municipalities</li>
 </ul>
 <p>The package wraps the real time data on vote Sundays. As soon as the ballot close (from 12:00 on), the datastream is continuosly updated, until the data for all municipalities is complete and the final results are available. Additionally, it allows to access the archive and to retrieve the <em>harmonized</em> results of national votes since 1981.</p>
-<pre><code><a href="https://rdrr.io/pkg/devtools/man/reexports.html">devtools::install_github("politanch/swissdd")
+<pre><code><a href="https://rdrr.io/r/utils/install.packages.html"># installation from CRAN (stable)
+install.packages("swissdd")
+
+# installation from github (ongoing updates)
+devtools::install_github("politanch/swissdd")
 
 #realtimedata on vote-sundays or the data of the last votations
 federalvotes &lt;- get_nationalvotes(geolevel = "district")
@@ -124,7 +128,17 @@ cantonalvotes &lt;- get_cantonalvotes(votedates="2019-02-10", geolevel = "munici
 <p><img src="https://handbook.opendata.swiss/images/terms_by-ask.svg" alt="" width="12%"></p>
 <p><a href="https://opendata.swiss/de/dataset/echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen" class="uri">https://opendata.swiss/de/dataset/echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen</a></p>
 <p><a href="https://opendata.swiss/de/dataset/echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen" class="uri">https://opendata.swiss/de/dataset/echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen</a></p>
-<p>usethis::use_vignette(“test”,“test”)</p>
+</div>
+<div id="more-data-on-swiss-politics" class="section level2">
+<h2 class="hasAnchor">
+<a href="#more-data-on-swiss-politics" class="anchor"></a>More data on Swiss politics</h2>
+<ul>
+<li>
+<a href="https://digdemlab.io/">DigDemLab</a><br>
+</li>
+<li><a href="https://github.com/zumbov2/swissparl">swissparl</a></li>
+<li><a href="https://swissvotes.ch/">swissvotes</a></li>
+</ul>
 </div>
 </div>
 
@@ -159,7 +173,10 @@ cantonalvotes &lt;- get_cantonalvotes(votedates="2019-02-10", geolevel = "munici
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
+<li><a href="https://cran.r-project.org/package=swissdd"><img src="http://www.r-pkg.org/badges/version/swissdd" alt="CRAN_Status_Badge"></a></li>
 <li><a href="https://travis-ci.org/politanch/swissdd/"><img src="https://travis-ci.org/politanch/swissdd.svg?branch=master" alt="Build Status"></a></li>
+<li><a href="https://www.gnu.org/licenses/gpl-2.0.en.html"><img src="https://img.shields.io/badge/licence-GPL--2-blue.svg" alt="Licence"></a></li>
+<li><a href="http://cran.rstudio.com/web/packages/swissdd/index.html"><img src="https://cranlogs.r-pkg.org/badges/grand-total/swissdd" alt="cranlogs"></a></li>
 </ul>
 </div>
 </div>

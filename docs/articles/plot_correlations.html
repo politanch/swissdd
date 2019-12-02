@@ -98,13 +98,15 @@
 
     
     
-<div id="plot-voteshares-on-the-cantonal-level" class="section level3">
+<div id="what-other-votes-correlate-with-the-2014-vote-on-immigration-mei" class="section level3">
 <h3 class="hasAnchor">
-<a href="#plot-voteshares-on-the-cantonal-level" class="anchor"></a>plot voteshares on the cantonal level</h3>
+<a href="#what-other-votes-correlate-with-the-2014-vote-on-immigration-mei" class="anchor"></a>What Other Votes Correlate with the 2014 vote on immigration (mei)?</h3>
+<p>For the sake of illustration we are interested in the result of the 2014 vote on immigration for Swiss municipalities. The initiative was voted upon on 9th of February 2014. There are different ways to find this exact vote. One of them is using the information in the title. An other solution would be to look up the <code>id</code> provided by the FSO.</p>
+<p>First, we invoke the necessary packages and use the function <code>get_nationalvotes</code> to access the data. We further specify the unit of analysis as well as the range</p>
+<p>unique(federalvotes<span class="math inline">\(name[grep("Massen", federalvotes\)</span>name)])</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># installation from CRAN (stable)</span>
 <span class="co"># install.packages("swissdd")</span>
 <span class="co"># install.packages("dplyr")</span>
-
 
 <span class="co"># installation from github (ongoing updates)</span>
 <span class="co"># devtools::install_github("politanch/swissdd")</span>
@@ -115,11 +117,13 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyr)
 
 <span class="co">#get data from API for the 2010-2019 (feb) </span>
-federalvotes3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_nationalvotes.html">get_nationalvotes</a></span>(<span class="dt">geolevel =</span> <span class="st">"municipality"</span>, <span class="dt">from_date =</span> <span class="st">"2010-03-07"</span>, <span class="dt">to_date =</span> <span class="st">"2019-02-10"</span>)
+federalvotes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_nationalvotes.html">get_nationalvotes</a></span>(<span class="dt">geolevel =</span> <span class="st">"municipality"</span>, 
+                                  <span class="dt">from_date =</span> <span class="st">"2010-03-07"</span>, 
+                                  <span class="dt">to_date =</span> <span class="st">"2019-02-10"</span>)
 
 <span class="co">#get correlations for votes on municipal level with mei</span>
-sim_votes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/similar_votes.html">similar_votes</a></span>(federalvotes3, <span class="dt">id=</span><span class="dv">5800</span>, <span class="dt">from=</span>.<span class="dv">4</span>, <span class="dt">to=</span>.<span class="dv">6</span>)
-sim_votes
+simvotes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/similar_votes.html">similar_votes</a></span>(federalvotes, <span class="dt">id=</span><span class="dv">5800</span>, <span class="dt">from=</span>.<span class="dv">4</span>, <span class="dt">to=</span>.<span class="dv">6</span>)
+simvotes
 <span class="co">#&gt; # A tibble: 3 x 2</span>
 <span class="co">#&gt;   id    correlation</span>
 <span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;</span>
@@ -128,15 +132,14 @@ sim_votes
 <span class="co">#&gt; 3 5960        0.443</span>
 
 <span class="co">#extract names of correlated votes</span>
-ballotnames &lt;-<span class="st"> </span>federalvotes3 <span class="op">%&gt;%</span>
+ballotnames &lt;-<span class="st"> </span>federalvotes <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(name, id, mun_id)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(id<span class="op">%in%</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">5800</span>, sim_votes[<span class="dv">1</span>,<span class="dv">1</span>]))<span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(id<span class="op">%in%</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">5800</span>, simvotes[<span class="dv">1</span>,<span class="dv">1</span>]))<span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span>()
 
-
 <span class="co">#subset for correlated votes</span>
-corrvotes &lt;-<span class="st"> </span>federalvotes3 <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(id<span class="op">%in%</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">5800</span>, sim_votes[<span class="dv">1</span>,<span class="dv">1</span>]))<span class="op">%&gt;%</span>
+corrvotes &lt;-<span class="st"> </span>federalvotes <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(id<span class="op">%in%</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">5800</span>, simvotes[<span class="dv">1</span>,<span class="dv">1</span>]))<span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(id, jaStimmenInProzent, mun_id)<span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">id=</span><span class="kw"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(id))
 

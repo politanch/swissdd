@@ -168,11 +168,12 @@
     <pre class="examples"><div class='input'> <span class='co'># \donttest{</span>
 
 <span class='co'># transform the json of the most recent vote</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>swiss_json_to_dfr</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown or uninitialised column: 'schweiz'.</span></div><div class='input'>
+<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>swiss_json_to_dfr</span>()
+
 <span class='fu'>glimpse</span>(<span class='no'>results</span>)</div><div class='output co'>#&gt; <span class='error'>Error in glimpse(results): could not find function "glimpse"</span></div><div class='input'>
 <span class='co'># transform the json of a selected votedate</span>
 
-<span class='fu'>swiss_json_to_dfr</span>(<span class='kw'>votedate</span> <span class='kw'>=</span> <span class='st'>"2019-02-10"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown or uninitialised column: 'schweiz'.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2,218 x 15</span><span>
+<span class='fu'>swiss_json_to_dfr</span>(<span class='kw'>votedate</span> <span class='kw'>=</span> <span class='st'>"2019-02-10"</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2,218 x 15</span><span>
 #&gt;    name     id canton_id canton_name mun_id mun_name district_id
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      
 #&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Volk…  </span><span style='text-decoration: underline;'>6</span><span>260 1         Zürich      1      Aeugst … 101        
