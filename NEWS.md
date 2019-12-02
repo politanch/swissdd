@@ -1,4 +1,8 @@
-# swissdd 1.0.1
+# swissdd (development version)
+
+# swissdd 1.0.1.9000
+
+* option to retrieve counting district level data (Winterthur & Zürich) added
 
 * Added parent level ids to district and municipality level results (canton / district)
 * New function that calculates correlations between votes added: `similar_votes()`
@@ -19,3 +23,4 @@ user  system elapsed
 
 2.492   0.160  47.024 
   
+>>>>>>> master

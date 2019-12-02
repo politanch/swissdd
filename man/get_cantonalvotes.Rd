@@ -8,7 +8,7 @@ get_cantonalvotes(geolevel = "municipality", votedates = NULL,
   from_date = NULL, to_date = NULL)
 }
 \arguments{
-\item{geolevel}{geographical level for which the results should be loaded.  options: "canton", "district" or "municipality"}
+\item{geolevel}{geographical level for which the results should be loaded.  options: "canton", "district","municipality" or "zh_counting_districts"}
 
 \item{votedates}{dates of the ballots to be selected. Default: most recent ballot available. Format = "YYYY-MM-DD"}
 
@@ -36,6 +36,10 @@ results <-get_cantonalvotes(geolevel="district",from_date = 20180101,to_date=201
  get_cantonalvotes(votedates="2019-02-10")
 
 glimpse(results)
+
+# get the results at counting district level
+# yields the same result as the municipality level, with the exception of Winterthur and Zurich, where detailed counting district results are returned
+get_cantonalvotes(votedate="2019-09-22",geolevel = "zh_counting_districts")
 
 
 }

@@ -4,8 +4,8 @@
 ^\.travis\.yml$
 ^.*\.txt$
 ^README\.md$
-^README\.Rmd$
 ^NEWS\.md$
 ^tests$
 ^cran-comments\.md$
 ^CRAN-RELEASE$
+^docs$
