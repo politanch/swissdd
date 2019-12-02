@@ -44,6 +44,12 @@ get_nationalvotes <- function(geolevel = "municipality",votedates=NULL,from_date
   if(!is.list(urls)) {message("The Opendata.swiss DCAT Power API does not respond. Do you have internet-connection and an open proxy?")}
 
   
+  urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen")
+  # 
+  # #Message if opendata.swiss API does not respond properly
+  if(!is.list(urls)) {message("The Opendata.swiss DCAT Power API does not respond. Do you have internet-connection and an open proxy?")}
+
+  
   # when either range or dates are selected -> defaul value 
   if(is.null(from_date) &  is.null(to_date) & is.null(votedates)) {
     
