@@ -6,9 +6,11 @@
 # swissdd
 
 ## the swiss direct democracy R package
+
 <p align="center">
 <img src="https://raw.githubusercontent.com/politanch/swissdd/dev/swissdd_sticker.png" alt="" width="100"/>
 </p>
+
 
 `swissdd` builds upon real time data service for federal and cantonal votes provided by the __Federal Statistical Office__ via [opendata.swiss](https://opendata.swiss/de/). It brings the results of popular votes, aggregated at the geographical level of choice, straight into R. Available levels are 
 
@@ -52,3 +54,4 @@ https://opendata.swiss/de/dataset/echtzeitdaten-am-abstimmungstag-zu-kantonalen-
 ## More data on Swiss politics 
 - [DigDemLab](https://digdemlab.io/)  
 - [swissparl](https://github.com/zumbov2/swissparl)
+- [swissvotes](https://swissvotes.ch/)
