@@ -1,11 +1,11 @@
 #' Get national results and counting status for selected dates or a given period
 #'
-#' \code{get_swissvotes} is one of the two main functions of swissvote package. It allows to retrieve the results and the counting status for national ballots.
+#' \code{get_nationalvotes} is one of the two main functions of swissvote package. It allows to retrieve the results and the counting status for national ballots.
 #'
-#'   get_swissvotes - retrieve vote results for national ballots at district- or municipality level for selected dates or a given date range.
+#'   get_nationalvotes - retrieve vote results for national ballots at district- or municipality level for selected dates or a given date range.
 #'
 #' @param votedates dates of the ballots to be selected. Default: most recent ballot available. Format = "YYYY-MM-DD"
-#' @param geolevel geographical level for which the results should be loaded. options:  options: "national", "canton", "district" or "municipality"
+#' @param geolevel geographical level for which the results should be loaded. options:  options: "national", "canton", "district", "municipality" or "zh_counting_districts"
 #' @param from_date starting point in time from which vote-results should be retrived. Format = "YYYY-MM-DD"
 #' @param to_date end point in time to which vote-results should be retrived. Format = "YYYY-MM-DD"
 #' @importFrom purrr map_dfr
@@ -15,28 +15,42 @@
 #' @importFrom dplyr mutate
 #' @importFrom tidyr unnest
 #' @export
-#' @rdname get_swissvotes
+#' @rdname get_nationalvotes
 #' @return a tibble containing the results
 #' @examples
 #'  \donttest{
-# results <-get_swissvotes(geolevel="district",from_date = "2018-01-01",to_date="2018-12-31")
+# results <-get_nationalvotes(geolevel="district",from_date = "2018-01-01",to_date="2018-12-31")
 #' 
 #' # Selection by enddate only
-#'  get_swissvotes(to_date="1983-12-04")
+#'  get_nationalvotes(to_date="1983-12-04")
 #'  
 #' 
 #'  # Selection of a specific votedate
-#'  get_swissvotes(votedates="2014-02-09")
+#'  get_nationalvotes(votedates="2014-02-09")
 #'
 #'glimpse(results)
+#'
+#' 
 #'
 #'
 #' }
 #'
 
-get_swissvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NULL,to_date=NULL){
+get_nationalvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NULL,to_date=NULL){
   
-  # when either range or dates are selected -> default value 
+  urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen")
+  # 
+  # #Message if opendata.swiss API does not respond properly
+  if(!is.list(urls)) {message("The Opendata.swiss DCAT Power API does not respond. Do you have internet-connection and an open proxy?")}
+
+  
+  urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen")
+  # 
+  # #Message if opendata.swiss API does not respond properly
+  if(!is.list(urls)) {message("The Opendata.swiss DCAT Power API does not respond. Do you have internet-connection and an open proxy?")}
+
+  
+  # when either range or dates are selected -> defaul value 
   if(is.null(from_date) &  is.null(to_date) & is.null(votedates)) {
     
     #retrieve available dates
@@ -73,7 +87,7 @@ get_swissvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NU
   if(!is.null(to_date)) dates <- dates[dates<=to_date]
 
  #iterate over dates and create dataframe
-votedata <- purrr::map_dfr(dates, ~get_swissvotes_stream(votedate = .x,geolevel=geolevel) %>% dplyr::mutate(votedate=.x))
+votedata <- purrr::map_dfr(dates, ~swiss_json_to_dfr(votedate = .x, geolevel=geolevel,dataurl=urls) %>% dplyr::mutate(votedate=.x))
 
 votedata
 
@@ -87,7 +101,7 @@ votedata
 #'   get_cantonalvotes - retrieve vote results for cantonal ballots at district- or municipality level for selected dates or a given date range.
 #'
 #' @param votedates dates of the ballots to be selected. Default: most recent ballot available. Format = "YYYY-MM-DD"
-#' @param geolevel geographical level for which the results should be loaded.  options: "canton", "district" or "municipality"
+#' @param geolevel geographical level for which the results should be loaded.  options: "canton", "district","municipality" or "zh_counting_districts"
 #' @param from_date starting point in time from which vote-results should be retrived. Format = "YYYY-MM-DD"
 #' @param to_date end point in time to which vote-results should be retrived. Format = "YYYY-MM-DD"
 #' @importFrom purrr map_dfr
@@ -98,7 +112,6 @@ votedata
 #' @importFrom tidyr unnest
 #' @export
 #' @rdname get_cantonalvotes
-#' @details placeholder
 #' @return a tibble containing the results
 #' @examples
 #'  \donttest{
@@ -112,14 +125,24 @@ votedata
 #'
 #'glimpse(results)
 #'
+#' # get the results at counting district level
+#' # yields the same result as the municipality level, with the exception of Winterthur and Zurich, where detailed counting district results are returned
+#' get_cantonalvotes(votedate="2019-09-22",geolevel = "zh_counting_districts")
+#'
 #'
 #' }
 #'
 
 get_cantonalvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NULL,to_date=NULL){
   
+  # anpassen
+  urls <- jsonlite::fromJSON("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen")
   
-  # when either range or dates are selected -> defaul value = max date
+  #Message if opendata.swiss API does not respond properly
+  if(!is.list(urls)) {message("The Opendata.swiss DCAT Power API does not respond. Do you have internet-connection and an open proxy?")}
+  
+  
+  # when either range or dates are selected -> default value = max date
   if(is.null(from_date) &  is.null(to_date)&is.null(votedates)) {
     
     #retrieve available dates
@@ -155,7 +178,7 @@ get_cantonalvotes <- function(geolevel = "municipality",votedates=NULL,from_date
   if(!is.null(to_date)) dates <- dates[dates<=to_date]
   
   #iterate over dates and create dataframe - add votedate column?
-  votedata <- purrr::map_dfr(dates, ~get_cantonalvotes_stream(votedate = .x,geolevel=geolevel) %>% dplyr::mutate(votedate=.x))
+  votedata <- purrr::map_dfr(dates, ~canton_json_to_dfr(votedate = .x,geolevel=geolevel,urls) %>% dplyr::mutate(votedate=.x))
   
   votedata
   

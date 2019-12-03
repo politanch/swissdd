@@ -1,0 +1,8 @@
+pandoc: 1.19.2.1
+pkgdown: 1.4.1
+pkgdown_sha: ~
+articles:
+  plot_correlations: plot_correlations.html
+  plot_voteshares: plot_voteshares.html
+  use_SwissvotesDB: use_SwissvotesDB.html
+

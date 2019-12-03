@@ -7,10 +7,10 @@
 
 ## the swiss direct democracy R package
 <p align="center">
-<img src="https://raw.githubusercontent.com/politanch/swissdd/dev/swissdd_sticker.png" alt="" width="100"/>
+<img src="swissdd_sticker.png" alt="" width="100"/>
 </p>
 
-`swissdd` builds upon real time data service for federal and cantonal votes provided by the __Federal Statistical Office__ via [opendata.swiss](https://opendata.swiss/de/). It brings the results of popular votes, aggregated at the geographical level of choice, straight into R. Available levels are 
+`swissdd` builds upon the real time data service for federal and cantonal votes provided by the __Federal Statistical Office__ via [opendata.swiss](https://opendata.swiss/de/). It brings the results of popular votes, aggregated at the geographical level of choice, straight into R. Available levels are 
 
 * national
 * cantons
@@ -20,20 +20,20 @@
 The package wraps the real time data on vote Sundays. As soon as the ballot close (from 12:00 on), the datastream is continuosly updated, until the data for all municipalities is complete and the final results are available. Additionally, it allows to access the archive and to retrieve the *harmonized* results of national votes since 1981.
 
 ```
-# Version 1.0.0 can be installed from CRAN (stable)
+# installation from CRAN (stable)
 install.packages("swissdd")
 
-# Alternative: installation from github (ongoing updates)
+# installation from github (ongoing updates)
 devtools::install_github("politanch/swissdd")
 
 #realtimedata on vote-sundays or the data of the last votations
-federalvotes <- get_swissvotes_stream(geolevel = "district")
+federalvotes <- get_nationalvotes(geolevel = "district")
 
 #retrieve data for many votes from the archive, either by selecting indiviual dates...
-federalvotes <- get_swissvotes(votedates=c("2019-02-10","1984-09-23"), geolevel = "district")
+federalvotes <- get_nationalvotes(votedates=c("2019-02-10","1984-09-23"), geolevel = "district")
 
 #... or defining a range.
-federalvotes <- get_swissvotes(from_date="2017-01-01",to_date="2018-01-01", geolevel = "district")
+federalvotes <- get_nationalvotes(from_date="2017-01-01",to_date="2018-01-01", geolevel = "district")
 
 # the results of cantonal votes are also available (2019-)
 
@@ -53,4 +53,7 @@ https://opendata.swiss/de/dataset/echtzeitdaten-am-abstimmungstag-zu-kantonalen-
 - [DigDemLab](https://digdemlab.io/)  
 - [swissparl](https://github.com/zumbov2/swissparl)
 - [swissvotes](https://swissvotes.ch/)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 58d3a6b3ecde325fbd733e56a89bdfae8a9ae558
