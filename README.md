@@ -53,7 +53,13 @@ https://opendata.swiss/de/dataset/echtzeitdaten-am-abstimmungstag-zu-kantonalen-
 - [DigDemLab](https://digdemlab.io/)  
 - [swissparl](https://github.com/zumbov2/swissparl)
 - [swissvotes](https://swissvotes.ch/)
-<<<<<<< HEAD
 
-=======
->>>>>>> 58d3a6b3ecde325fbd733e56a89bdfae8a9ae558
+## Buy us a coffee
+
+`swissdd` is an open source project, developed by us. If `swissdd` is useful to you, consider buying us a coffee, a beer or making a monthly donation so we can keep building great free software.
+
+
+<a href="https://www.buymeacoffee.com/politanch" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/arial-orange.png" alt="Buy us A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
+
+
+
