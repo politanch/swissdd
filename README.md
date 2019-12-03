@@ -8,7 +8,7 @@
 ## the swiss direct democracy R package
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/politanch/swissdd/dev/swissdd_sticker.png" alt="" width="100"/>
+<img src="https://github.com/politanch/swissdd/blob/master/docs/swissdd_sticker.png" alt="" width="100"/>
 </p>
 
 
