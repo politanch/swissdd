@@ -59,7 +59,7 @@ https://opendata.swiss/de/dataset/echtzeitdaten-am-abstimmungstag-zu-kantonalen-
 `swissdd` is an open source project, developed by us. If `swissdd` is useful to you, consider buying us a coffee, a beer or making a monthly donation so we can keep building great free software.
 
 
-<a href="https://www.buymeacoffee.com/politanch" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/arial-orange.png" alt="Buy us A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
+<a href="https://www.buymeacoffee.com/politanch" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/arial-orange.png" alt="Buy us A Coffee" style="height: 34px !important;width: 144.6667px !important;" ></a>
 
 
 
