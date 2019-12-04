@@ -30,12 +30,12 @@
 get_swissvotes <- function(DB=T, savecitation=F, codebook=F){
 
   if(DB){
-    swissvotesDB <- read.csv("https://swissvotes.ch/storage/7a811d141834e316aaae398bc298fcf46946777def27830fce919f67a28d48ee",
+    swissvotesDB <- utils::read.csv("https://swissvotes.ch/storage/7a811d141834e316aaae398bc298fcf46946777def27830fce919f67a28d48ee",
                              sep=";", stringsAsFactors = F)
   }
 
 
-  if(codebook) browseURL("https://swissvotes.ch/storage/3ea287c640534b5ba9c483a6a8a4aa7eee4adf40c9ef85ea68b12d3384cb9cac")
+  if(codebook) utils::browseURL("https://swissvotes.ch/storage/3ea287c640534b5ba9c483a6a8a4aa7eee4adf40c9ef85ea68b12d3384cb9cac")
 
 
   if(DB) {
@@ -63,19 +63,17 @@ get_swissvotes <- function(DB=T, savecitation=F, codebook=F){
       }"
 
 
-      write.table(hb, "swissvotes.txt", col.names=F, row.names=F, quote=F)
+      utils::write.table(hb, "swissvotes.txt", col.names=F, row.names=F, quote=F)
 
     }
 
     #change id of ballot according swissdd codebook.
 
     swissvotesDB <- swissvotesDB %>%
-      mutate(anr = as.numeric(anr)*10)
+      dplyr::mutate(anr = as.numeric(anr)*10)
 
     return(swissvotesDB)
 
   }
 
 }
-
-
