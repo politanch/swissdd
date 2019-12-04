@@ -59,6 +59,14 @@ pre {
   background-color: #FF6B00;
 }
 
+.navbar-default .navbar-nav>li>a {
+ color:#fff;
+}
+
+.navbar-default .navbar-link {
+ color:#fff
+}
+
 .label-default {
     background-color: #293c55;
 }
