@@ -1,6 +1,8 @@
-# swissdd (development version)
-
 # swissdd 1.0.1.9000
+
+* Functions renamed (_*breaking change*_): to retrieve real time or archive results data at the level of choice, the function `get_nationalvotes` must be used. `get_swissvotes` is turned into the function that allows to get Swissvotes-Data.
+
+* New function that allows to retrieve Swissvotes-Data added
 
 * option to retrieve counting district level data (Winterthur & Zürich) added
 
@@ -22,5 +24,3 @@ __swissdd 1.0.1__
 user  system elapsed 
 
 2.492   0.160  47.024 
-  
->>>>>>> master

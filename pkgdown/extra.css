@@ -55,8 +55,12 @@ pre {
 }
 
 .navbar-default{
-  border-color: #FF6B00;
+  border-color: #293c55;
   background-color: #FF6B00;
+}
+
+.label-default {
+    background-color: #293c55;
 }
 
 .navbar-default .navbar-nav > .active > a,
@@ -68,13 +72,26 @@ pre {
 
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-    color: #435b7b;
+    color: #FF5400;
 }
 
  .navbar-default .navbar-nav .open .dropdown-menu>li>a, .navbar-default .navbar-nav .open .dropdown-menu {
   border-color: #FFFFFF;
   background-color: #293c55;
   color : #FF6B00;
+}
+
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: #293c55;
+    background-color: #FF6B00;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+
+    background-color: #293c55;
+    color: #ffffff;
+
 }
 
 .navbar-default .navbar-nav > .dropdown > a .caret {

@@ -11,7 +11,7 @@
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/lumen/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -135,16 +135,13 @@
       <small>Source: <a href='https://github.com/politanch/swissdd/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="swissdd-development-version" class="section level1">
-<h1 class="page-header">
-<a href="#swissdd-development-version" class="anchor"></a>swissdd (development version)<small> Unreleased </small>
-</h1>
-</div>
     <div id="swissdd-1-0-1-9000" class="section level1">
 <h1 class="page-header">
 <a href="#swissdd-1-0-1-9000" class="anchor"></a>swissdd 1.0.1.9000<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>Functions renamed (<em><em>breaking change</em></em>): to retrieve real time or archive results data at the level of choice, the function <code>get_nationalvotes</code> must be used. <code>get_swissvotes</code> is turned into the function that allows to get Swissvotes-Data.</p></li>
+<li><p>New function that allows to retrieve Swissvotes-Data added</p></li>
 <li><p>option to retrieve counting district level data (Winterthur &amp; Zürich) added</p></li>
 <li>Added parent level ids to district and municipality level results (canton / district)</li>
 <li>New function that calculates correlations between votes added: <code><a href="../reference/similar_votes.html">similar_votes()</a></code>
@@ -159,21 +156,6 @@
 <p><strong>swissdd 1.0.1</strong></p>
 <p>user system elapsed</p>
 <p>2.492 0.160 47.024</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>master</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
 </div>
   </div>
 
@@ -181,7 +163,6 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#swissdd-development-version">development version</a></li>
         <li><a href="#swissdd-1-0-1-9000">1.0.1.9000</a></li>
       </ul>
     </div>

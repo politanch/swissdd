@@ -1,5 +1,5 @@
 template:
   path: pkgdown/templates
   params:
-    bootswatch: cosmo
+    bootswatch: lumen
     
