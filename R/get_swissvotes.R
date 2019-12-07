@@ -77,3 +77,6 @@ get_swissvotes <- function(DB=T, savecitation=F, codebook=F){
   }
 
 }
+
+#identify non ASCII chars 
+# tools::showNonASCII()
