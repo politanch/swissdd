@@ -93,11 +93,10 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-
-
 <div id="swissdd" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#swissdd" class="anchor"></a>swissdd</h1></div>
+
 <div id="the-swiss-direct-democracy-r-package" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-swiss-direct-democracy-r-package" class="anchor"></a>the swiss direct democracy R package</h2>
@@ -111,6 +110,7 @@
 <li>municipalities</li>
 </ul>
 <p>The package wraps the real time data on vote Sundays. As soon as the ballot close (from 12:00 on), the datastream is continuosly updated, until the data for all municipalities is complete and the final results are available. Additionally, it allows to access the archive and to retrieve the <em>harmonized</em> results of national votes since 1981.</p>
+<p>It also allows to retrieve data from the <a href="https://swissvotes.ch/page/home">swissvotes-database</a>, the most comprehensive database on swiss popular votes.</p>
 <pre><code><a href="https://rdrr.io/r/utils/install.packages.html"># installation from CRAN (stable)
 install.packages("swissdd")
 
@@ -128,9 +128,8 @@ federalvotes &lt;- get_nationalvotes(from_date="2017-01-01",to_date="2018-01-01"
 
 # the results of cantonal votes are also available (2019-)
 
-cantonalvotes &lt;- get_cantonalvotes(votedates="2019-02-10", geolevel = "municipality")
-</a></code></pre>
-<p>The webservice is documented on opendata.swiss (language settings can be found at the bottom of the page):</p>
+cantonalvotes &lt;- get_cantonalvotes(votedates="2019-02-10", geolevel = "municipality")</a></code></pre>
+<p>The webservice of the federal statistical office is documented on opendata.swiss (language settings can be found at the bottom of the page):</p>
 <p><img src="https://handbook.opendata.swiss/images/terms_by-ask.svg" alt="" width="12%"></p>
 <p><a href="https://opendata.swiss/de/dataset/echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen" class="uri">https://opendata.swiss/de/dataset/echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen</a></p>
 <p><a href="https://opendata.swiss/de/dataset/echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen" class="uri">https://opendata.swiss/de/dataset/echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen</a></p>
@@ -146,13 +145,7 @@ cantonalvotes &lt;- get_cantonalvotes(votedates="2019-02-10", geolevel = "munici
 <li><a href="https://swissvotes.ch/">swissvotes</a></li>
 </ul>
 </div>
-<div id="buy-us-a-coffee" class="section level2">
-<h2 class="hasAnchor">
-<a href="#buy-us-a-coffee" class="anchor"></a>Buy us a coffee</h2>
-<p><code>swissdd</code> is an open source project, developed by us. If <code>swissdd</code> is useful to you, consider buying us a coffee, a beer or making a monthly donation so we can keep building great free software.</p>
 </div>
-</div>
-
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
