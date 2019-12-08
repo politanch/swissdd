@@ -19,7 +19,15 @@
 
 The package wraps the real time data on vote Sundays. As soon as the ballot close (from 12:00 on), the datastream is continuosly updated, until the data for all municipalities is complete and the final results are available. Additionally, it allows to access the archive and to retrieve the *harmonized* results of national votes since 1981.
 
-It also allows to retrieve data from the [swissvotes-database](https://swissvotes.ch/page/home), the most  comprehensive database on swiss popular votes.
+The recent development version available via github also allows to retrieve data from the [swissvotes-database](https://swissvotes.ch/page/home), the most  comprehensive database on swiss popular votes. Due to the integration of this additional data source there is a __breaking change__: 
+
+1. The `get_swissvotes`-function has been modified in its use. It now allows to retrieve the data from the [swissvotes-database](https://swissvotes.ch/page/home).
+
+2. Instead, real-time and archive-data from opendata.swiss can now instead be loaded with the 'new' `get_nationalvotes`-function.
+
+
+At the moment, these changes affect only the development version available on github. They will be rolled out to the CRAN version in the next update.
+
 
 ```
 # installation from CRAN (stable)
