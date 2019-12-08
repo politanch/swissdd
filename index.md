@@ -23,7 +23,7 @@ The recent development version available via github also allows to retrieve data
 
 1. The `get_swissvotes`-function has been modified in its use. It now allows to retrieve the data from the [swissvotes-database](https://swissvotes.ch/page/home).
 
-2. Instead, real-time and archive-data from opendata.swiss can now instead be loaded with the 'new' `get_nationalvotes`-function.
+2. Real-time and archive-data from [opendata.swiss](https://opendata.swiss/de/) can now instead be loaded with the 'new' `get_nationalvotes`-function.
 
 
 At the moment, these changes affect only the development version available on github. They will be rolled out to the CRAN version in the next update.
