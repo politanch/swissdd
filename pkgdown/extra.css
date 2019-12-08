@@ -91,7 +91,7 @@ pre {
 
 
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-    color: #dce6f2;
+    color: #293c55;
     background-color: #FF6B00;
 }
 
@@ -118,7 +118,7 @@ pre {
 
 .navbar-default .navbar-nav .open .dropdown-menu>li>a:hover,
 .navbar-default .navbar-nav .open .dropdown-menu{
-  color: #293c55;
+  color: #dce6f2;
 }
 
 .nav-pills>li.active>a,
