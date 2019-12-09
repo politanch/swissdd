@@ -131,3 +131,9 @@ pre {
 a:hover, a:focus {
   color: #293c55;
 }
+
+/*fix to move article titles below nav bar*/
+
+.contents .page-header {
+    margin-top: calc(60px + 1em);
+}
