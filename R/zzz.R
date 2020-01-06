@@ -3,12 +3,15 @@
 .onAttach <- function(lib, pkg)
 {
   packageStartupMessage('**************************************************************')
-  packageStartupMessage('*                          swissdd 1.0.1.9000                   *')
+  packageStartupMessage('*                          swissdd 1.0.1.9000                *')
   packageStartupMessage('*                     provided by politan.ch                 *')
   packageStartupMessage('*                                                            *')
+  packageStartupMessage('*                            Data sources:                   *')
+  packageStartupMessage('*                      Federal Statistical Office            *')
+  packageStartupMessage('*                       https://www.bfs.admin.ch/            *')
   packageStartupMessage('*                                                            *')
-  packageStartupMessage('*           Data source: Federal Statistical Office          *')
-  packageStartupMessage('*                   https://www.bfs.admin.ch/                *')
+  packageStartupMessage('*               Annee Politique Suisse, Universitaet Bern     *')
+  packageStartupMessage('*                          https://swissvotes.ch/            *')
   packageStartupMessage('*                                                            *')
   packageStartupMessage('**************************************************************')
 }

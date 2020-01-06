@@ -38,7 +38,10 @@ results <-get_cantonalvotes(geolevel="district",from_date = 20180101,to_date=201
 glimpse(results)
 
 # get the results at counting district level
-# yields the same result as the municipality level, with the exception of Winterthur and Zurich, where detailed counting district results are returned
+# yields the same result as the municipality level, with the 
+# exception of Winterthur and Zurich,
+# where detailed counting district results are returned instead.
+
 get_cantonalvotes(votedate="2019-09-22",geolevel = "zh_counting_districts")
 
 

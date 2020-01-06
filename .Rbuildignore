@@ -8,8 +8,8 @@
 ^index\.Rmd$
 ^index\.md$
 ^tests$
-^vignettes$
 ^pkgdown$
 ^cran-comments\.md$
 ^CRAN-RELEASE$
 ^docs$
+^vignettes$
