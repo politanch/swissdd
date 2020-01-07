@@ -30,7 +30,7 @@
 get_swissvotes <- function(DB=T, savecitation=F, codebook=F){
 
   if(DB){
-    swissvotesDB <- utils::read.csv("https://swissvotes.ch/storage/d60d2d46aa7076f24df255dbad778b335162271bb37f209551ad4e372f8ff130",
+    swissvotesDB <- utils::read.csv("https://swissvotes.ch/page/dataset/swissvotes_dataset.csv",
                              sep=";", stringsAsFactors = F)
   }
 
