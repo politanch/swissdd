@@ -75,7 +75,7 @@ plot1 <- ggplot(swissvotesDB, aes(x=nr_yesshare, y= yesshare))+
 plot1
 ```
 
-
+There seems to be a positive correlation (what a surprise!)... In a next step we estimate a very basic model and then predict the vote shares for the two national votes on February 9th, 2020. In order to do so, we split the data into a training set and a prediction set.
 
 ```{r echo=TRUE, warning=FALSE, message=FALSE, eval=TRUE}
 #split data
@@ -88,6 +88,11 @@ fit_m1 <- lm(yesshare ~ nr_yesshare, data=estimation_data)
 #predict
 prediction <- predict(fit_m1, newdata = prediction_data, interval="predict") %>% as.data.frame
 prediction$bfsnr <- c(6290, 6300)
+```
+
+We can now plot the predictions for the two ballots. Note that it is crucial to correctly report uncertainty, hence, we have to include the prediction interval as well. 
+
+```{r echo=TRUE, warning=FALSE, message=FALSE, eval=TRUE}
 
 ggplot(prediction, aes(x=as.factor(bfsnr), y=fit, ymin=lwr, ymax=upr))+
   geom_pointrange(aes(color="#FF6B00"))+
