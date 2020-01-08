@@ -43,7 +43,7 @@ By default, function extracts only the database provided by [Swissvotes](https:/
 
 First, we extract data from the database and select the variables we need to create our prediction. For some reason we might assume that the National Council represents the people. It this is the case, it should be reflected in a similar pattern in yes shares in the National Council and later on in the actual yes share of a popular vote. 
 
-## 2. Exploratory Analysis : is our assumption acurate?
+## 2. Exploratory Analysis : is our assumption accurate?
 
 After downloading and preparing the data, we calculate the share of yes votes in the National Council and create a scatterplot to inspect if our intuition about the relationship can be seen in the data.
 

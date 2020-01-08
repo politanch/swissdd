@@ -69,7 +69,7 @@
       <a href="../articles/plot_correlations.html">Find and plot correlated vote results</a>
     </li>
     <li>
-      <a href="../articles/plot_voteshares.html">Plot Vote Shares</a>
+      <a href="../articles/plot_voteshares.html">Plot vote shares</a>
     </li>
     <li>
       <a href="../articles/predict_voteshare.html">Predict vote shares</a>
@@ -135,9 +135,9 @@
 <p>By default, function extracts only the database provided by <a href="https://swissvotes.ch" target="_blank">Swissvotes</a>. However, you can specify that you want the codebook as well (or just the codebook for that matter). Additionally, there is a specification to save the citation. If you work with data from Swissvotes, please cite the data accordingly.</p>
 <p>First, we extract data from the database and select the variables we need to create our prediction. For some reason we might assume that the National Council represents the people. It this is the case, it should be reflected in a similar pattern in yes shares in the National Council and later on in the actual yes share of a popular vote.</p>
 </div>
-<div id="exploratory-analysis-is-our-assumption-acurate" class="section level2">
+<div id="exploratory-analysis-is-our-assumption-accurate" class="section level2">
 <h2 class="hasAnchor">
-<a href="#exploratory-analysis-is-our-assumption-acurate" class="anchor"></a>2. Exploratory Analysis : is our assumption acurate?</h2>
+<a href="#exploratory-analysis-is-our-assumption-accurate" class="anchor"></a>2. Exploratory Analysis : is our assumption accurate?</h2>
 <p>After downloading and preparing the data, we calculate the share of yes votes in the National Council and create a scatterplot to inspect if our intuition about the relationship can be seen in the data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#extract data from database</span>
 swissvotesDB &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_swissvotes.html">get_swissvotes</a></span>(<span class="dt">DB=</span>T, <span class="dt">savecitation=</span>F, <span class="dt">codebook=</span>F) <span class="op">%&gt;%</span>
@@ -224,7 +224,7 @@ plot1 <span class="op">+</span><span class="st"> </span><span class="kw"><a href
 <li>
 <a href="#predicting-vote-outcomes-with-data">Predicting vote outcomes with <img src="https://swissvotes.ch/static/images/logo.svg" width="120"> Data</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#retrieve-and-prepare-the-data">1. Retrieve and prepare the data</a></li>
-      <li><a href="#exploratory-analysis-is-our-assumption-acurate">2. Exploratory Analysis : is our assumption acurate?</a></li>
+      <li><a href="#exploratory-analysis-is-our-assumption-accurate">2. Exploratory Analysis : is our assumption accurate?</a></li>
       <li><a href="#predict-the-otucome-of-the-upcoming-votes">3. Predict the otucome of the upcoming votes</a></li>
       </ul>
 </li>
