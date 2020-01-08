@@ -1,5 +1,5 @@
 ---
-title: "Plot Vote Shares"
+title: "Plot vote shares"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Plot Vote Shares}
