@@ -10,7 +10,7 @@
   packageStartupMessage('*                      Federal Statistical Office            *')
   packageStartupMessage('*                       https://www.bfs.admin.ch/            *')
   packageStartupMessage('*                                                            *')
-  packageStartupMessage('*               Annee Politique Suisse, Universitaet Bern     *')
+  packageStartupMessage('*                              Swissvotes                    *')
   packageStartupMessage('*                          https://swissvotes.ch/            *')
   packageStartupMessage('*                                                            *')
   packageStartupMessage('**************************************************************')
