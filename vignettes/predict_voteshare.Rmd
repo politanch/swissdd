@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 #usethis::use_vignette("tolle_beispiele", "geiles zeug mit dem swissdd packe tun")
 ```
 
-# Predicting vote outcomes with ![](https://swissvotes.ch/static/images/logo.svg){width=120px} Data
+# Predict vote outcomes with ![](https://swissvotes.ch/static/images/logo.svg){width=120px} Data
 
 This blogpost shows how to perform a simple prediction of vote outcomes based on Swissvotes data in just a few steps.
 
@@ -36,18 +36,7 @@ First, you have to make sure that your machine is connected to the internet. The
 library(swissdd)
 library(dplyr)
 library(ggplot2)
-```
 
-
-By default, function extracts only the database provided by [Swissvotes](https://swissvotes.ch){target="_blank"}. However, you can specify that you want the codebook as well (or just the codebook for that matter). Additionally, there is a specification to save the citation. If you work with data from Swissvotes, please cite the data accordingly.
-
-First, we extract data from the database and select the variables we need to create our prediction. For some reason we might assume that the National Council represents the people. It this is the case, it should be reflected in a similar pattern in yes shares in the National Council and later on in the actual yes share of a popular vote. 
-
-## 2. Exploratory Analysis : is our assumption accurate?
-
-After downloading and preparing the data, we calculate the share of yes votes in the National Council and create a scatterplot to inspect if our intuition about the relationship can be seen in the data.
-
-```{r echo=TRUE, warning=FALSE, message=FALSE}
 #extract data from database
 swissvotesDB <- get_swissvotes(DB=T, savecitation=F, codebook=F) %>%
   #select variables we need
@@ -65,6 +54,18 @@ swissvotesDB[swissvotesDB=="."] <- NA
 #calculate share of yes votes in national council
 swissvotesDB <- swissvotesDB %>%
   mutate(nr_yesshare = nrja / (nrja+nrnein))
+```
+
+
+By default, function extracts only the database provided by [Swissvotes](https://swissvotes.ch){target="_blank"}. However, you can specify that you want the codebook as well (or just the codebook for that matter). Additionally, there is a specification to save the citation. If you work with data from Swissvotes, please cite the data accordingly.
+
+First, we extract data from the database and select the variables we need to create our prediction. For some reason we might assume that the National Council represents the people. It this is the case, it should be reflected in a similar pattern in yes shares in the National Council and later on in the actual yes share of a popular vote. 
+
+## 2. Exploratory Analysis : is our assumption accurate?
+
+After downloading and preparing the data, we calculate the share of yes votes in the National Council and create a scatterplot to inspect if our intuition about the relationship can be seen in the data.
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
 
 plot1 <- ggplot(swissvotesDB, aes(x=nr_yesshare, y= yesshare))+
   geom_hline(yintercept=.5, linetype="dashed", color="grey70")+
@@ -80,7 +81,7 @@ plot1
 
 There seems to be a positive correlation (what a surprise!)... 
 
-## 3. Predict the otucome of the upcoming votes
+## 3. Predict the results of the upcoming votes
 
 In the last step we estimate a very basic model and then predict the vote shares for the two national votes on February 9th, 2020. In order to do so, we split the data into a training set and a prediction set.
 

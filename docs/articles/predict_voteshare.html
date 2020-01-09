@@ -113,9 +113,9 @@
 
     
     
-<div id="predicting-vote-outcomes-with-data" class="section level1">
+<div id="predict-vote-outcomes-with-data" class="section level1">
 <h1 class="hasAnchor">
-<a href="#predicting-vote-outcomes-with-data" class="anchor"></a>Predicting vote outcomes with <img src="https://swissvotes.ch/static/images/logo.svg" width="120"> Data</h1>
+<a href="#predict-vote-outcomes-with-data" class="anchor"></a>Predict vote outcomes with <img src="https://swissvotes.ch/static/images/logo.svg" width="120"> Data</h1>
 <p>This blogpost shows how to perform a simple prediction of vote outcomes based on Swissvotes data in just a few steps.</p>
 <div id="retrieve-and-prepare-the-data" class="section level2">
 <h2 class="hasAnchor">
@@ -131,15 +131,9 @@
 
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(swissdd)
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</code></pre></div>
-<p>By default, function extracts only the database provided by <a href="https://swissvotes.ch" target="_blank">Swissvotes</a>. However, you can specify that you want the codebook as well (or just the codebook for that matter). Additionally, there is a specification to save the citation. If you work with data from Swissvotes, please cite the data accordingly.</p>
-<p>First, we extract data from the database and select the variables we need to create our prediction. For some reason we might assume that the National Council represents the people. It this is the case, it should be reflected in a similar pattern in yes shares in the National Council and later on in the actual yes share of a popular vote.</p>
-</div>
-<div id="exploratory-analysis-is-our-assumption-accurate" class="section level2">
-<h2 class="hasAnchor">
-<a href="#exploratory-analysis-is-our-assumption-accurate" class="anchor"></a>2. Exploratory Analysis : is our assumption accurate?</h2>
-<p>After downloading and preparing the data, we calculate the share of yes votes in the National Council and create a scatterplot to inspect if our intuition about the relationship can be seen in the data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#extract data from database</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)
+
+<span class="co">#extract data from database</span>
 swissvotesDB &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_swissvotes.html">get_swissvotes</a></span>(<span class="dt">DB=</span>T, <span class="dt">savecitation=</span>F, <span class="dt">codebook=</span>F) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="co">#select variables we need</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(anr, volkja.proz, nrja, nrnein) <span class="op">%&gt;%</span>
@@ -155,8 +149,15 @@ swissvotesDB[swissvotesDB<span class="op">==</span><span class="st">"."</span>] 
 
 <span class="co">#calculate share of yes votes in national council</span>
 swissvotesDB &lt;-<span class="st"> </span>swissvotesDB <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">nr_yesshare =</span> nrja <span class="op">/</span><span class="st"> </span>(nrja<span class="op">+</span>nrnein))
-
+<span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">nr_yesshare =</span> nrja <span class="op">/</span><span class="st"> </span>(nrja<span class="op">+</span>nrnein))</code></pre></div>
+<p>By default, function extracts only the database provided by <a href="https://swissvotes.ch" target="_blank">Swissvotes</a>. However, you can specify that you want the codebook as well (or just the codebook for that matter). Additionally, there is a specification to save the citation. If you work with data from Swissvotes, please cite the data accordingly.</p>
+<p>First, we extract data from the database and select the variables we need to create our prediction. For some reason we might assume that the National Council represents the people. It this is the case, it should be reflected in a similar pattern in yes shares in the National Council and later on in the actual yes share of a popular vote.</p>
+</div>
+<div id="exploratory-analysis-is-our-assumption-accurate" class="section level2">
+<h2 class="hasAnchor">
+<a href="#exploratory-analysis-is-our-assumption-accurate" class="anchor"></a>2. Exploratory Analysis : is our assumption accurate?</h2>
+<p>After downloading and preparing the data, we calculate the share of yes votes in the National Council and create a scatterplot to inspect if our intuition about the relationship can be seen in the data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 plot1 &lt;-<span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(swissvotesDB, <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x=</span>nr_yesshare, <span class="dt">y=</span> yesshare))<span class="op">+</span>
 <span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span>(<span class="dt">yintercept=</span>.<span class="dv">5</span>, <span class="dt">linetype=</span><span class="st">"dashed"</span>, <span class="dt">color=</span><span class="st">"grey70"</span>)<span class="op">+</span>
 <span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>()<span class="op">+</span>
@@ -170,9 +171,9 @@ plot1</code></pre></div>
 <p><img src="predict_voteshare_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <p>There seems to be a positive correlation (what a surprise!)…</p>
 </div>
-<div id="predict-the-otucome-of-the-upcoming-votes" class="section level2">
+<div id="predict-the-results-of-the-upcoming-votes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#predict-the-otucome-of-the-upcoming-votes" class="anchor"></a>3. Predict the otucome of the upcoming votes</h2>
+<a href="#predict-the-results-of-the-upcoming-votes" class="anchor"></a>3. Predict the results of the upcoming votes</h2>
 <p>In the last step we estimate a very basic model and then predict the vote shares for the two national votes on February 9th, 2020. In order to do so, we split the data into a training set and a prediction set.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#split data</span>
 estimation_data &lt;-<span class="st"> </span>swissvotesDB[<span class="op">!</span>swissvotesDB<span class="op">$</span>bfsnr<span class="op">%in%</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">6290</span>, <span class="dv">6300</span>),]
@@ -222,10 +223,10 @@ plot1 <span class="op">+</span><span class="st"> </span><span class="kw"><a href
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li>
-<a href="#predicting-vote-outcomes-with-data">Predicting vote outcomes with <img src="https://swissvotes.ch/static/images/logo.svg" width="120"> Data</a><ul class="nav nav-pills nav-stacked">
+<a href="#predict-vote-outcomes-with-data">Predict vote outcomes with <img src="https://swissvotes.ch/static/images/logo.svg" width="120"> Data</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#retrieve-and-prepare-the-data">1. Retrieve and prepare the data</a></li>
       <li><a href="#exploratory-analysis-is-our-assumption-accurate">2. Exploratory Analysis : is our assumption accurate?</a></li>
-      <li><a href="#predict-the-otucome-of-the-upcoming-votes">3. Predict the otucome of the upcoming votes</a></li>
+      <li><a href="#predict-the-results-of-the-upcoming-votes">3. Predict the results of the upcoming votes</a></li>
       </ul>
 </li>
       </ul>
