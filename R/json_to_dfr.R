@@ -51,7 +51,7 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
  # data <- suppressWarnings(jsonlite::fromJSON(paste0("https://www.bfs.admin.ch",damlink)))
   
   # get index of date that has been chosen and select position of url
- data <- suppressWarnings(jsonlite::fromJSON(urls$result$resources$download_url[selection]))
+ data <- suppressWarnings(jsonlite::fromJSON(gsub(" ","",urls$result$resources$download_url[selection])))
 
  # swiss results
 
