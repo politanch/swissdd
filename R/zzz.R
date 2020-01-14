@@ -2,18 +2,18 @@
 
 .onAttach <- function(lib, pkg)
 {
-  packageStartupMessage('**************************************************************')
-  packageStartupMessage('*                          swissdd 1.0.1.9000                *')
-  packageStartupMessage('*                     provided by politan.ch                 *')
-  packageStartupMessage('*                                                            *')
-  packageStartupMessage('*                            Data sources:                   *')
-  packageStartupMessage('*                      Federal Statistical Office            *')
-  packageStartupMessage('*                       https://www.bfs.admin.ch/            *')
-  packageStartupMessage('*                                                            *')
-  packageStartupMessage('*                              Swissvotes                    *')
-  packageStartupMessage('*                          https://swissvotes.ch/            *')
-  packageStartupMessage('*                                                            *')
-  packageStartupMessage('**************************************************************')
+  packageStartupMessage('************************************************************')
+  packageStartupMessage('*                       swissdd 1.0.2                      *')
+  packageStartupMessage('*                  developed by politan.ch                 *')
+  packageStartupMessage('*                                                          *')
+  packageStartupMessage('*                     Data sources:                        *')
+  packageStartupMessage('*                  Federal Statistical Office              *')
+  packageStartupMessage('*                   https://www.bfs.admin.ch/              *')
+  packageStartupMessage('*                                                          *')
+  packageStartupMessage('*                      Swissvotes                          *')
+  packageStartupMessage('*                  https://swissvotes.ch/                  *')
+  packageStartupMessage('*                                                          *')
+  packageStartupMessage('************************************************************')
 }
 
 # suppress notes
