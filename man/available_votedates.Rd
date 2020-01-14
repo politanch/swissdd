@@ -2,7 +2,7 @@
 % Please edit documentation in R/votedates.R
 \name{available_votedates}
 \alias{available_votedates}
-\title{Get a vector of available vote dates}
+\title{Get a vector of available vote dates via `get_nationalvotes` and `get_cantonalvotes``}
 \usage{
 available_votedates(geolevel = "national")
 }

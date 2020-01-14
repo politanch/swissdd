@@ -2,7 +2,7 @@
 % Please edit documentation in R/json_to_dfr.R
 \name{swiss_json_to_dfr}
 \alias{swiss_json_to_dfr}
-\title{Transform federal results json into tibble}
+\title{Transform a opendata.swiss national results json into a tibble}
 \usage{
 swiss_json_to_dfr(votedate = NULL, geolevel = "municipality",
   dataurl = NULL, index = NULL)
