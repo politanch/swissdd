@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">swissdd</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2</span>
       </span>
     </div>
 
@@ -106,7 +106,10 @@
       <a href="../articles/plot_correlations.html">Find and plot correlated vote results</a>
     </li>
     <li>
-      <a href="../articles/plot_voteshares.html">Plot Vote Shares</a>
+      <a href="../articles/plot_voteshares.html">Plot vote shares</a>
+    </li>
+    <li>
+      <a href="../articles/predict_voteshare.html">Predict vote shares</a>
     </li>
     <li>
       <a href="../articles/use_SwissvotesDB.html">Retrieve Swissvotes-Data</a>
@@ -161,31 +164,31 @@
         <td>
           <p><code><a href="available_votedates.html">available_votedates()</a></code> </p>
         </td>
-        <td><p>Get a vector of available vote dates</p></td>
+        <td><p>Get a vector of available vote dates via `get_nationalvotes` and `get_cantonalvotes``</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="canton_json_to_dfr.html">canton_json_to_dfr()</a></code> </p>
         </td>
-        <td><p>Transform cantonal results json into tibble</p></td>
+        <td><p>Transform a opendata.swiss cantonal results json into a tibble</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="get_cantonalvotes.html">get_cantonalvotes()</a></code> </p>
         </td>
-        <td><p>Get cantonal results and counting status for selected dates or a given period</p></td>
+        <td><p>Get national results and counting status in real time, for selected dates or a time range</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="get_nationalvotes.html">get_nationalvotes()</a></code> </p>
         </td>
-        <td><p>Get national results and counting status for selected dates or a given period</p></td>
+        <td><p>Get national results and counting status in real time, for selected dates or a time range</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="get_swissvotes.html">get_swissvotes()</a></code> </p>
         </td>
-        <td><p>downloads additional data collected by annee politique suisse. It allows to downloading their complete database.</p></td>
+        <td><p>Download additional data collected by annee politique suisse (the complete SwissVotes-Database)</p></td>
       </tr><tr>
         
         <td>
@@ -197,7 +200,7 @@
         <td>
           <p><code><a href="swiss_json_to_dfr.html">swiss_json_to_dfr()</a></code> </p>
         </td>
-        <td><p>Transform federal results json into tibble</p></td>
+        <td><p>Transform a opendata.swiss national results json into a tibble</p></td>
       </tr>
     </tbody>
     </table>

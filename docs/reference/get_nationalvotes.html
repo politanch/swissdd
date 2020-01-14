@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get national results and counting status for selected dates or a given period — get_nationalvotes • swissdd</title>
+<title>Get national results and counting status in real time, for selected dates or a time range — get_nationalvotes • swissdd</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -39,7 +39,7 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Get national results and counting status for selected dates or a given period — get_nationalvotes" />
+<meta property="og:title" content="Get national results and counting status in real time, for selected dates or a time range — get_nationalvotes" />
 
 <meta property="og:description" content="get_nationalvotes is one of the two main functions of swissvote package. It allows to retrieve the results and the counting status for national ballots." />
 <meta name="twitter:card" content="summary" />
@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">swissdd</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2</span>
       </span>
     </div>
 
@@ -109,7 +109,10 @@
       <a href="../articles/plot_correlations.html">Find and plot correlated vote results</a>
     </li>
     <li>
-      <a href="../articles/plot_voteshares.html">Plot Vote Shares</a>
+      <a href="../articles/plot_voteshares.html">Plot vote shares</a>
+    </li>
+    <li>
+      <a href="../articles/predict_voteshare.html">Predict vote shares</a>
     </li>
     <li>
       <a href="../articles/use_SwissvotesDB.html">Retrieve Swissvotes-Data</a>
@@ -141,7 +144,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get national results and counting status for selected dates or a given period</h1>
+    <h1>Get national results and counting status in real time, for selected dates or a time range</h1>
     <small class="dont-index">Source: <a href='https://github.com/politanch/swissdd/blob/master/R/get_results.R'><code>R/get_results.R</code></a></small>
     <div class="hidden name"><code>get_nationalvotes.Rd</code></div>
     </div>
@@ -189,7 +192,7 @@
     <pre class="examples"><div class='input'> <span class='co'># \donttest{</span>
 
 <span class='co'># Selection by enddate only</span>
- <span class='fu'>get_nationalvotes</span>(<span class='kw'>to_date</span><span class='kw'>=</span><span class='st'>"1983-12-04"</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 24,151 x 16</span><span>
+ <span class='fu'>get_nationalvotes</span>(<span class='kw'>to_date</span><span class='kw'>=</span><span class='st'>"1983-12-04"</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 24,041 x 16</span><span>
 #&gt;    name     id canton_id canton_name mun_id mun_name district_id
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      
 #&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      1      Aeugst … 101        
@@ -202,13 +205,13 @@
 #&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      8      Maschwa… 101        
 #&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      9      Mettmen… 101        
 #&gt; </span><span style='color: #BCBCBC;'>10</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      10     Obfelden 101        
-#&gt; </span><span style='color: #949494;'># … with 24,141 more rows, and 9 more variables: gebietAusgezaehlt </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
+#&gt; </span><span style='color: #949494;'># … with 24,031 more rows, and 9 more variables: gebietAusgezaehlt </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
 #&gt; #   jaStimmenInProzent </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, jaStimmenAbsolut </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>, neinStimmenAbsolut </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>,
 #&gt; #   stimmbeteiligungInProzent </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, eingelegteStimmzettel </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>,
 #&gt; #   anzahlStimmberechtigte </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>, gueltigeStimmen </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>, votedate </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span></div><div class='input'>
 
  <span class='co'># Selection of a specific votedate</span>
- <span class='fu'>get_nationalvotes</span>(<span class='kw'>votedates</span><span class='kw'>=</span><span class='st'>"2014-02-09"</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 6,648 x 16</span><span>
+ <span class='fu'>get_nationalvotes</span>(<span class='kw'>votedates</span><span class='kw'>=</span><span class='st'>"2014-02-09"</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 6,618 x 16</span><span>
 #&gt;    name     id canton_id canton_name mun_id mun_name district_id
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      
 #&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      1      Aeugst … 101        
@@ -221,7 +224,7 @@
 #&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      8      Maschwa… 101        
 #&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      9      Mettmen… 101        
 #&gt; </span><span style='color: #BCBCBC;'>10</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      10     Obfelden 101        
-#&gt; </span><span style='color: #949494;'># … with 6,638 more rows, and 9 more variables: gebietAusgezaehlt </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
+#&gt; </span><span style='color: #949494;'># … with 6,608 more rows, and 9 more variables: gebietAusgezaehlt </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,
 #&gt; #   jaStimmenInProzent </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, jaStimmenAbsolut </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>, neinStimmenAbsolut </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>,
 #&gt; #   stimmbeteiligungInProzent </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, eingelegteStimmzettel </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>,
 #&gt; #   anzahlStimmberechtigte </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>, gueltigeStimmen </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>, votedate </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>

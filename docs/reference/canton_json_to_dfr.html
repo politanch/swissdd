@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Transform cantonal results json into tibble — canton_json_to_dfr • swissdd</title>
+<title>Transform a opendata.swiss cantonal results json into a tibble — canton_json_to_dfr • swissdd</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -39,7 +39,7 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Transform cantonal results json into tibble — canton_json_to_dfr" />
+<meta property="og:title" content="Transform a opendata.swiss cantonal results json into a tibble — canton_json_to_dfr" />
 
 <meta property="og:description" content="canton_json_to_dfr Tranforms a single results json for a selected cantonal votedate into a tibble." />
 <meta name="twitter:card" content="summary" />
@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">swissdd</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2</span>
       </span>
     </div>
 
@@ -109,7 +109,10 @@
       <a href="../articles/plot_correlations.html">Find and plot correlated vote results</a>
     </li>
     <li>
-      <a href="../articles/plot_voteshares.html">Plot Vote Shares</a>
+      <a href="../articles/plot_voteshares.html">Plot vote shares</a>
+    </li>
+    <li>
+      <a href="../articles/predict_voteshare.html">Predict vote shares</a>
     </li>
     <li>
       <a href="../articles/use_SwissvotesDB.html">Retrieve Swissvotes-Data</a>
@@ -141,7 +144,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Transform cantonal results json into tibble</h1>
+    <h1>Transform a opendata.swiss cantonal results json into a tibble</h1>
     <small class="dont-index">Source: <a href='https://github.com/politanch/swissdd/blob/master/R/json_to_dfr.R'><code>R/json_to_dfr.R</code></a></small>
     <div class="hidden name"><code>canton_json_to_dfr.Rd</code></div>
     </div>
@@ -193,28 +196,11 @@
 
 <span class='fu'>glimpse</span>(<span class='no'>results</span>)</div><div class='output co'>#&gt; <span class='error'>Error in glimpse(results): could not find function "glimpse"</span></div><div class='input'>
 <span class='co'># transform the json for a single votedate at counting district level</span>
-<span class='fu'>canton_json_to_dfr</span>(<span class='kw'>votedate</span><span class='kw'>=</span><span class='st'>"2019-09-22"</span>,<span class='kw'>geolevel</span> <span class='kw'>=</span> <span class='st'>"zh_counting_districts"</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 33 x 17</span><span>
-#&gt;        id canton_name mun_id mun_name district_id gebietAusgezaeh…
-#&gt;     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>           
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> </span><span style='text-decoration: underline;'>104</span><span>897 OW          1401   Alpnach  600         TRUE            
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> </span><span style='text-decoration: underline;'>104</span><span>897 OW          1402   Engelbe… 600         TRUE            
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> </span><span style='text-decoration: underline;'>104</span><span>897 OW          1403   Giswil   600         TRUE            
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> </span><span style='text-decoration: underline;'>104</span><span>897 OW          1404   Kerns    600         TRUE            
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> </span><span style='text-decoration: underline;'>104</span><span>897 OW          1405   Lungern  600         TRUE            
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> </span><span style='text-decoration: underline;'>104</span><span>897 OW          1406   Sachseln 600         TRUE            
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> </span><span style='text-decoration: underline;'>104</span><span>897 OW          1407   Sarnen   600         TRUE            
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> </span><span style='text-decoration: underline;'>104</span><span>898 SH          2901   Gächlin… 1401        TRUE            
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> </span><span style='text-decoration: underline;'>104</span><span>898 SH          2903   Löhning… 1401        TRUE            
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> </span><span style='text-decoration: underline;'>104</span><span>898 SH          2904   Neunkir… 1401        TRUE            
-#&gt; </span><span style='color: #949494;'># … with 23 more rows, and 11 more variables: jaStimmenInProzent </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>,
-#&gt; #   jaStimmenAbsolut </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>, neinStimmenAbsolut </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>,
-#&gt; #   stimmbeteiligungInProzent </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, eingelegteStimmzettel </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>,
-#&gt; #   anzahlStimmberechtigte </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>, gueltigeStimmen </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>, de </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='color: #949494;'>, fr </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='color: #949494;'>,
-#&gt; #   it </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span style='color: #949494;'>, rm </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
+<span class='fu'>canton_json_to_dfr</span>(<span class='kw'>votedate</span><span class='kw'>=</span><span class='st'>"2019-09-22"</span>,<span class='kw'>geolevel</span> <span class='kw'>=</span> <span class='st'>"zh_counting_districts"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: NAs introduced by coercion</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs introduced by coercion</span></div><div class='output co'>#&gt; <span class='error'>Error in mun_id %in% c(261, 230): object 'mun_id' not found</span></div><div class='input'>
 
 # }
 
-</div></span></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
