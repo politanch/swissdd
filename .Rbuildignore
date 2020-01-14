@@ -13,3 +13,5 @@
 ^CRAN-RELEASE$
 ^docs$
 ^vignettes$
+^inst$
+^\.pkgdown\.yml$

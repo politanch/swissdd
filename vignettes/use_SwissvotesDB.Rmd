@@ -1,10 +1,6 @@
 ---
 title: "Retrieve Swissvotes-Data"
 output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Retrieve Swissvotes-Data}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
