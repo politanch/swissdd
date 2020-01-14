@@ -1,12 +1,12 @@
-# swissdd 1.0.1.9000
+# swissdd 1.0.2
 
 * Functions renamed (_*breaking change*_): to retrieve real time or archive results data at the level of choice, the function `get_nationalvotes` must be used. `get_swissvotes` is turned into the function that allows to get Swissvotes-Data.
 
-* New function that allows to retrieve Swissvotes-Data added
+* New function that allows to retrieve Swissvotes-Data added (`get_swissvotes`)
 
-* option to retrieve counting district level data (Winterthur & Zürich) added
+* option to retrieve counting district level data with the `get_nationalvotes()`- and `get_cantonalvotes()`-functions added 
 
-__swissdd 1.0.1__
+# swissdd 1.0.1__
 
 * Added parent level ids to district and municipality level results (canton / district)
 * New function that calculates correlations between votes added: `similar_votes()`
