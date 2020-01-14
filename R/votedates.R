@@ -1,4 +1,4 @@
-#' Get a vector of available vote dates
+#' Get a vector of available vote dates via `get_nationalvotes` and `get_cantonalvotes``
 #'
 #' \code{available_votedates} is a utility function to get the available votedates.
 #'

@@ -1,4 +1,4 @@
-#' Get national results and counting status for selected dates or a given period
+#' Get national results and counting status in real time, for selected dates or a time range
 #'
 #' \code{get_nationalvotes} is one of the two main functions of swissvote package. It allows to retrieve the results and the counting status for national ballots.
 #'
@@ -94,7 +94,7 @@ votedata
 }
 
 
-#' Get cantonal results and counting status for selected dates or a given period
+#' Get national results and counting status in real time, for selected dates or a time range
 #'
 #' \code{get_cantonalsvotes} is one of the two main functions of swissvote package. It allows to retrieve the results and the counting status for national ballots.
 #'

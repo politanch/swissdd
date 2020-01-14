@@ -1,5 +1,5 @@
 
-#' downloads additional data collected by annee politique suisse. It allows to downloading their complete database.
+#' Download additional data collected by annee politique suisse (the complete SwissVotes-Database)
 #'
 #' \code{get_swissvotes} downloads additional data collected by annee politique suisse. It allows for completely downloading their database. Please cite data.
 #'

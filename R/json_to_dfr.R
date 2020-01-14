@@ -1,4 +1,4 @@
-#' Transform federal results json into tibble
+#' Transform a opendata.swiss national results json into a tibble
 #'
 #' \code{swiss_json_to_dfr} Transforms the json containing the results of a selected federal votedate into a tibble.
 #'
@@ -186,7 +186,7 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
 }
 
 
-#' Transform cantonal results json into tibble
+#' Transform a opendata.swiss cantonal results json into a tibble
 #'
 #' \code{canton_json_to_dfr} Tranforms a single results json for a selected cantonal votedate into a tibble.
 #'
