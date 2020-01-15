@@ -75,7 +75,7 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
       name = purrr::map_chr(data$schweiz$vorlagen$vorlagenTitel,c(2,1)),
       id = data$schweiz$vorlagen$vorlagenId,
       res = purrr::map(data$schweiz$vorlagen$kantone,3)
-    ) %>% tidyr::unnest(canton_id,canton_name,res)
+    ) %>% tidyr::unnest(c(canton_id,canton_name,res))
 
   }
 
@@ -93,19 +93,15 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
         canton_name = purrr::map(data$schweiz$vorlagen$kantone, 2),
         res = purrr::map(data$schweiz$vorlagen$kantone,4)
       )
-    
-    
-    district_data  <- datas %>%
-      tidyr::unnest(res,canton_id,canton_name)
-    
-    findata <- district_data %>%
-      dplyr::mutate(
-        district_id=purrr::map(district_data$res,1),
-        district_name=purrr::map(district_data$res,2),
-        results=purrr::map(district_data$res,4),
-        results2=purrr::map(district_data$res,"resultat")
-      ) %>%
-      tidyr::unnest(results2,district_id,district_name)
+  
+    findata <- datas %>%
+      # unnest list columns
+      tidyr::unnest(c(res,canton_id,canton_name)) %>% 
+      tidyr::unnest(res) %>% 
+      dplyr::rename(district_id=geoLevelnummer,district_name=geoLevelname) %>% 
+      # unpack dataframe column containing the results
+      tidyr::unpack(resultat) 
+
   }
  
 # parse data for counting districts level, if available
@@ -115,11 +111,14 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
    zaehlkreise <-  tibble::tibble(
        name = purrr::map_chr(data$schweiz$vorlagen$vorlagenTitel,c(2,1)),
        id = data$schweiz$vorlagen$vorlagenId,
-       canton_id = purrr::map(data$schweiz$vorlagen$kantone, 1),
-       canton_name = purrr::map(data$schweiz$vorlagen$kantone, 2),
+       canton_id = "1",
+       canton_name = "Zürich",
        res = purrr::map(data$schweiz$vorlagen$kantone,6)
-     ) %>% unnest(canton_id,canton_name,res)
-   
+     ) %>% 
+     tidyr::unnest(res) %>% 
+     tidyr::unnest(res) %>% 
+     tidyr::unpack(resultat) %>% 
+     dplyr::rename(mun_id=geoLevelnummer,mun_name=geoLevelname)
 
  }  
 
@@ -136,45 +135,25 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
           canton_name = purrr::map(data$schweiz$vorlagen$kantone, 2),
           res = purrr::map(data$schweiz$vorlagen$kantone,5)
         )
-   
       
-    gemdata  <- datas %>%
-        tidyr::unnest(res,canton_id,canton_name)
-
-     findata <- gemdata %>%
-       dplyr::mutate(
-        mun_id=purrr::map(gemdata$res,1),
-        mun_name=purrr::map(gemdata$res,2),
-        district_id=purrr::map(gemdata$res,3),
-        results=purrr::map(gemdata$res,4),
-        results2=purrr::map(gemdata$res,"resultat")
-      ) %>%
-        tidyr::unnest(results2,mun_id,mun_name,district_id)
-     
+   findata  <- datas %>%
+                  tidyr::unnest(c(canton_id,canton_name,res)) %>% 
+      tidyr::unnest(res) %>% 
+     # unpack dataframe column
+      tidyr::unpack(resultat) %>% 
+      dplyr::rename(mun_id=geoLevelnummer,
+                    mun_name=geoLevelname)
+      
      
      # add results for counting districts 
      if(geolevel=="zh_counting_districts"& is.list(data$schweiz$vorlagen$kantone[[1]]$zaehlkreise)){
        
-       # funktoniert nicht
-       zk_zh_data <-  tibble::tibble(
-         name=purrr::map_chr(zaehlkreise$name,1),
-         id=purrr::map_dbl(zaehlkreise$id,1),
-         canton_id=purrr::map_chr(zaehlkreise$canton_id,1),
-         canton_name=purrr::map_chr(zaehlkreise$canton_name,1),
-         mun_id=purrr::map(zaehlkreise$res,"geoLevelnummer"),
-         mun_name=purrr::map(zaehlkreise$res,"geoLevelname"),
-         district_id=purrr::map(zaehlkreise$res,"geoLevelParentnummer"),
-         resultat=purrr::map(zaehlkreise$res,"resultat"))%>%
-         #filtere Zählkreise
-         dplyr::filter(purrr::map_lgl(mun_id, ~ !is.null(.))) %>% 
-         tidyr::unnest(resultat,mun_id,mun_name,district_id,.preserve=c(name,id,canton_id,canton_name)) 
-         
        
        #remove winterthur and zurich as entire municipalities, add counting district data
        findata <-  findata %>% 
          dplyr::filter(!(mun_id%in%c(261,230))) %>% 
          #add counting district level results instead
-         dplyr::bind_rows(zk_zh_data)
+         dplyr::bind_rows(zaehlkreise)
        
      }
      
