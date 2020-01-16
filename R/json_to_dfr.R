@@ -198,6 +198,7 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
 #' }
 #'
 
+# fix!
 canton_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL,index=NULL){
   
   # if no urls-list is passed on to the function (allows to use the function without wrapper)
@@ -246,17 +247,22 @@ canton_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NUL
         id = purrr::map(data$kantone$vorlagen,1),
         kanton = data$kantone$geoLevelname,
         res = purrr::map(data$kantone$vorlagen,c(geoindex))
-      ) %>%  tidyr::unnest(id,res)
+      ) %>%  tidyr::unnest(c(id,res)) %>% 
+        tidyr::unnest(res) %>% 
+        tidyr::unpack(resultat)
       
       # Zählkreisdaten einlesen (nur falls vorhanden)
       
+      # funzt noch nicht
       if((geolevel=="zh_counting_districts" & is.list(data$kantone$vorlagen[[1]]$zaehlkreise))){
         
         zaehlkreise <-tibble::tibble(
           id = purrr::map(data$kantone$vorlagen,1),
           kanton = data$kantone$geoLevelname,
           res = purrr::map(data$kantone$vorlagen,10))%>%  
-          tidyr::unnest(id,res)
+          tidyr::unnest(c(id,res)) %>% 
+          unnest(res) %>% 
+          unpack(resultat)
         
       }
       
@@ -266,26 +272,17 @@ canton_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NUL
 
   if(geolevel=="district"){
 
-    ktdata2 <- tibble::tibble(
-      id=ktdata$id,
-      canton_name=ktdata$kanton,
-      district_id=purrr::map(ktdata$res,1),
-      district_name=purrr::map(ktdata$res,2),
-      resultat=purrr::map(ktdata$res,3)) %>%
-      tidyr::unnest(resultat,district_id,district_name)
+    
+    # schritt entfällt!
+    ktdata2 <- ktdata %>% 
+      rename(district_id=geoLevelnummer,district_name=geoLevelname)
   }
 
 
   if(geolevel %in% c("municipality","zh_counting_districts")){
 
-    ktdata2 <- tibble::tibble(
-      id=ktdata$id,
-      canton_name=ktdata$kanton,
-      mun_id=purrr::map(ktdata$res,1),
-      mun_name=purrr::map(ktdata$res,2),
-      district_id=purrr::map(ktdata$res,3),
-      resultat=purrr::map(ktdata$res,4)) %>%
-      tidyr::unnest(resultat,mun_id,mun_name,district_id)
+    ktdata2 <- ktdata %>% 
+      rename(mun_id=geoLevelnummer,mun_name=geoLevelname)
 
   }
 
@@ -293,6 +290,8 @@ canton_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NUL
   
   if(geolevel=="zh_counting_districts" & is.list(data$kantone$vorlagen[[1]]$zaehlkreise)){
     
+    
+    # TO BE FIXED!
     ktdata_zh <- tibble::tibble(
       id=zaehlkreise$id,
       canton_name=zaehlkreise$kanton,
