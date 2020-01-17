@@ -34,7 +34,7 @@ results <- canton_json_to_dfr()
 glimpse(results)
 
 # transform the json for a single votedate at counting district level
-canton_json_to_dfr(votedate="2019-09-22",geolevel = "zh_counting_districts")
+canton_json_to_dfr(votedate="2019-09-01",geolevel = "zh_counting_districts")
 
 
 }

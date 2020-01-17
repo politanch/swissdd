@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_results.R
 \name{get_cantonalvotes}
 \alias{get_cantonalvotes}
-\title{Get national results and counting status in real time, for selected dates or a time range}
+\title{Get national results and counting status in real time or for selected dates or a time range in the past}
 \usage{
 get_cantonalvotes(geolevel = "municipality", votedates = NULL,
   from_date = NULL, to_date = NULL)
