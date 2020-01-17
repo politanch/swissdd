@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">swissdd</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2</span>
       </span>
     </div>
 
@@ -69,7 +69,10 @@
       <a href="../articles/plot_correlations.html">Find and plot correlated vote results</a>
     </li>
     <li>
-      <a href="../articles/plot_voteshares.html">Plot Vote Shares</a>
+      <a href="../articles/plot_voteshares.html">Plot vote shares</a>
+    </li>
+    <li>
+      <a href="../articles/predict_voteshare.html">Predict vote shares</a>
     </li>
     <li>
       <a href="../articles/use_SwissvotesDB.html">Retrieve Swissvotes-Data</a>
@@ -139,9 +142,9 @@ simvotes
 <span class="co">#&gt; # A tibble: 3 x 2</span>
 <span class="co">#&gt;   id    correlation</span>
 <span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 5990        0.554</span>
-<span class="co">#&gt; 2 5710        0.480</span>
-<span class="co">#&gt; 3 5960        0.443</span>
+<span class="co">#&gt; 1 5990        0.553</span>
+<span class="co">#&gt; 2 5710        0.481</span>
+<span class="co">#&gt; 3 5960        0.447</span>
 
 <span class="co">#extract names of correlated votes</span>
 ballotnames &lt;-<span class="st"> </span>federalvotes <span class="op">%&gt;%</span>

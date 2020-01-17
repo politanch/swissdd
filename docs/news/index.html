@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">swissdd</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2</span>
       </span>
     </div>
 
@@ -106,7 +106,10 @@
       <a href="../articles/plot_correlations.html">Find and plot correlated vote results</a>
     </li>
     <li>
-      <a href="../articles/plot_voteshares.html">Plot Vote Shares</a>
+      <a href="../articles/plot_voteshares.html">Plot vote shares</a>
+    </li>
+    <li>
+      <a href="../articles/predict_voteshare.html">Predict vote shares</a>
     </li>
     <li>
       <a href="../articles/use_SwissvotesDB.html">Retrieve Swissvotes-Data</a>
@@ -142,16 +145,20 @@
       <small>Source: <a href='https://github.com/politanch/swissdd/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="swissdd-1-0-1-9000" class="section level1">
+    <div id="swissdd-1-0-2" class="section level1">
 <h1 class="page-header">
-<a href="#swissdd-1-0-1-9000" class="anchor"></a>swissdd 1.0.1.9000<small> Unreleased </small>
+<a href="#swissdd-1-0-2" class="anchor"></a>swissdd 1.0.2<small> Unreleased </small>
 </h1>
 <ul>
 <li><p>Functions renamed (<em><em>breaking change</em></em>): to retrieve real time or archive results data at the level of choice, the function <code>get_nationalvotes</code> must be used. <code>get_swissvotes</code> is turned into the function that allows to get Swissvotes-Data.</p></li>
-<li><p>New function that allows to retrieve Swissvotes-Data added</p></li>
-<li><p>option to retrieve counting district level data (Winterthur &amp; Zürich) added</p></li>
+<li><p>New function that allows to retrieve Swissvotes-Data added (<code>get_swissvotes</code>)</p></li>
+<li><p>option to retrieve counting district level data with the <code><a href="../reference/get_nationalvotes.html">get_nationalvotes()</a></code>- and <code><a href="../reference/get_cantonalvotes.html">get_cantonalvotes()</a></code>-functions added</p></li>
 </ul>
-<p><strong>swissdd 1.0.1</strong></p>
+</div>
+    <div id="swissdd-1-0-1__" class="section level1">
+<h1 class="page-header">
+<a href="#swissdd-1-0-1__" class="anchor"></a>swissdd 1.0.1__<small> 2019-08-30 </small>
+</h1>
 <ul>
 <li>Added parent level ids to district and municipality level results (canton / district)</li>
 <li>New function that calculates correlations between votes added: <code><a href="../reference/similar_votes.html">similar_votes()</a></code>
@@ -172,7 +179,8 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#swissdd-1-0-1-9000">1.0.1.9000</a></li>
+        <li><a href="#swissdd-1-0-2">1.0.2</a></li>
+        <li><a href="#swissdd-1-0-1__">1.0.1</a></li>
       </ul>
     </div>
   </div>
