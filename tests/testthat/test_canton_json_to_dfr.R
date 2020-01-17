@@ -1,6 +1,6 @@
 context("canton_json_to_dfr")
 
-test_that("canton_json_to_dfr works", {
+test_that("canton_json_to_dfr works for last vote", {
   
   expect_error(canton_json_to_dfr(votedates="1999-01-01vv"))
   
@@ -9,3 +9,4 @@ test_that("canton_json_to_dfr works", {
   expect_is(cantvotes, "data.frame")
   
 })
+
