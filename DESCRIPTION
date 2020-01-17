@@ -9,7 +9,7 @@ Description: Description: Builds upon the real time data service as well as the 
 Imports: 
      purrr,
      dplyr,
-     tidyr,
+     tidyr (>= 1.0.0),
      jsonlite,
      magrittr,
      tibble,
