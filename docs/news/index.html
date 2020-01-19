@@ -150,14 +150,15 @@
 <a href="#swissdd-1-0-2" class="anchor"></a>swissdd 1.0.2<small> Unreleased </small>
 </h1>
 <ul>
-<li><p>Functions renamed (<em><em>breaking change</em></em>): to retrieve real time or archive results data at the level of choice, the function <code>get_nationalvotes</code> must be used. <code>get_swissvotes</code> is turned into the function that allows to get Swissvotes-Data.</p></li>
+<li><p>Functions renamed (<em><em>breaking change</em></em>): to retrieve real time or archive results data via opendata.swiss, the function <code>get_nationalvotes</code> must be used. <code>get_swissvotes</code> is turned into the function that allows to get Swissvotes-Data.</p></li>
 <li><p>New function that allows to retrieve Swissvotes-Data added (<code>get_swissvotes</code>)</p></li>
-<li><p>option to retrieve counting district level data with the <code><a href="../reference/get_nationalvotes.html">get_nationalvotes()</a></code>- and <code><a href="../reference/get_cantonalvotes.html">get_cantonalvotes()</a></code>-functions added</p></li>
+<li><p>option to retrieve counting district level data with the <code><a href="../reference/get_nationalvotes.html">get_nationalvotes()</a></code>- and <code><a href="../reference/get_cantonalvotes.html">get_cantonalvotes()</a></code>-functions added (affects Zurich and Winterthur only)</p></li>
+<li><p>functions adapted to new tidyr API, the package now depends on tidyr &gt;= 1.0.0.</p></li>
 </ul>
 </div>
-    <div id="swissdd-1-0-1__" class="section level1">
+    <div id="swissdd-1-0-1" class="section level1">
 <h1 class="page-header">
-<a href="#swissdd-1-0-1__" class="anchor"></a>swissdd 1.0.1__<small> 2019-08-30 </small>
+<a href="#swissdd-1-0-1" class="anchor"></a>swissdd 1.0.1<small> 2019-08-30 </small>
 </h1>
 <ul>
 <li>Added parent level ids to district and municipality level results (canton / district)</li>
@@ -166,7 +167,7 @@
 <li>Better error handling with fallback if votedate information provided on opendata.swiss is corrupt</li>
 <li>Improved speed of data-retrieval. Comparison:</li>
 </ul>
-<p><code>system.time(get_swissvotes(to_date="1983-12-04")))</code></p>
+<p><code><a href="https://rdrr.io/r/base/system.time.html">system.time(get_swissvotes(to_date="1983-12-04"))</a></code></p>
 <p>user system elapsed</p>
 <p>2.492 0.160 47.024</p>
 <p><em>comparison with swissdd version 1.0.0</em></p>
@@ -180,7 +181,7 @@
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
         <li><a href="#swissdd-1-0-2">1.0.2</a></li>
-        <li><a href="#swissdd-1-0-1__">1.0.1</a></li>
+        <li><a href="#swissdd-1-0-1">1.0.1</a></li>
       </ul>
     </div>
   </div>
