@@ -4,16 +4,18 @@
 
 * New function that allows to retrieve Swissvotes-Data added (`get_swissvotes`)
 
-* option to retrieve counting district level data with the `get_nationalvotes()`- and `get_cantonalvotes()`-functions added 
+* option to retrieve counting district level data with the `get_nationalvotes()`- and `get_cantonalvotes()`-functions added (affects Zurich and Winterthur only)
 
-# swissdd 1.0.1__
+* functions adapted to new tidyr API, the package now depends on tidyr >= 1.0.0.
+
+# swissdd 1.0.1
 
 * Added parent level ids to district and municipality level results (canton / district)
 * New function that calculates correlations between votes added: `similar_votes()`
 * Better error handling with fallback if votedate information provided on opendata.swiss is corrupt
 * Improved speed of data-retrieval. Comparison:
 
-`system.time(get_swissvotes(to_date="1983-12-04")))` 
+`system.time(get_swissvotes(to_date="1983-12-04"))` 
 
 user  system elapsed 
 
