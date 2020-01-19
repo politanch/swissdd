@@ -1,6 +1,6 @@
 # swissdd 1.0.2
 
-* Functions renamed (_*breaking change*_): to retrieve real time or archive results data at the level of choice, the function `get_nationalvotes` must be used. `get_swissvotes` is turned into the function that allows to get Swissvotes-Data.
+* Functions renamed (_*breaking change*_): to retrieve real time or archive results data via opendata.swiss, the function `get_nationalvotes` must be used. `get_swissvotes` is turned into the function that allows to get Swissvotes-Data.
 
 * New function that allows to retrieve Swissvotes-Data added (`get_swissvotes`)
 
