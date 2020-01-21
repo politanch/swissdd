@@ -243,7 +243,7 @@ canton_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NUL
     
     ktdata <-tibble::tibble(
       id = purrr::map(data$kantone$vorlagen,1),
-      kanton = data$kantone$geoLevelname,
+      canton_name = data$kantone$geoLevelname,
       res = purrr::map(data$kantone$vorlagen,c(geoindex))
     ) %>%  tidyr::unnest(c(id,res)) %>% 
       tidyr::unnest(res) %>% 
@@ -255,7 +255,7 @@ canton_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NUL
       
       zaehlkreise <-tibble::tibble(
         id = purrr::map(data$kantone$vorlagen,1),
-        kanton = data$kantone$geoLevelname,
+        canton_name = data$kantone$geoLevelname,
         res = purrr::map(data$kantone$vorlagen,10))%>%  
         tidyr::unnest(c(id,res)) %>% 
         tidyr::unnest(res) %>% 
