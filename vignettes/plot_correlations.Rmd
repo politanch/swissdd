@@ -23,7 +23,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 For the sake of illustration we are interested in the result of the 2014 vote on immigration for Swiss municipalities. The initiative was voted upon on 9th of February 2014. There are different ways to find this exact vote. One of them is using the information in the title. An other solution would be to look up the `id` provided by the FSO. 
 
-First, we invoke the necessary packages and use the function `get_nationalvotes` to access the data. We further specify the unit of analysis as well as the range 
+First, we invoke the necessary packages and use the function `get_nationalvotes` to access the data. We further specify the unit of analysis as well as the range.
 
 unique(federalvotes$name[grep("Massen", federalvotes$name)])
 
@@ -52,22 +52,24 @@ simvotes
 #extract names of correlated votes
 ballotnames <- federalvotes %>%
   dplyr::select(name, id, mun_id)%>%
-  filter(id%in%c(5800, simvotes[1,1]))%>%
+  filter(id%in%c(5800, simvotes[2,1]))%>%
   distinct()
 
 #subset for correlated votes
-corrvotes <- federalvotes3 %>% 
-  filter(id%in%c(5800, simvotes[1,1]))%>%
+corrvotes <- federalvotes %>% 
+  filter(id%in%c(5800, simvotes[2,1]))%>%
   dplyr::select(id, jaStimmenInProzent, mun_id)%>%
   mutate(id=as.character(id))
 
 #plot
 spread(corrvotes , id, jaStimmenInProzent)%>%
-  ggplot(aes(y=`5800`, x=`5990`))+
+  ggplot(aes(y=`5800`, x=`5710`))+
   geom_point()+
   scale_y_continuous(limits=c(0,100))+
   scale_x_continuous(limits=c(0,100))+
   geom_abline(intercept = 0, slope=1,  size=.1)+
-  geom_smooth(method="lm", size=.1, color="orange")
+  geom_smooth(method="lm", size=.1, color="orange")+
+  labs(y="MEI, Yes Shares", x="Amendments to the Asylum Law, Yes Shares", caption="politan.ch")+
+  theme_bw()
 
 ```
