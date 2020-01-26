@@ -38,11 +38,11 @@ library(ggplot2)
 ```
 
 
-By default, function extracts only the database provided by [Swissvotes](https://swissvotes.ch){target="_blank"}. However, you can specify that you want the codebook as well (or just the codebook for that matter). Additionally, there is a specification to save the citation. If you work with data from Swissvotes, please cite the data accordingly.
+By default, the function simply extracts the database provided by [Swissvotes](https://swissvotes.ch){target="_blank"}. However, you can specify that you want the codebook as well (or just the codebook for that matter). Additionally, there is a specification to save the citation. If you work with data from Swissvotes, please cite the data accordingly.
 
-First, we extract data from the database and select the variables we need to create our prediction. For some reason we may believe that the National Council represents the people. Therefore, we should see a similar pattern in yes shares in the National Council and later on in the actual yes share of a popular vote. 
+We first extract the data and the select the variables we need to make predictions. For some reason we may believe that the National Council represents the people. Therefore, we hope to see a pattern between the final votes in the National Council and the actual yes shares on a voting day.
 
-First, we download and prettify the data. After doint that we calculate the share of yes votes in the National Council and create a scatterplot to inspect if our intuition about the relationship can be seen in the data.
+We download and prettify the data. We then calculate the share of yes votes in the National Council and create a scatterplot to inspect if our intuition about the relationship can be seen in the data.
 
 ```{r echo=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
 #extract data from database
@@ -75,7 +75,7 @@ plot1 <- ggplot(swissvotesDB, aes(x=nr_yesshare, y= yesshare))+
 plot1
 ```
 
-There seems to be a positive correlation (what a surprise!)... In a next step we estimate a very basic model and then predict the vote shares for the two national votes on February 9th, 2020. In order to do so, we split the data into a training set and a prediction set.
+There seems to be a positive correlation (what a surprise!)... In a next step, we estimate a very basic model and then predict the vote shares for the two national votes on February 9th, 2020. In order to do so, we split the data into a training set and a prediction set.
 
 ```{r echo=TRUE, warning=FALSE, message=FALSE, eval=TRUE}
 #split data
@@ -90,7 +90,7 @@ prediction <- predict(fit_m1, newdata = prediction_data, interval="predict") %>%
 prediction$bfsnr <- c(6290, 6300)
 ```
 
-We can now plot the predictions for the two ballots. Note that it is crucial to correctly report uncertainty, hence, we have to include the prediction interval as well. 
+We can now plot the predictions for the two ballots. Note, it is crucial to correctly report uncertainty, hence, we have to include the prediction interval as well. 
 
 ```{r echo=TRUE, warning=FALSE, message=FALSE, eval=TRUE}
 
