@@ -17,7 +17,7 @@
 * districts
 * municipalities
 
-The package wraps the real time data on vote Sundays. As soon as the ballot close (from 12:00 on), the datastream is continuosly updated, until the data for all municipalities is complete and the final results are available. Additionally, it allows to access the archive and to retrieve the *harmonized* results of national votes since 1981.
+The package wraps the real time data on vote Sundays. As soon as the ballots close (from 12:00 on), the datastream is continuosly updated, until the data for all municipalities is complete and the final results are available. Additionally, it allows to access the archive and to retrieve the *harmonized* results of national votes since 1981.
 
 Additionally, with the newest version available via CRAN it is now possible to retrieve data from the [swissvotes-database](https://swissvotes.ch/page/home), the most  comprehensive database on swiss popular votes. Due to the integration of this additional data source there is a __breaking change__: 
 
