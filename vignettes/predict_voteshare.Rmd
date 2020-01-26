@@ -42,7 +42,7 @@ By default, the function simply extracts the database provided by [Swissvotes](h
 
 We first extract the data and the select the variables we need to make predictions. For some reason we may believe that the National Council represents the people. Therefore, we hope to see a pattern between the final votes in the National Council and the actual yes shares on a voting day.
 
-We download and prettify the data. We then calculate the share of yes votes in the National Council and create a scatterplot to inspect if our intuition about the relationship can be seen in the data.
+We download and prettify the data. After that we calculate the share of yes votes in the National Council and create a scatterplot to inspect if our intuition about the relationship can be seen in the data.
 
 ```{r echo=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
 #extract data from database
