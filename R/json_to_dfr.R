@@ -289,7 +289,7 @@ canton_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NUL
     ktdata2 <-  ktdata2 %>% 
       dplyr::filter(!(mun_id%in%c(261,230))) %>% 
       #add counting district level results instead
-      dplyr::bind_rows(zaehlkreise)
+      dplyr::bind_rows(zaehlkreise %>% dplyr::rename(mun_id=geoLevelnummer,mun_name=geoLevelname))
     
   }
   
