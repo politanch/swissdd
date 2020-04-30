@@ -26,7 +26,7 @@ a tibble containing the results
 placeholder
 }
 \examples{
- \donttest{
+ \dontrun{
 
 #most recent vote
 results <- canton_json_to_dfr()

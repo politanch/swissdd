@@ -12,7 +12,7 @@
 #' @rdname get_swissvotes
 #' @return a tibble containing the results
 #' @examples
-#'  \donttest{
+#'  \dontrun{
 # results <-get_swissvotes(DB=T, savecitation=F, codebook=F)
 #' 
 #' # See codebook only

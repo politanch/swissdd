@@ -3,7 +3,7 @@
 .onAttach <- function(lib, pkg)
 {
   packageStartupMessage('************************************************************')
-  packageStartupMessage('*                       swissdd 1.0.2                      *')
+  packageStartupMessage('*                       swissdd 1.0.3                      *')
   packageStartupMessage('*                  developed by politan.ch                 *')
   packageStartupMessage('*                                                          *')
   packageStartupMessage('*                     Data sources:                        *')

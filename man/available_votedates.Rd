@@ -19,7 +19,7 @@ a vector of votedates (Format: YYYY-MM-DD)
 available_votedates - get available votedates of federal and cantonal popular votes
 }
 \examples{
- \donttest{
+ \dontrun{
 
 # Get vector of all available dates
 federal_votedates <- available_votedates()

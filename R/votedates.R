@@ -10,7 +10,7 @@
 #' @rdname available_votedates
 #' @return a vector of votedates (Format: YYYY-MM-DD)
 #' @examples
-#'  \donttest{
+#'  \dontrun{
 #' 
 #' # Get vector of all available dates
 #' federal_votedates <- available_votedates()

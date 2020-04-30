@@ -18,7 +18,7 @@
 #' @return a tibble containing the results
 #' @export
 #' @examples
-#'  \donttest{
+#'  \dontrun{
 #'
 #' # transform the json of the most recent vote
 #' results <- swiss_json_to_dfr()
@@ -186,7 +186,7 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
 #' @return a tibble containing the results
 #' @export
 #' @examples
-#'  \donttest{
+#'  \dontrun{
 #'
 #'#most recent vote
 #' results <- canton_json_to_dfr()

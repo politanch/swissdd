@@ -18,7 +18,7 @@
 #' @rdname get_nationalvotes
 #' @return a tibble containing the results
 #' @examples
-#'  \donttest{
+#'  \dontrun{
 # results <-get_nationalvotes(geolevel="district",from_date = "2018-01-01",to_date="2018-12-31")
 #' 
 #' # Selection by enddate only
@@ -114,7 +114,7 @@ votedata
 #' @rdname get_cantonalvotes
 #' @return a tibble containing the results
 #' @examples
-#'  \donttest{
+#'  \dontrun{
 #' results <-get_cantonalvotes(geolevel="district",from_date = 20180101,to_date=20181231)
 #' 
 #'  get_cantonalvotes(to_date="1983-12-04")

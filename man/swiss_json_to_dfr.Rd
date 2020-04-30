@@ -23,7 +23,7 @@ a tibble containing the results
 \code{swiss_json_to_dfr} Transforms the json containing the results of a selected federal votedate into a tibble.
 }
 \examples{
- \donttest{
+ \dontrun{
 
 # transform the json of the most recent vote
 results <- swiss_json_to_dfr()
