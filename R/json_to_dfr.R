@@ -12,7 +12,7 @@
 #' @importFrom jsonlite fromJSON
 #' @importFrom dplyr "%>%"
 #' @importFrom dplyr mutate
-#' @importFrom dplyr bind_cols 
+#' @importFrom dplyr bind_rows 
 #' @importFrom tidyr unnest
 #' @importFrom tidyr unpack
 #' @return a tibble containing the results
@@ -23,7 +23,6 @@
 #' # transform the json of the most recent vote
 #' results <- swiss_json_to_dfr()
 #'
-#' glimpse(results)
 #' 
 #' # transform the json of a selected votedate
 #' 
@@ -190,8 +189,6 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
 #'
 #'#most recent vote
 #' results <- canton_json_to_dfr()
-#'
-#' glimpse(results)
 #' 
 #' # transform the json for a single votedate at counting district level
 #' canton_json_to_dfr(votedate="2019-09-01",geolevel = "zh_counting_districts")
