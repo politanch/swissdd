@@ -28,8 +28,6 @@
 #'  # Selection of a specific votedate
 #'  get_nationalvotes(votedates="2014-02-09")
 #'
-#'glimpse(results)
-#'
 #' 
 #'
 #'
@@ -115,15 +113,13 @@ votedata
 #' @return a tibble containing the results
 #' @examples
 #'  \dontrun{
-#' results <-get_cantonalvotes(geolevel="district",from_date = 20180101,to_date=20181231)
+#' # select by range
+#' results <- get_cantonalvotes(geolevel="district",from_date = "2019-01-01",to_date="2019-12-31")
 #' 
-#'  get_cantonalvotes(to_date="1983-12-04")
-#'  
-#'  OR
+#' # select specific votedate(s)
 #'  
 #'  get_cantonalvotes(votedates="2019-02-10")
 #'
-#'glimpse(results)
 #'
 #' # get the results at counting district level
 #' # yields the same result as the municipality level, with the 

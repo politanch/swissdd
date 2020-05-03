@@ -35,8 +35,6 @@ get_nationalvotes - retrieve vote results for national ballots at district- or m
  # Selection of a specific votedate
  get_nationalvotes(votedates="2014-02-09")
 
-glimpse(results)
-
 
 
 

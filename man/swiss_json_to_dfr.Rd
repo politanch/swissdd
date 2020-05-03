@@ -28,7 +28,6 @@ a tibble containing the results
 # transform the json of the most recent vote
 results <- swiss_json_to_dfr()
 
-glimpse(results)
 
 # transform the json of a selected votedate
 

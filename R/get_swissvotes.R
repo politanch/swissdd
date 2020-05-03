@@ -17,11 +17,6 @@
 #' 
 #' # See codebook only
 #'  get_swissvotes(codebook=F)
-#'  
-#' 
-#'
-#'glimpse(results)
-#'
 #'
 #' }
 #'

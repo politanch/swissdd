@@ -39,7 +39,6 @@
 #'#Zersiedelungsinitiative, 2019-02-10
 #'  results <- similar_votes(federalvotes, id=6260, from = 0.1, to = 0.2)
 #'
-#' glimpse(results)
 #'
 #'
 #' }
