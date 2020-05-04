@@ -13,10 +13,10 @@
 #' @return a tibble containing the results
 #' @examples
 #'  \dontrun{
-# results <-get_swissvotes(DB=T, savecitation=F, codebook=F)
+# results <-get_swissvotes(DB=TRUE, savecitation=FALSE, codebook=FALSE)
 #' 
 #' # See codebook only
-#'  get_swissvotes(codebook=F)
+#'  get_swissvotes(codebook=FALSE)
 #'
 #' }
 #'
