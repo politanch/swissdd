@@ -19,7 +19,6 @@
 #' @return a tibble containing the results
 #' @export
 #' @examples
-#'  \dontrun{
 #'
 #' # transform the json of the most recent vote
 #' results <- swiss_json_to_dfr()
@@ -30,7 +29,6 @@
 #' swiss_json_to_dfr(votedate = "2019-02-10")
 #'
 #'
-#' }
 
 swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL,index=NULL){
   
@@ -185,7 +183,6 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
 #' @return a tibble containing the results
 #' @export
 #' @examples
-#'  \dontrun{
 #'
 #'#most recent vote
 #' results <- canton_json_to_dfr()
@@ -194,7 +191,6 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
 #' canton_json_to_dfr(votedate="2020-02-09",geolevel = "zh_counting_districts")
 #'
 #'
-#' }
 #'
 
 canton_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL,index=NULL){

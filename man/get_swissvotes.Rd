@@ -23,12 +23,11 @@ a tibble containing the results
 get_swissvotes - retrieve data on votes. The unit of analysis are votes.
 }
 \examples{
- \dontrun{
+
 
 # See codebook only
  get_swissvotes(codebook=FALSE)
 
-}
 
 
 }

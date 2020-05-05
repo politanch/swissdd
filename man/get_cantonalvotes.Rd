@@ -26,7 +26,6 @@ a tibble containing the results
 get_cantonalvotes - retrieve vote results for cantonal ballots at district- or municipality level for selected dates or a given date range.
 }
 \examples{
- \dontrun{
 # select by range
 results <- get_cantonalvotes(geolevel="district",from_date = "2019-01-01",to_date="2019-12-31")
 
@@ -43,6 +42,6 @@ results <- get_cantonalvotes(geolevel="district",from_date = "2019-01-01",to_dat
 get_cantonalvotes(votedate="2019-09-22",geolevel = "zh_counting_districts")
 
 
-}
+
 
 }

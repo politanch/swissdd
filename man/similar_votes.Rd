@@ -4,7 +4,7 @@
 \alias{similar_votes}
 \title{Obtain similarities a vote result shares with other votes}
 \usage{
-similar_votes(federalvotes = NULL, id = NULL, corr = T,
+similar_votes(federalvotes = NULL, id = NULL, corr = TRUE,
   from = NULL, to = NULL)
 }
 \arguments{
@@ -26,21 +26,15 @@ a tibble containing the results
 }
 \examples{
  \dontrun{
- federalvotes <- get_swissvotes(geolevel = "canton",from_date = "2010-03-07",to_date="2019-02-10")
+ 
+ fedvotes <- get_nationalvotes(geolevel = "canton",from_date = "2010-03-07",to_date="2019-02-10")
  
  #Find correlating votes for the 'Zersiedelungsinitiative', 2019-02-10
- results <- similar_votes(federalvotes, id=6260)
+ results <- similar_votes(fedvotes, id=6260)
  
 
-#Zersiedelungsinitiative, 2019-02-10
- results <- similar_votes(federalvotes, id=6260, from = 0.5)
- 
- OR
- 
-#Zersiedelungsinitiative, 2019-02-10
- results <- similar_votes(federalvotes, id=6260, from = 0.1, to = 0.2)
-
-
+#Zersiedelungsinitiative, 2019-02-10, filter stronger correlations (>0.5)
+ results <- similar_votes(fedvotes, id=6260, from = 0.5)
 
 }
 

@@ -18,7 +18,6 @@
 #' @rdname get_nationalvotes
 #' @return a tibble containing the results
 #' @examples
-#'  \dontrun{
 # results <-get_nationalvotes(geolevel="district",from_date = "2018-01-01",to_date="2018-12-31")
 #' 
 #' # Selection by enddate only
@@ -31,7 +30,6 @@
 #' 
 #'
 #'
-#' }
 #'
 
 get_nationalvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NULL,to_date=NULL){
@@ -112,7 +110,6 @@ votedata
 #' @rdname get_cantonalvotes
 #' @return a tibble containing the results
 #' @examples
-#'  \dontrun{
 #' # select by range
 #' results <- get_cantonalvotes(geolevel="district",from_date = "2019-01-01",to_date="2019-12-31")
 #' 
@@ -129,7 +126,7 @@ votedata
 #' get_cantonalvotes(votedate="2019-09-22",geolevel = "zh_counting_districts")
 #'
 #'
-#' }
+#' 
 #'
 
 get_cantonalvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NULL,to_date=NULL){

@@ -26,7 +26,6 @@ a tibble containing the results
 placeholder
 }
 \examples{
- \dontrun{
 
 #most recent vote
 results <- canton_json_to_dfr()
@@ -35,6 +34,5 @@ results <- canton_json_to_dfr()
 canton_json_to_dfr(votedate="2020-02-09",geolevel = "zh_counting_districts")
 
 
-}
 
 }

@@ -26,7 +26,6 @@ a tibble containing the results
 get_nationalvotes - retrieve vote results for national ballots at district- or municipality level for selected dates or a given date range.
 }
 \examples{
- \dontrun{
 
 # Selection by enddate only
  get_nationalvotes(to_date="1983-12-04")
@@ -38,6 +37,5 @@ get_nationalvotes - retrieve vote results for national ballots at district- or m
 
 
 
-}
 
 }
