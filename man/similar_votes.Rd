@@ -25,7 +25,7 @@ a tibble containing the results
 \code{similar_votes} allows to obtain correlations of specified vote with other votes.
 }
 \examples{
- \dontrun{
+ \donttest{
  
  fedvotes <- get_nationalvotes(geolevel = "canton",from_date = "2010-03-07",to_date="2019-02-10")
  

@@ -24,7 +24,7 @@
 #' @rdname similar_votes
 #' @return a tibble containing the results
 #' @examples
-#'  \dontrun{
+#'  \donttest{
 #'  
 #'  fedvotes <- get_nationalvotes(geolevel = "canton",from_date = "2010-03-07",to_date="2019-02-10")
 #'  

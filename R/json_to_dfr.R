@@ -179,15 +179,14 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
 #' @importFrom tidyr unnest
 #' @importFrom tidyr unpack
 #' @rdname canton_json_to_dfr
-#' @details placeholder
 #' @return a tibble containing the results
 #' @export
 #' @examples
 #'
-#'#most recent vote
+#' # get and transform the json for the most recent vote
 #' results <- canton_json_to_dfr()
 #' 
-#' # transform the json for a single votedate at counting district level
+#' # get and transform the json for a single votedate at counting district level
 #' canton_json_to_dfr(votedate="2020-02-09",geolevel = "zh_counting_districts")
 #'
 #'
