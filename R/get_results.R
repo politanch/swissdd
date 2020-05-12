@@ -18,6 +18,7 @@
 #' @rdname get_nationalvotes
 #' @return a tibble containing the results
 #' @examples
+#' \donttest{
 # results <-get_nationalvotes(geolevel="district",from_date = "2018-01-01",to_date="2018-12-31")
 #' 
 #' # Selection by enddate only
@@ -25,12 +26,11 @@
 #'  
 #' 
 #'  # Selection of a specific votedate
-#'  get_nationalvotes(votedates="2014-02-09")
+#'   get_nationalvotes(votedates="2014-02-09")
 #'
-#' 
+#' }
 #'
-#'
-#'
+
 
 get_nationalvotes <- function(geolevel = "municipality",votedates=NULL,from_date=NULL,to_date=NULL){
   
