@@ -227,9 +227,9 @@ canton_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NUL
   if(!(geolevel=="canton")){
     ## switch geolevel---
     switch(geolevel,
-           municipality={geoindex<-9} ,
-           zh_counting_districts={geoindex<-9} ,
-           district={geoindex<-8})
+           municipality={geoindex<-"gemeinden"} ,
+           zh_counting_districts={geoindex<-"gemeinden"} ,
+           district={geoindex<-"bezirke"})
     
     ## tibble with data
     
@@ -248,7 +248,7 @@ canton_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NUL
       zaehlkreise <-tibble::tibble(
         id = purrr::map(data$kantone$vorlagen,1),
         canton_name = data$kantone$geoLevelname,
-        res = purrr::map(data$kantone$vorlagen,10))%>%  
+        res = purrr::map(data$kantone$vorlagen,"zaehlkreise"))%>%  
         tidyr::unnest(c(id,res)) %>% 
         tidyr::unnest(res) %>% 
         tidyr::unpack(resultat)
