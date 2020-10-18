@@ -90,7 +90,7 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
       id = data$schweiz$vorlagen$vorlagenId,
       canton_id = purrr::map(data$schweiz$vorlagen$kantone, 1),
       canton_name = purrr::map(data$schweiz$vorlagen$kantone, 2),
-      res = purrr::map(data$schweiz$vorlagen$kantone,4)
+      res = purrr::map(data$schweiz$vorlagen$kantone,"bezirke")
     )
     
     findata <- datas %>%
@@ -112,7 +112,7 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
       id = data$schweiz$vorlagen$vorlagenId,
       canton_id = "1",
       canton_name = "Zuerich",
-      res = purrr::map(data$schweiz$vorlagen$kantone,6)
+      res = purrr::map(data$schweiz$vorlagen$kantone,"zaehlkreise")
     ) %>% 
       tidyr::unnest(res) %>% 
       tidyr::unnest(res) %>% 
@@ -132,7 +132,7 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
       id = data$schweiz$vorlagen$vorlagenId,
       canton_id = purrr::map(data$schweiz$vorlagen$kantone, 1),
       canton_name = purrr::map(data$schweiz$vorlagen$kantone, 2),
-      res = purrr::map(data$schweiz$vorlagen$kantone,5)
+      res = purrr::map(data$schweiz$vorlagen$kantone,"gemeinden")
     )
     
     findata  <- datas %>%
