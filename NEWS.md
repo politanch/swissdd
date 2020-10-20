@@ -1,3 +1,7 @@
+# swissdd 1.0.4
+
+* the `canton_json_to_dfr` has been adapted to work with the altered data structure of the json files provided via opendata.swiss containing the cantonal vote results.
+
 # swissdd 1.0.3
 
 * broken examples fixed
