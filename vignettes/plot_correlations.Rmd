@@ -62,7 +62,8 @@ corrvotes <- federalvotes %>%
   mutate(id=as.character(id))
 
 #plot
-spread(corrvotes , id, jaStimmenInProzent)%>%
+corrvotes%>%
+  pivot_wider(names_from="id", values_from="jaStimmenInProzent")%>%
   ggplot(aes(y=`5800`, x=`5710`))+
   geom_point()+
   scale_y_continuous(limits=c(0,100))+
@@ -73,3 +74,17 @@ spread(corrvotes , id, jaStimmenInProzent)%>%
   theme_bw()
 
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
