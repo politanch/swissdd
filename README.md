@@ -25,8 +25,6 @@ The documentation is available here: https://politanch.github.io/swissdd/
 
 The webservice of the FSO is documented on opendata.swiss (language settings can be found at the bottom of the page):
 
-<img src="https://handbook.opendata.swiss/images/terms_by-ask.svg" alt="" width="12%"/>
-
 https://opendata.swiss/de/dataset/echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen
 
 https://opendata.swiss/de/dataset/echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen
