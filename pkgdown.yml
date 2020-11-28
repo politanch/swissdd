@@ -1,0 +1,10 @@
+pandoc: 2.7.3
+pkgdown: 1.6.1
+pkgdown_sha: ~
+articles:
+  plot_correlations: plot_correlations.html
+  plot_voteshares: plot_voteshares.html
+  predict_voteshare: predict_voteshare.html
+  use_SwissvotesDB: use_SwissvotesDB.html
+last_built: 2020-11-28T20:37Z
+
