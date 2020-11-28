@@ -90,7 +90,7 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
       id = data$schweiz$vorlagen$vorlagenId,
       canton_id = purrr::map(data$schweiz$vorlagen$kantone, 1),
       canton_name = purrr::map(data$schweiz$vorlagen$kantone, 2),
-      res = purrr::map(data$schweiz$vorlagen$kantone,4)
+      res = purrr::map(data$schweiz$vorlagen$kantone,"bezirke")
     )
     
     findata <- datas %>%
@@ -112,7 +112,7 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
       id = data$schweiz$vorlagen$vorlagenId,
       canton_id = "1",
       canton_name = "Zuerich",
-      res = purrr::map(data$schweiz$vorlagen$kantone,6)
+      res = purrr::map(data$schweiz$vorlagen$kantone,"zaehlkreise")
     ) %>% 
       tidyr::unnest(res) %>% 
       tidyr::unnest(res) %>% 
@@ -132,7 +132,7 @@ swiss_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NULL
       id = data$schweiz$vorlagen$vorlagenId,
       canton_id = purrr::map(data$schweiz$vorlagen$kantone, 1),
       canton_name = purrr::map(data$schweiz$vorlagen$kantone, 2),
-      res = purrr::map(data$schweiz$vorlagen$kantone,5)
+      res = purrr::map(data$schweiz$vorlagen$kantone,"gemeinden")
     )
     
     findata  <- datas %>%
@@ -227,9 +227,9 @@ canton_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NUL
   if(!(geolevel=="canton")){
     ## switch geolevel---
     switch(geolevel,
-           municipality={geoindex<-9} ,
-           zh_counting_districts={geoindex<-9} ,
-           district={geoindex<-8})
+           municipality={geoindex<-"gemeinden"} ,
+           zh_counting_districts={geoindex<-"gemeinden"} ,
+           district={geoindex<-"bezirke"})
     
     ## tibble with data
     
@@ -248,7 +248,7 @@ canton_json_to_dfr <- function(votedate=NULL,geolevel="municipality",dataurl=NUL
       zaehlkreise <-tibble::tibble(
         id = purrr::map(data$kantone$vorlagen,1),
         canton_name = data$kantone$geoLevelname,
-        res = purrr::map(data$kantone$vorlagen,10))%>%  
+        res = purrr::map(data$kantone$vorlagen,"zaehlkreise"))%>%  
         tidyr::unnest(c(id,res)) %>% 
         tidyr::unnest(res) %>% 
         tidyr::unpack(resultat)
