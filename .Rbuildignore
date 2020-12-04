@@ -5,7 +5,13 @@
 ^.*\.txt$
 ^README\.md$
 ^NEWS\.md$
+^index\.Rmd$
+^index\.md$
 ^tests$
+^pkgdown$
 ^cran-comments\.md$
 ^CRAN-RELEASE$
 ^docs$
+^vignettes$
+^inst$
+^\.pkgdown\.yml$

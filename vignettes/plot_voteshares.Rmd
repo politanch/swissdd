@@ -1,10 +1,6 @@
 ---
-title: "Plot Vote Shares"
+title: "Plot vote shares"
 output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{test}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}

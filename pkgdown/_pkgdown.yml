@@ -1,0 +1,5 @@
+template:
+  path: pkgdown/templates
+  params:
+    bootswatch: lumen
+    

@@ -5,3 +5,5 @@ r:
 - oldrel
 - release
 - devel
+r_build_args: --no-build-vignettes --no-manual --no-resave-data
+r_check_args: --no-build-vignettes --no-manual

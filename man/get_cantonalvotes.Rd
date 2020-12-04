@@ -2,7 +2,11 @@
 % Please edit documentation in R/get_cantonalvotes.R
 \name{get_cantonalvotes}
 \alias{get_cantonalvotes}
+<<<<<<< HEAD
 \title{Get cantonal results and counting status in real time or for selected dates or a time range in the past}
+=======
+\title{Get national results and counting status in real time or for selected dates or a time range in the past}
+>>>>>>> master
 \usage{
 get_cantonalvotes(
   geolevel = "municipality",
@@ -30,6 +34,7 @@ a tibble containing the results
 get_cantonalvotes - retrieve vote results for cantonal ballots at district- or municipality level for selected dates or a given date range.
 }
 \examples{
+<<<<<<< HEAD
 
 # Select by range
 results <- get_cantonalvotes(
@@ -40,12 +45,29 @@ results <- get_cantonalvotes(
 
 # Select specific votedate(s)
 get_cantonalvotes(votedates = "2019-02-10")
+=======
+# select by range
+results <- get_cantonalvotes(geolevel="district",from_date = "2019-01-01",to_date="2019-12-31")
+
+# select specific votedate(s)
+ 
+ get_cantonalvotes(votedates="2019-02-10")
+
+>>>>>>> master
 
 # get the results at counting district level
 # yields the same result as the municipality level, with the 
 # exception of Winterthur and Zurich,
 # where detailed counting district results are returned instead.
+<<<<<<< HEAD
 
 get_cantonalvotes(votedate = "2019-09-22", geolevel = "zh_counting_districts")
+=======
+
+get_cantonalvotes(votedate="2019-09-22",geolevel = "zh_counting_districts")
+
+
+
+>>>>>>> master
 
 }

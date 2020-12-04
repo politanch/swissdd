@@ -4,5 +4,6 @@ pkgdown_sha: ~
 articles:
   plot_correlations: plot_correlations.html
   plot_voteshares: plot_voteshares.html
+  predict_voteshare: predict_voteshare.html
   use_SwissvotesDB: use_SwissvotesDB.html
 

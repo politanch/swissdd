@@ -1,10 +1,6 @@
 ---
 title: "Find and plot correlated vote results"
 output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{test}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
@@ -19,13 +15,17 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-### What Other Votes Correlate with the 2014 vote on immigration (mei)?
+### What other votes correlate with the 2014 vote on immigration (mei)?
 
 For the sake of illustration we are interested in the result of the 2014 vote on immigration for Swiss municipalities. The initiative was voted upon on 9th of February 2014. There are different ways to find this exact vote. One of them is using the information in the title. An other solution would be to look up the `id` provided by the FSO. 
 
+<<<<<<< HEAD
+=======
+`unique(federalvotes$name[grep("Massen", federalvotes$name)])`
+
+>>>>>>> master
 First, we invoke the necessary packages and use the function `get_nationalvotes` to access the data. We further specify the unit of analysis as well as the range.
 
-unique(federalvotes$name[grep("Massen", federalvotes$name)])
 
 ```{r echo=TRUE, warning=FALSE, message=FALSE}
 # installation from CRAN (stable)
@@ -40,7 +40,7 @@ library(dplyr)
 library(ggplot2)
 library(tidyr)
 
-#get data from API for the 2010-2019 (feb) 
+#get results of all votes between 2010-2019
 federalvotes <- get_nationalvotes(geolevel = "municipality", 
                                   from_date = "2010-03-07", 
                                   to_date = "2020-09-27")
@@ -53,7 +53,11 @@ simvotes
 ballotnames <- federalvotes %>%
   dplyr::select(name, id, mun_id)%>%
   filter(id%in%c(5800, simvotes[2,1]))%>%
+<<<<<<< HEAD
   distinct(name)
+=======
+  distinct()
+>>>>>>> master
 
 #subset for correlated votes
 corrvotes <- federalvotes %>% 
@@ -62,8 +66,12 @@ corrvotes <- federalvotes %>%
   mutate(id=as.character(id))
 
 #plot
+<<<<<<< HEAD
 corrvotes%>%
   pivot_wider(names_from="id", values_from="jaStimmenInProzent")%>%
+=======
+spread(corrvotes , id, jaStimmenInProzent)%>%
+>>>>>>> master
   ggplot(aes(y=`5800`, x=`5710`))+
   geom_point()+
   scale_y_continuous(limits=c(0,100))+

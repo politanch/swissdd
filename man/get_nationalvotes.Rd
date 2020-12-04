@@ -33,6 +33,7 @@ a tibble containing the results
 get_nationalvotes - retrieve vote results for national ballots at district- or municipality level for selected dates or a given date range.
 }
 \examples{
+<<<<<<< HEAD
 
 # Selection by range
 results <- get_nationalvotes(
@@ -46,5 +47,17 @@ get_nationalvotes(to_date = "1983-12-04")
  
 # Selection of a specific vote date
 get_nationalvotes(votedates = "2014-02-09")
+=======
+\donttest{
+
+# Selection by enddate only
+ get_nationalvotes(to_date="1983-12-04")
+ 
+
+ # Selection of a specific votedate
+  get_nationalvotes(votedates="2014-02-09")
+
+}
+>>>>>>> master
 
 }

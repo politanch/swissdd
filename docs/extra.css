@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway|Ubuntu+Mono');
+
+h1, h2, h3, h4, h5{
+  color: #293c55;
+}
+
+body{
+  font-family: 'Raleway', sans-serif;
+}
+
+code{
+  font-family: 'Ubuntu Mono', monospace;
+}
+
+p>a {
+  color: #FF6B00;
+}
+
+li>a {
+  color: #FF6B00;
+}
+
+.sourceCode>a{
+  color: #293c55;
+}
+
+.st{
+  color: #B03A5B;
+}
+
+.op{
+  color: #666666;
+}
+
+.dv, .dt{
+  color: #191919;
+}
+
+.btn-copy-ex{
+  background-color: #B03A5B;
+  border-color: #293c55;
+}
+
+.btn-copy-ex:hover{
+  background-color: #293c55;
+  border-color: #B03A5B;
+}
+
+
+pre {
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 0 2px 3px 1px,
+    rgba(0, 0, 0, 0.1) 0 1px 3px 1px,
+    rgba(0, 0, 0, 0.2) 0 1px 1px -1px;
+}
+
+.navbar-default{
+  border-color: #293c55;
+  background-color: #FF6B00;
+}
+
+.navbar-default .navbar-nav>li>a {
+ color:#fff;
+}
+
+.navbar-default .navbar-link {
+ color:#fff
+}
+
+.label-default {
+    background-color: #293c55;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #FF6B00;
+    background-color: #293c55;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #FF5400;
+}
+
+ .navbar-default .navbar-nav .open .dropdown-menu>li>a, .navbar-default .navbar-nav .open .dropdown-menu {
+  border-color: #FFFFFF;
+  background-color: #293c55;
+  color : #FF6B00;
+}
+
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: #293c55;
+    background-color: #FF6B00;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+
+    background-color: #293c55;
+    color: #ffffff;
+
+}
+
+.navbar-default .navbar-nav > .dropdown > a .caret {
+  color: #999999;
+}
+.navbar-default .navbar-nav > .dropdown > a:hover .caret,
+.navbar-default .navbar-nav > .dropdown > a:focus .caret {
+  color: #B03A5B;
+}
+
+.navbar-default .navbar-nav>.open>a,
+.navbar-default .navbar-nav>.open>a:hover,
+.navbar-default .navbar-nav>.open>a:focus{
+  color: #d8d8d8;
+}
+
+.navbar-default .navbar-nav .open .dropdown-menu>li>a:hover,
+.navbar-default .navbar-nav .open .dropdown-menu{
+  color: #dce6f2;
+}
+
+.nav-pills>li.active>a,
+.nav-pills>li.active>a:hover,
+.nav-pills>li.active>a:focus {
+  color: #FFFFFF;
+  background-color: #435b7b;
+}
+
+a:hover, a:focus {
+  color: #293c55;
+}
+
+/*fix to move article titles below nav bar*/
+
+.contents .page-header {
+    margin-top: calc(60px + 1em);
+}
