@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 #' Download additional data collected by annee politique suisse (the complete SwissVotes-Database)
 #'
 #' \code{get_swissvotes} downloads additional data collected by annee politique suisse. It allows for completely downloading their database. Please cite data.
@@ -18,7 +14,6 @@
 #' 
 #' @examples
 #'
-<<<<<<< HEAD
 # results <- get_swissvotes(DB=TRUE, savecitation=FALSE, codebook=FALSE)
 #' 
 #' # See codebook only
@@ -36,27 +31,7 @@ get_swissvotes <- function(DB = T, savecitation = F, codebook = F) {
     
     }
   if (codebook) utils::browseURL("https://swissvotes.ch/storage/6fe1c47ea920f8449eb3bd6d91e1df7a0316c976431a02762e2508d0102d7724")
-=======
-# results <-get_swissvotes(DB=TRUE, savecitation=FALSE, codebook=FALSE)
-#' 
-#' # See codebook only
-#'  get_swissvotes(codebook=FALSE)
-#'
-#' 
-#'
 
-get_swissvotes <- function(DB=T, savecitation=F, codebook=F){
-
-  if(DB){
-    swissvotesDB <- utils::read.csv("https://swissvotes.ch/page/dataset/swissvotes_dataset.csv",
-                             sep=";", stringsAsFactors = F)
-  }
-
-
-  if(codebook) utils::browseURL("https://swissvotes.ch/storage/6fe1c47ea920f8449eb3bd6d91e1df7a0316c976431a02762e2508d0102d7724")
-
-
->>>>>>> master
   if(DB) {
 
     message("To cite swissvotes data in publications, please use:\n
