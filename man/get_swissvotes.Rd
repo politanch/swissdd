@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_swissvotes.R
 \name{get_swissvotes}
 \alias{get_swissvotes}
-\title{downloads additional data collected by annee politique suisse. It allows to downloading their complete database.}
+\title{Download additional data collected by annee politique suisse (the complete SwissVotes-Database)}
 \usage{
 get_swissvotes(DB = T, savecitation = F, codebook = F)
 }
@@ -23,17 +23,9 @@ a tibble containing the results
 get_swissvotes - retrieve data on votes. The unit of analysis are votes.
 }
 \examples{
- \donttest{
+
 
 # See codebook only
- get_swissvotes(codebook=T)
- 
-
-
-glimpse(results)
-
-
-}
-
+get_swissvotes(codebook=FALSE)
 
 }
