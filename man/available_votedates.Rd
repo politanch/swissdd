@@ -24,12 +24,6 @@ available_votedates - get available votedates of federal and cantonal popular vo
 
 # Get vector of all available dates
 federal_votedates <- available_votedates()
-<<<<<<< HEAD
 cantonal_votedates <- available_votedates(geolevel = "canton")
-=======
-
-cantonal_votedates <- available_votedates(geolevel="canton")
-
->>>>>>> master
 
 }

@@ -2,11 +2,7 @@
 % Please edit documentation in R/swiss_json_to_dfr.R
 \name{swiss_json_to_dfr}
 \alias{swiss_json_to_dfr}
-<<<<<<< HEAD
 \title{Transform an opendata.swiss national results json into a tibble}
-=======
-\title{Transform a opendata.swiss national results json into a tibble}
->>>>>>> master
 \usage{
 swiss_json_to_dfr(
   votedate = NULL,
@@ -41,16 +37,7 @@ a tibble containing the results
 # Transform the json of the most recent vote
 results <- swiss_json_to_dfr()
 
-<<<<<<< HEAD
 # Transform the json of a selected votedate
 swiss_json_to_dfr(votedate = "2019-02-10")
 
-=======
-
-# transform the json of a selected votedate
-
-swiss_json_to_dfr(votedate = "2019-02-10")
-
-
->>>>>>> master
 }

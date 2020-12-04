@@ -23,19 +23,9 @@ a tibble containing the results
 get_swissvotes - retrieve data on votes. The unit of analysis are votes.
 }
 \examples{
-<<<<<<< HEAD
-=======
 
->>>>>>> master
 
-# See codebook only
- get_swissvotes(codebook=FALSE)
-
-<<<<<<< HEAD
 # See codebook only
 get_swissvotes(codebook=FALSE)
-=======
-
->>>>>>> master
 
 }

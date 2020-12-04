@@ -4,7 +4,6 @@
 \alias{similar_votes}
 \title{Obtain similarities a vote result shares with other votes}
 \usage{
-<<<<<<< HEAD
 similar_votes(
   federalvotes = NULL,
   id = NULL,
@@ -12,10 +11,6 @@ similar_votes(
   from = NULL,
   to = NULL
 )
-=======
-similar_votes(federalvotes = NULL, id = NULL, corr = TRUE,
-  from = NULL, to = NULL)
->>>>>>> master
 }
 \arguments{
 \item{federalvotes}{tibble or data.frame that is returned by 'get_swissvotes'.}

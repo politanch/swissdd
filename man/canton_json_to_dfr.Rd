@@ -27,7 +27,6 @@ canton_json_to_dfr(
 a tibble containing the results
 }
 \description{
-<<<<<<< HEAD
 \code{canton_json_to_dfr} tranforms a single results json for a selected cantonal votedate into a tibble.
 }
 \examples{
@@ -37,18 +36,5 @@ results <- canton_json_to_dfr()
 
 # Get and transform the json for a single votedate at counting district level
 canton_json_to_dfr(votedate = "2020-02-09", geolevel = "zh_counting_districts")
-=======
-\code{canton_json_to_dfr} Tranforms a single results json for a selected cantonal votedate into a tibble.
-}
-\examples{
-
-# get and transform the json for the most recent vote
-results <- canton_json_to_dfr()
-
-# get and transform the json for a single votedate at counting district level
-canton_json_to_dfr(votedate="2020-02-09",geolevel = "zh_counting_districts")
-
-
->>>>>>> master
 
 }
