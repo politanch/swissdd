@@ -45,10 +45,10 @@ We first extract the data and the select the variables we need to make predictio
 
 We download and prettify the data. After that we calculate the share of yes votes in the National Council and create a scatterplot to inspect if our intuition about the relationship can be seen in the data.
 
-```{r echo=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
+```{r echo=TRUE, warning=FALSE, message=FALSE, eval=TRUE}
 
 #extract data from database
-swissvotesDB <- get_swissvotes(DB=T, savecitation=F, codebook=F) %>%
+swissvotesdata <- get_swissvotes(DB=T, savecitation=F, codebook=F) %>%
   #select variables we need
   dplyr::select(anr, volkja.proz, nrja, nrnein) %>%
   #make numeric and rename variables
@@ -59,10 +59,10 @@ swissvotesDB <- get_swissvotes(DB=T, savecitation=F, codebook=F) %>%
          yesshare = volkja.proz)
 
 #clean data
-swissvotesDB[swissvotesDB=="."] <- NA
+swissvotesdata[swissvotesdata=="."] <- NA
 
 #calculate share of yes votes in national council
-swissvotesDB <- swissvotesDB %>%
+swissvotesdata <- swissvotesdata %>%
   mutate(nr_yesshare = nrja / (nrja+nrnein))
 
 ```
@@ -78,7 +78,7 @@ After downloading and preparing the data, we calculate the share of yes votes in
 
 ```{r echo=TRUE, warning=FALSE, message=FALSE}
 
-plot1 <- ggplot(swissvotesDB, aes(x=nr_yesshare, y= yesshare))+
+plot1 <- ggplot(data=swissvotesdata, aes(x=nr_yesshare, y= yesshare))+
   geom_hline(yintercept=.5, linetype="dashed", color="grey70")+
   geom_point()+
   geom_abline(intercept = 0, slope=1, size=.1)+
@@ -87,6 +87,7 @@ plot1 <- ggplot(swissvotesDB, aes(x=nr_yesshare, y= yesshare))+
   geom_smooth(method="lm", se=T, size=.5, color="#FF6B00")+
   labs(y="Actual Outcome of Vote", x="Yes Share in National Council", caption="politan.ch")+
   theme_bw()
+
 plot1
 ```
 
@@ -100,8 +101,8 @@ In the last step we estimate a very basic model and then predict the vote shares
 
 ```{r echo=TRUE, warning=FALSE, message=FALSE, eval=TRUE}
 #split data
-estimation_data <- swissvotesDB[!swissvotesDB$bfsnr%in%c(6290, 6300),]
-prediction_data <- swissvotesDB[swissvotesDB$bfsnr%in%c(6290, 6300),]
+estimation_data <- swissvotesdata[!swissvotesdata$bfsnr%in%c(6290, 6300),]
+prediction_data <- swissvotesdata[swissvotesdata$bfsnr%in%c(6290, 6300),]
 
 #estimate a model
 fit_m1 <- lm(yesshare ~ nr_yesshare, data=estimation_data)
