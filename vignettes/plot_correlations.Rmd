@@ -53,33 +53,6 @@ ballotnames <- federalvotes %>%
   distinct(name)
 
 
-#subset for correlated votes
-corrvotes <- federalvotes %>% 
-  filter(id%in%c(5800, simvotes[2,1]))%>%
-  dplyr::select(id, jaStimmenInProzent, mun_id)%>%
-  mutate(id=as.character(id))
-
-#plot
-  pivot_wider(names_from="id", values_from="jaStimmenInProzent")%>%
-  ggplot(aes(y=`5800`, x=`5710`))+
-  geom_point()+
-  scale_y_continuous(limits=c(0,100))+
-  scale_x_continuous(limits=c(0,100))+
-  geom_abline(intercept = 0, slope=1,  size=.1)+
-  geom_smooth(method="lm", size=.1, color="orange")+
-  labs(y="MEI, Yes Shares", x="Amendments to the Asylum Law, Yes Shares", caption="politan.ch")+
-  theme_bw()
-
-```
-
-
-
-
-### What Other Votes Correlate with the 2020 vote on limiting immigration (BGI)?
-
-
-```{r echo=TRUE, warning=FALSE, message=FALSE}
-
 #get correlations for votes on municipal level with mei
 simvotes <- similar_votes(federalvotes, id=6310, from=.3, to=1)
 simvotes
