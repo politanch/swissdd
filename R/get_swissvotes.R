@@ -30,7 +30,7 @@ get_swissvotes <- function(DB = T, savecitation = F, codebook = F) {
       )
     
     }
-  if (codebook) utils::browseURL("https://swissvotes.ch/storage/6fe1c47ea920f8449eb3bd6d91e1df7a0316c976431a02762e2508d0102d7724")
+  if (codebook) utils::browseURL("https://swissvotes.ch/page/dataset/codebook-de.pdf")
 
   if(DB) {
 
