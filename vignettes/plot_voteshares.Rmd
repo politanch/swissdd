@@ -10,48 +10,81 @@ knitr::opts_chunk$set(
 )
 ```
 
-### plot voteshares on the cantonal level
+The function `get_geodata` allows users to download geographic information for different administrative units in Switzerland. The function returns a *spatiel feature* `data.frame`. A user should specify the level of administrative units using the argument  `geolevel`. The following options are available:
+
+* `national` downloads administrative boundaries of Switzerland
+* `cantonal` downloads administrative boundaries of cantons
+* `municipality` downloads administrative boundaries of municipalities/communities
+* `zh_counting_districts` downloads administrative boundaries of *Zählkreise* for the City of Zurich
+* `lakes` downloads boundaries of major lakes
+
+An illustration of how one could utilize the function of `swissdd` to visualize resulting vote shares for any national vote is given below.
+
+### Plot voteshares "by hand"
 ```{r echo=TRUE, warning=FALSE, message=FALSE}
 # installation from CRAN (stable)
 # install.packages("swissdd")
 # install.packages("dplyr")
-# install.packages("RSwissMaps")
 
 # installation from github (ongoing updates)
 # devtools::install_github("politanch/swissdd")
 
 library(swissdd)
 library(dplyr)
-library(RSwissMaps)
+library(ggplot2)
+library(sf)
+library(viridis)
 
-#get data from API for the 2014 Swiss immigration initiative (mei)
-mei_nat <- get_nationalvotes(votedates="2014-02-09", geolevel = "canton")%>%
-  dplyr::filter(id == 5800)%>%
+#download geo information
+geo_canton <- get_geodata(geolevel = "canton")
+geo_canton$canton_id <- as.numeric(geo_canton$canton_id)
+
+# download data from API on the vote calles «Swiss coalition for Corporate justice SCCJ»
+kovi_nat <- swissdd::get_nationalvotes(votedates="2020-11-29", geolevel = "canton")%>%
+  dplyr::filter(id == 6360)%>%
   dplyr::select(canton_id, jaStimmenInProzent)%>%
   mutate(canton_id=as.numeric(canton_id))
 
-#plot
-can.plot(mei_nat$canton_id, mei_nat$jaStimmenInProzent, 2016,
-         title = "2014 Swiss immigration initiative ",
-         subtitle = "Swiss Cantons, 2016", 
-         caption = "Data:swissdd/FSO\nPlot:RSwissMaps", dpi=300)
 ```
 
+Combine the two `data.frames`.
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+can_df <- left_join(geo_canton, kovi_nat, by="canton_id")
+```
 
-### plot voteshares on the municipal level
+Plot the whole thing accordingly.
 
 ```{r echo=TRUE, warning=FALSE, message=FALSE}
-#get data from API for the 2014 Swiss immigration initiative (mei)
-mei_mun <- get_nationalvotes(votedates="2014-02-09", geolevel = "municipality")%>%
-  dplyr::filter(id == 5800)%>%
-  dplyr::select(mun_id, jaStimmenInProzent)%>%
-  mutate(mun_id=as.numeric(mun_id))
 
-mun.plot(mei_mun$mun_id, mei_mun$jaStimmenInProzent, 2016,
-         color_continuous = c("#c7e9c0", "#006d2c"),
-         boundaries_size = 0.2,
-         title = "2014 Swiss immigration initiative ",
-         subtitle = "Swiss Municipalities, 2016", 
-         caption = "Data:swissdd/FSO\nPlot:RSwissMaps")
+ggplot(can_df)+
+  geom_sf(aes(fill=jaStimmenInProzent), color="white", size=.1)
+
 ```
+
+With this you can start prettifiyng the map. To do that you can download geo information on major lakes as well. We add those as well.
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+
+lakes <- get_geodata(geolevel = "lakes")
+
+ggplot(can_df)+
+  geom_sf(aes(fill=jaStimmenInProzent), color="white", size=.1)+
+  geom_sf(data=lakes, fill="aliceblue", color=NA)+
+  scale_fill_viridis(option="D", 
+                     name = "Yes-Share",
+                     guide=guide_colorbar(title.position="top", 
+                                          direction = "horizontal",
+                                          barheight = unit(2, units = "mm"),
+                                          barwidth = unit(50, units = "mm"),
+                                          title.hjust =0.5))+
+  theme_void()+
+  theme(legend.position="bottom")+
+  labs(title="Result for Vote on Corporate Justice SCCJ", subtitle="November 29, 2020",
+       caption="data: FSO/{swissdd}")
+
+```
+
+
+
+
 
