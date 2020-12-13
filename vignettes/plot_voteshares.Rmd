@@ -10,7 +10,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The function `get_geodata` allows users to download geographic information for different administrative units in Switzerland. The function returns a *spatiel feature* `data.frame`. A user should specify the level of administrative units using the argument  `geolevel`. The following options are available:
+The function `get_geodata` allows users to download geographic information for different administrative units in Switzerland. The function returns a *spatial feature* `data.frame`. A user should specify the level of administrative units using the argument  `geolevel`. The following options are available:
 
 * `national` downloads administrative boundaries of Switzerland
 * `cantonal` downloads administrative boundaries of cantons
@@ -27,7 +27,7 @@ An illustration of how one could utilize the function of `swissdd` to visualize 
 # install.packages("dplyr")
 
 # installation from github (ongoing updates)
-# devtools::install_github("politanch/swissdd")
+# devtools::install_github("politanch/swissdd", ref="dev")
 
 library(swissdd)
 library(dplyr)
@@ -40,7 +40,7 @@ geo_canton <- get_geodata(geolevel = "canton")
 geo_canton$canton_id <- as.numeric(geo_canton$canton_id)
 
 # download data from API on the vote calles «Swiss coalition for Corporate justice SCCJ»
-kovi_nat <- swissdd::get_nationalvotes(votedates="2020-11-29", geolevel = "canton")%>%
+kovi_nat <- get_nationalvotes(votedates="2020-11-29", geolevel = "canton")%>%
   dplyr::filter(id == 6360)%>%
   dplyr::select(canton_id, jaStimmenInProzent)%>%
   mutate(canton_id=as.numeric(canton_id))
