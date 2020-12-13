@@ -35,7 +35,8 @@ jobs:
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
-          install.packages(c("pkgdown", "dplyr", "tidyr", "magrittr", "swissdd", "tidyr","ggplot2","RSwissMaps", "knitr"), type = "binary")
+          install.packages(c("pkgdown", "dplyr", "tidyr", "magrittr", "tidyr","ggplot2","RSwissMaps", "knitr"), type = "binary")
+          remotes::install_github("politanch/swissdd", ref="dev")
         shell: Rscript {0}
 
       - name: Install package
