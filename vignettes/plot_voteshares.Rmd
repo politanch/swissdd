@@ -26,7 +26,7 @@ An illustration of how one could utilize the function of `swissdd` to visualize 
 # install.packages("swissdd")
 # install.packages("dplyr")
 # installation from github (ongoing updates)
-# devtools::install_github("politanch/swissdd", ref="dev")
+devtools::install_github("politanch/swissdd", ref="dev")
 
 library(swissdd)
 library(dplyr)
