@@ -26,16 +26,17 @@ An illustration of how one could utilize the function of `swissdd` to visualize 
 # install.packages("swissdd")
 # install.packages("dplyr")
 # installation from github (ongoing updates)
-devtools::install_github("politanch/swissdd", ref="dev")
+# devtools::install_github("politanch/swissdd", ref="dev")
 
 library(swissdd)
+packageVersion("swissdd")
 library(dplyr)
 library(ggplot2)
 library(sf)
 library(viridis)
 
 #download geo information
-geo_canton <- get_geodata(geolevel = "canton")
+geo_canton <- swissdd::get_geodata(geolevel = "canton")
 geo_canton$canton_id <- as.numeric(geo_canton$canton_id)
 
 # download data from API on the vote calles «Swiss coalition for Corporate justice SCCJ»
@@ -60,7 +61,7 @@ ggplot(can_df)+
 With this you can start prettifiyng the map. To do that you can download geo information on major lakes as well. We add those as well.
 
 ```{r echo=TRUE, warning=FALSE, message=FALSE}
-lakes <- get_geodata(geolevel = "lakes")
+lakes <- swissdd::get_geodata(geolevel = "lakes")
 ggplot(can_df)+
   geom_sf(aes(fill=jaStimmenInProzent), color="white", size=.1)+
   geom_sf(data=lakes, fill="aliceblue", color=NA)+
