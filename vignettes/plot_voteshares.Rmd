@@ -27,7 +27,7 @@ An illustration of how one could utilize the function of `swissdd` to visualize 
 # install.packages("dplyr")
 
 # installation from github (ongoing updates)
-# devtools::install_github("politanch/swissdd")
+# devtools::install_github("politanch/swissdd",ref="dev")
 
 library(swissdd)
 library(dplyr)
@@ -36,7 +36,7 @@ library(sf)
 library(viridis)
 
 #download geo information
-geo_canton <- get_geodata(geolevel = "canton")
+geo_canton <- swissdd::get_geodata(geolevel = "canton")
 geo_canton$canton_id <- as.numeric(geo_canton$canton_id)
 
 # download data from API on the vote calles «Swiss coalition for Corporate justice SCCJ»
