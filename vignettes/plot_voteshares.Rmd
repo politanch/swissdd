@@ -10,15 +10,17 @@ knitr::opts_chunk$set(
 )
 ```
 
-The function `get_geodata` allows users to download geographic information for different administrative units in Switzerland. The function returns a *spatial feature* `data.frame`. A user should specify the level of administrative units using the argument  `geolevel`. The following options are available:
+This functionality has been kindly added by [David Zumbach](https://twitter.com/davidzumbach){target="_blank"}.
 
-* `national` downloads administrative boundaries of Switzerland
-* `cantonal` downloads administrative boundaries of cantons
-* `municipality` downloads administrative boundaries of municipalities/communities
-* `zh_counting_districts` downloads administrative boundaries of *Zählkreise* for the City of Zurich
-* `lakes` downloads boundaries of major lakes
+The function `get_geodata` allows users to download geographic information for different administrative units in Switzerland. The function returns a *spatial feature* `data.frame`. Users should specify the level of administrative units using the argument `geolevel`. The following options are available:
 
-An illustration of how one could utilize the function of `swissdd` to visualize resulting vote shares for any national vote is given below.
+* `national` to download administrative boundaries of Switzerland
+* `cantonal` to download administrative boundaries of cantons
+* `municipality` to download administrative boundaries of municipalities/communities
+* `zh_counting_districts` to download administrative boundaries of *Zählkreise* for the City of Zurich
+* `lakes` to download boundaries of major lakes
+
+An illustration of how one could utilize the functionionality of `swissdd` to visualize vote outcomes for any national vote is given here.
 
 ### Plot voteshares "by hand"
 ```{r echo=TRUE, warning=FALSE, message=FALSE}
@@ -58,7 +60,7 @@ ggplot(can_df)+
   geom_sf(aes(fill=jaStimmenInProzent), color="white", size=.1)
 ```
 
-With this you can start prettifiyng the map. To do that you can download geo information on major lakes as well. We add those as well.
+With this you can start prettifiyng the map according to your liking. Wee add the lakes as well here:
 
 ```{r echo=TRUE, warning=FALSE, message=FALSE}
 lakes <- swissdd::get_geodata(geolevel = "lakes")
