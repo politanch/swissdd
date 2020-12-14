@@ -23,6 +23,10 @@ The function `get_geodata` allows users to download geographic information for d
 An illustration of how one could utilize the functionionality of `swissdd` to visualize vote outcomes for any national vote is given here.
 
 ### Plot voteshares "by hand"
+
+Producing a map "by hand" allows for more flexibility. For example, you could simply download the geo-information and plot something entirely else. If you never ever want to produce a plot by hand, skip to the next sectionn.
+
+
 ```{r echo=TRUE, warning=FALSE, message=FALSE}
 # installation from CRAN (stable)
 # install.packages("swissdd")
@@ -79,3 +83,15 @@ ggplot(can_df)+
   labs(title="Result for Vote on Corporate Justice SCCJ", subtitle="November 29, 2020",
        caption="data: FSO/{swissdd}")
 ```
+
+
+### Plot voteshares with built-in function
+
+If for some reason you don't want to create your map from scratch you could also rely on the function `plot_nationalvotes()` which allows you to quickly plot turnout rates or yes-shares. In order to run this function you have to specify the administrative level as well as the official identification number of the vote you're interested in. 
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+plot_nationalvotes(vote_id=6360, geolevel="canton")
+```
+
+
+
