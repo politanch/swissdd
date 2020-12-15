@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 
 This functionality has been kindly added by [David Zumbach](https://twitter.com/davidzumbach){target="_blank"}.
 
-The function `get_geodata` allows users to download geographic information for different administrative units in Switzerland. The function returns a *spatial feature* `data.frame`. Users should specify the level of administrative units using the argument `geolevel`. The following options are available:
+The function `get_geodata` allows users to download geographic information for different administrative units in Switzerland. The function returns a *simple feature* `data.frame`. Users should specify the level of administrative units using the argument `geolevel`. The following options are available:
 
 * `national` to download administrative boundaries of Switzerland
 * `cantonal` to download administrative boundaries of cantons
