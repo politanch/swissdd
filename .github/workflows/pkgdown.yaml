@@ -18,8 +18,8 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v1
       
-       - name: Install gdal
-         run: |
+      - name: Install gdal
+        run: |
            sudo apt install libgdal-dev
 
       - name: Query dependencies
