@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Transform a opendata.swiss national results json into a tibble — swiss_json_to_dfr • swissdd</title>
+<title>Transform an opendata.swiss national results json into a tibble — swiss_json_to_dfr • swissdd</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -15,10 +15,12 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/lumen/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -39,10 +41,11 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Transform a opendata.swiss national results json into a tibble — swiss_json_to_dfr" />
 
-<meta property="og:description" content="swiss_json_to_dfr Transforms the json containing the results of a selected federal votedate into a tibble." />
+<meta property="og:title" content="Transform an opendata.swiss national results json into a tibble — swiss_json_to_dfr" />
+<meta property="og:description" content="swiss_json_to_dfr transforms the json containing the results of a selected federal votedate into a tibble." />
 <meta name="twitter:card" content="summary" />
+
 <meta name="theme-color" content="#293c55">
 
 
@@ -69,7 +72,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -83,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">swissdd</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -123,10 +126,9 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/politanch/swissdd">
+  <a href="https://github.com/politanch/swissdd/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -144,20 +146,24 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Transform a opendata.swiss national results json into a tibble</h1>
-    <small class="dont-index">Source: <a href='https://github.com/politanch/swissdd/blob/master/R/json_to_dfr.R'><code>R/json_to_dfr.R</code></a></small>
+    <h1>Transform an opendata.swiss national results json into a tibble</h1>
+    <small class="dont-index">Source: <a href='https://github.com/politanch/swissdd/blob/master/R/swiss_json_to_dfr.R'><code>R/swiss_json_to_dfr.R</code></a></small>
     <div class="hidden name"><code>swiss_json_to_dfr.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
-    <p><code>swiss_json_to_dfr</code> Transforms the json containing the results of a selected federal votedate into a tibble.</p>
-    
+    <p><code>swiss_json_to_dfr</code> transforms the json containing the results of a selected federal votedate into a tibble.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>swiss_json_to_dfr</span>(<span class='kw'>votedate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geolevel</span> <span class='kw'>=</span> <span class='st'>"municipality"</span>,
-  <span class='kw'>dataurl</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>swiss_json_to_dfr</span><span class='op'>(</span>
+  votedate <span class='op'>=</span> <span class='cn'>NULL</span>,
+  geolevel <span class='op'>=</span> <span class='st'>"municipality"</span>,
+  dataurl <span class='op'>=</span> <span class='cn'>NULL</span>,
+  index <span class='op'>=</span> <span class='cn'>NULL</span>,
+  language <span class='op'>=</span> <span class='st'>"DE"</span>,
+  <span class='va'>call_res</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -167,61 +173,60 @@
     </tr>
     <tr>
       <th>geolevel</th>
-      <td><p>geographical level for which the results should be loaded. options "national", "canton", "district" or "municipality"</p></td>
+      <td><p>geographical level for which the results should be loaded. Options: "national", "canton", "district" or "municipality".</p></td>
     </tr>
     <tr>
       <th>dataurl</th>
-      <td><p>url of the dataset on opendata-swiss</p></td>
+      <td><p>url of the dataset on opendata.swiss</p></td>
     </tr>
     <tr>
       <th>index</th>
       <td><p>selection by index of the resource (last published = 1).</p></td>
     </tr>
+    <tr>
+      <th>language</th>
+      <td><p>defines the language of the vote title. Options: "DE" for German, "FR" for French, "IT" for Italian or "RM" for Romansh.</p></td>
+    </tr>
+    <tr>
+      <th>call_res</th>
+      <td><p>result of a previous call to the base API. Optional argument.</p></td>
+    </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a tibble containing the results</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'># transform the json of the most recent vote</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>swiss_json_to_dfr</span>()
+<span class='co'># Transform the json of the most recent vote</span>
+<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>swiss_json_to_dfr</span><span class='op'>(</span><span class='op'>)</span>
 
-
-<span class='co'># transform the json of a selected votedate</span>
-
-<span class='fu'>swiss_json_to_dfr</span>(<span class='kw'>votedate</span> <span class='kw'>=</span> <span class='st'>"2019-02-10"</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2,208 x 15</span><span>
+<span class='co'># Transform the json of a selected votedate</span>
+<span class='fu'>swiss_json_to_dfr</span><span class='op'>(</span>votedate <span class='op'>=</span> <span class='st'>"2019-02-10"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2,178 x 16</span><span>
 #&gt;    name     id canton_id canton_name mun_id mun_name geoLevelParentn…
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Volk…  </span><span style='text-decoration: underline;'>6</span><span>260 1         Zürich      1      Aeugst … 101             
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> Volk…  </span><span style='text-decoration: underline;'>6</span><span>260 1         Zürich      2      Affolte… 101             
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> Volk…  </span><span style='text-decoration: underline;'>6</span><span>260 1         Zürich      3      Bonstet… 101             
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> Volk…  </span><span style='text-decoration: underline;'>6</span><span>260 1         Zürich      4      Hausen … 101             
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> Volk…  </span><span style='text-decoration: underline;'>6</span><span>260 1         Zürich      5      Hedingen 101             
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> Volk…  </span><span style='text-decoration: underline;'>6</span><span>260 1         Zürich      6      Kappel … 101             
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> Volk…  </span><span style='text-decoration: underline;'>6</span><span>260 1         Zürich      7      Knonau   101             
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Volk…  </span><span style='text-decoration: underline;'>6</span><span>260 1         Zürich      8      Maschwa… 101             
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Volk…  </span><span style='text-decoration: underline;'>6</span><span>260 1         Zürich      9      Mettmen… 101             
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Volk…  </span><span style='text-decoration: underline;'>6</span><span>260 1         Zürich      10     Obfelden 101             
-#&gt; </span><span style='color: #949494;'># … with 2,198 more rows, and 8 more variables: gebietAusgezaehlt </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,</span><span>
-#&gt; </span><span style='color: #949494;'>#   jaStimmenInProzent </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, jaStimmenAbsolut </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>, neinStimmenAbsolut </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>,</span><span>
-#&gt; </span><span style='color: #949494;'>#   stimmbeteiligungInProzent </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, eingelegteStimmzettel </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>,</span><span>
-#&gt; </span><span style='color: #949494;'>#   anzahlStimmberechtigte </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>, gueltigeStimmen </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span></div><div class='input'>
-
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
+#&gt; </span><span style='color: #555555;'> 1</span><span> Volk…  </span><span style='text-decoration: underline;'>6</span><span>260 1         Zürich      1      Aeugst … 101             
+#&gt; </span><span style='color: #555555;'> 2</span><span> Volk…  </span><span style='text-decoration: underline;'>6</span><span>260 1         Zürich      2      Affolte… 101             
+#&gt; </span><span style='color: #555555;'> 3</span><span> Volk…  </span><span style='text-decoration: underline;'>6</span><span>260 1         Zürich      3      Bonstet… 101             
+#&gt; </span><span style='color: #555555;'> 4</span><span> Volk…  </span><span style='text-decoration: underline;'>6</span><span>260 1         Zürich      4      Hausen … 101             
+#&gt; </span><span style='color: #555555;'> 5</span><span> Volk…  </span><span style='text-decoration: underline;'>6</span><span>260 1         Zürich      5      Hedingen 101             
+#&gt; </span><span style='color: #555555;'> 6</span><span> Volk…  </span><span style='text-decoration: underline;'>6</span><span>260 1         Zürich      6      Kappel … 101             
+#&gt; </span><span style='color: #555555;'> 7</span><span> Volk…  </span><span style='text-decoration: underline;'>6</span><span>260 1         Zürich      7      Knonau   101             
+#&gt; </span><span style='color: #555555;'> 8</span><span> Volk…  </span><span style='text-decoration: underline;'>6</span><span>260 1         Zürich      8      Maschwa… 101             
+#&gt; </span><span style='color: #555555;'> 9</span><span> Volk…  </span><span style='text-decoration: underline;'>6</span><span>260 1         Zürich      9      Mettmen… 101             
+#&gt; </span><span style='color: #555555;'>10</span><span> Volk…  </span><span style='text-decoration: underline;'>6</span><span>260 1         Zürich      10     Obfelden 101             
+#&gt; </span><span style='color: #555555;'># … with 2,168 more rows, and 9 more variables: gebietAusgezaehlt </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   jaStimmenInProzent </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, jaStimmenAbsolut </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, neinStimmenAbsolut </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   stimmbeteiligungInProzent </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, eingelegteStimmzettel </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   anzahlStimmberechtigte </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, gueltigeStimmen </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, votedate </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span></div><div class='input'>
 </div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -234,7 +239,7 @@
 <style>.bmc-button img{width: 27px !important;margin-bottom: 1px !important;box-shadow: none !important;border: none !important;vertical-align: middle !important;}.bmc-button{line-height: 36px !important;height:37px !important;text-decoration: none !important;display:inline-flex !important;color:#000000 !important;background-color:#FFFFFF !important;border-radius: 3px !important;border: 1px solid transparent !important;padding: 0px 9px !important;font-size: 17px !important;letter-spacing:-0.08px !important;box-shadow: 0px 1px 2px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;margin: 0 auto !important;font-family:'Lato', sans-serif !important;-webkit-box-sizing: border-box !important;box-sizing: border-box !important;-o-transition: 0.3s all linear !important;-webkit-transition: 0.3s all linear !important;-moz-transition: 0.3s all linear !important;-ms-transition: 0.3s all linear !important;transition: 0.3s all linear !important;}.bmc-button:hover, .bmc-button:active, .bmc-button:focus {-webkit-box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;text-decoration: none !important;box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;opacity: 0.85 !important;color:#000000 !important;}</style><link href="https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/politanch"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

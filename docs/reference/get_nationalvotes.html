@@ -15,10 +15,12 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/lumen/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -39,10 +41,11 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Get national results and counting status in real time or for selected dates or a time range in the past — get_nationalvotes" />
 
+<meta property="og:title" content="Get national results and counting status in real time or for selected dates or a time range in the past — get_nationalvotes" />
 <meta property="og:description" content="get_nationalvotes is one of the two main functions of swissvote package. It allows to retrieve the results and the counting status for national ballots." />
 <meta name="twitter:card" content="summary" />
+
 <meta name="theme-color" content="#293c55">
 
 
@@ -69,7 +72,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -83,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">swissdd</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -123,10 +126,9 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/politanch/swissdd">
+  <a href="https://github.com/politanch/swissdd/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -145,105 +147,107 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Get national results and counting status in real time or for selected dates or a time range in the past</h1>
-    <small class="dont-index">Source: <a href='https://github.com/politanch/swissdd/blob/master/R/get_results.R'><code>R/get_results.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/politanch/swissdd/blob/master/R/get_nationalvotes.R'><code>R/get_nationalvotes.R</code></a></small>
     <div class="hidden name"><code>get_nationalvotes.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p><code>get_nationalvotes</code> is one of the two main functions of swissvote package. It allows to retrieve the results and the counting status for national ballots.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>get_nationalvotes</span>(<span class='kw'>geolevel</span> <span class='kw'>=</span> <span class='st'>"municipality"</span>, <span class='kw'>votedates</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>from_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>to_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>get_nationalvotes</span><span class='op'>(</span>
+  geolevel <span class='op'>=</span> <span class='st'>"municipality"</span>,
+  votedates <span class='op'>=</span> <span class='cn'>NULL</span>,
+  from_date <span class='op'>=</span> <span class='cn'>NULL</span>,
+  to_date <span class='op'>=</span> <span class='cn'>NULL</span>,
+  language <span class='op'>=</span> <span class='st'>"DE"</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>geolevel</th>
-      <td><p>geographical level for which the results should be loaded. options:  options: "national", "canton", "district", "municipality" or "zh_counting_districts"</p></td>
+      <td><p>geographical level for which the results should be loaded. Options: "national", "canton", "district", "municipality" or "zh_counting_districts".#' @param votedates dates of the ballots to be selected. Default: most recent ballot available. Format: "YYYY-MM-DD".</p></td>
     </tr>
     <tr>
       <th>votedates</th>
-      <td><p>dates of the ballots to be selected. Default: most recent ballot available. Format = "YYYY-MM-DD"</p></td>
+      <td><p>dates of the ballots to be selected. Default: most recent ballot available. Format: "YYYY-MM-DD".</p></td>
     </tr>
     <tr>
       <th>from_date</th>
-      <td><p>starting point in time from which vote-results should be retrived. Format = "YYYY-MM-DD"</p></td>
+      <td><p>starting point in time from which vote results should be retrieved. Format: "YYYY-MM-DD".</p></td>
     </tr>
     <tr>
       <th>to_date</th>
-      <td><p>end point in time to which vote-results should be retrived. Format = "YYYY-MM-DD"</p></td>
+      <td><p>end point in time to which vote results should be retrieved. Format: "YYYY-MM-DD".</p></td>
+    </tr>
+    <tr>
+      <th>language</th>
+      <td><p>defines the language of the vote title. Options: "DE" for German, "FR" for French, "IT" for Italian or "RM" for Romansh.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a tibble containing the results</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>get_nationalvotes - retrieve vote results for national ballots at district- or municipality level for selected dates or a given date range.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+    <pre class="examples"><div class='input'>
+<span class='co'># Selection by range</span>
+<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>get_nationalvotes</span><span class='op'>(</span>
+    geolevel <span class='op'>=</span> <span class='st'>"district"</span>, 
+    from_date <span class='op'>=</span> <span class='st'>"2018-01-01"</span>,
+    to_date <span class='op'>=</span> <span class='st'>"2018-12-31"</span>
+    <span class='op'>)</span>
 
-<span class='co'># Selection by enddate only</span>
- <span class='fu'>get_nationalvotes</span>(<span class='kw'>to_date</span><span class='kw'>=</span><span class='st'>"1983-12-04"</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 24,041 x 16</span><span>
+<span class='co'># Selection by end date only</span>
+<span class='fu'>get_nationalvotes</span><span class='op'>(</span>to_date <span class='op'>=</span> <span class='st'>"1983-12-04"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 23,711 x 16</span><span>
 #&gt;    name     id canton_id canton_name mun_id mun_name geoLevelParentn…
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      1      Aeugst … 101             
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      2      Affolte… 101             
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      3      Bonstet… 101             
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      4      Hausen … 101             
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      5      Hedingen 101             
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      6      Kappel … 101             
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      7      Knonau   101             
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      8      Maschwa… 101             
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      9      Mettmen… 101             
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      10     Obfelden 101             
-#&gt; </span><span style='color: #949494;'># … with 24,031 more rows, and 9 more variables: gebietAusgezaehlt </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,</span><span>
-#&gt; </span><span style='color: #949494;'>#   jaStimmenInProzent </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, jaStimmenAbsolut </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>, neinStimmenAbsolut </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>,</span><span>
-#&gt; </span><span style='color: #949494;'>#   stimmbeteiligungInProzent </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, eingelegteStimmzettel </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>,</span><span>
-#&gt; </span><span style='color: #949494;'>#   anzahlStimmberechtigte </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>, gueltigeStimmen </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>, votedate </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span></div><div class='input'>
-
- <span class='co'># Selection of a specific votedate</span>
-  <span class='fu'>get_nationalvotes</span>(<span class='kw'>votedates</span><span class='kw'>=</span><span class='st'>"2014-02-09"</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 6,618 x 16</span><span>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
+#&gt; </span><span style='color: #555555;'> 1</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      1      Aeugst … 101             
+#&gt; </span><span style='color: #555555;'> 2</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      2      Affolte… 101             
+#&gt; </span><span style='color: #555555;'> 3</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      3      Bonstet… 101             
+#&gt; </span><span style='color: #555555;'> 4</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      4      Hausen … 101             
+#&gt; </span><span style='color: #555555;'> 5</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      5      Hedingen 101             
+#&gt; </span><span style='color: #555555;'> 6</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      6      Kappel … 101             
+#&gt; </span><span style='color: #555555;'> 7</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      7      Knonau   101             
+#&gt; </span><span style='color: #555555;'> 8</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      8      Maschwa… 101             
+#&gt; </span><span style='color: #555555;'> 9</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      9      Mettmen… 101             
+#&gt; </span><span style='color: #555555;'>10</span><span> Bund…  </span><span style='text-decoration: underline;'>3</span><span>140 1         Zürich      10     Obfelden 101             
+#&gt; </span><span style='color: #555555;'># … with 23,701 more rows, and 9 more variables: gebietAusgezaehlt </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   jaStimmenInProzent </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, jaStimmenAbsolut </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, neinStimmenAbsolut </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   stimmbeteiligungInProzent </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, eingelegteStimmzettel </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   anzahlStimmberechtigte </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, gueltigeStimmen </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, votedate </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span></div><div class='input'> 
+<span class='co'># Selection of a specific vote date</span>
+<span class='fu'>get_nationalvotes</span><span class='op'>(</span>votedates <span class='op'>=</span> <span class='st'>"2014-02-09"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 6,528 x 16</span><span>
 #&gt;    name     id canton_id canton_name mun_id mun_name geoLevelParentn…
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      1      Aeugst … 101             
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      2      Affolte… 101             
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      3      Bonstet… 101             
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      4      Hausen … 101             
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      5      Hedingen 101             
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      6      Kappel … 101             
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      7      Knonau   101             
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      8      Maschwa… 101             
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      9      Mettmen… 101             
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      10     Obfelden 101             
-#&gt; </span><span style='color: #949494;'># … with 6,608 more rows, and 9 more variables: gebietAusgezaehlt </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>,</span><span>
-#&gt; </span><span style='color: #949494;'>#   jaStimmenInProzent </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, jaStimmenAbsolut </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>, neinStimmenAbsolut </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>,</span><span>
-#&gt; </span><span style='color: #949494;'>#   stimmbeteiligungInProzent </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, eingelegteStimmzettel </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>,</span><span>
-#&gt; </span><span style='color: #949494;'>#   anzahlStimmberechtigte </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>, gueltigeStimmen </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>, votedate </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
-# }
-
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
+#&gt; </span><span style='color: #555555;'> 1</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      1      Aeugst … 101             
+#&gt; </span><span style='color: #555555;'> 2</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      2      Affolte… 101             
+#&gt; </span><span style='color: #555555;'> 3</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      3      Bonstet… 101             
+#&gt; </span><span style='color: #555555;'> 4</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      4      Hausen … 101             
+#&gt; </span><span style='color: #555555;'> 5</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      5      Hedingen 101             
+#&gt; </span><span style='color: #555555;'> 6</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      6      Kappel … 101             
+#&gt; </span><span style='color: #555555;'> 7</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      7      Knonau   101             
+#&gt; </span><span style='color: #555555;'> 8</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      8      Maschwa… 101             
+#&gt; </span><span style='color: #555555;'> 9</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      9      Mettmen… 101             
+#&gt; </span><span style='color: #555555;'>10</span><span> Bund…  </span><span style='text-decoration: underline;'>5</span><span>780 1         Zürich      10     Obfelden 101             
+#&gt; </span><span style='color: #555555;'># … with 6,518 more rows, and 9 more variables: gebietAusgezaehlt </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   jaStimmenInProzent </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, jaStimmenAbsolut </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, neinStimmenAbsolut </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   stimmbeteiligungInProzent </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, eingelegteStimmzettel </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   anzahlStimmberechtigte </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, gueltigeStimmen </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, votedate </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span></div><div class='input'>
 </div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -256,7 +260,7 @@
 <style>.bmc-button img{width: 27px !important;margin-bottom: 1px !important;box-shadow: none !important;border: none !important;vertical-align: middle !important;}.bmc-button{line-height: 36px !important;height:37px !important;text-decoration: none !important;display:inline-flex !important;color:#000000 !important;background-color:#FFFFFF !important;border-radius: 3px !important;border: 1px solid transparent !important;padding: 0px 9px !important;font-size: 17px !important;letter-spacing:-0.08px !important;box-shadow: 0px 1px 2px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;margin: 0 auto !important;font-family:'Lato', sans-serif !important;-webkit-box-sizing: border-box !important;box-sizing: border-box !important;-o-transition: 0.3s all linear !important;-webkit-transition: 0.3s all linear !important;-moz-transition: 0.3s all linear !important;-ms-transition: 0.3s all linear !important;transition: 0.3s all linear !important;}.bmc-button:hover, .bmc-button:active, .bmc-button:focus {-webkit-box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;text-decoration: none !important;box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;opacity: 0.85 !important;color:#000000 !important;}</style><link href="https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/politanch"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

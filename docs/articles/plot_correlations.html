@@ -17,7 +17,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Find and plot correlated vote results">
-<meta property="og:description" content="">
+<meta property="og:description" content="swissdd">
 <meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#293c55">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -30,7 +30,7 @@
      });
 </script>
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">swissdd</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/politanch/swissdd">
+  <a href="https://github.com/politanch/swissdd/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -100,7 +100,8 @@
 
       
 
-      </header><div class="row">
+      </header><script src="plot_correlations_files/header-attrs-2.5/header-attrs.js"></script><link href="plot_correlations_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="plot_correlations_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Find and plot correlated vote results</h1>
@@ -115,64 +116,93 @@
     
 <div id="what-other-votes-correlate-with-the-2014-vote-on-immigration-mei" class="section level3">
 <h3 class="hasAnchor">
-<a href="#what-other-votes-correlate-with-the-2014-vote-on-immigration-mei" class="anchor"></a>What Other Votes Correlate with the 2014 vote on immigration (mei)?</h3>
+<a href="#what-other-votes-correlate-with-the-2014-vote-on-immigration-mei" class="anchor"></a>What other votes correlate with the 2014 vote on immigration (mei)?</h3>
 <p>For the sake of illustration we are interested in the result of the 2014 vote on immigration for Swiss municipalities. The initiative was voted upon on 9th of February 2014. There are different ways to find this exact vote. One of them is using the information in the title. An other solution would be to look up the <code>id</code> provided by the FSO.</p>
 <p><code><a href="https://rdrr.io/r/base/unique.html">unique(federalvotes$name[grep("Massen", federalvotes$name)])</a></code></p>
 <p>First, we invoke the necessary packages and use the function <code>get_nationalvotes</code> to access the data. We further specify the unit of analysis as well as the range.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># installation from CRAN (stable)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="co"># installation from CRAN (stable)</span>
 <span class="co"># install.packages("swissdd")</span>
 <span class="co"># install.packages("dplyr")</span>
 
 <span class="co"># installation from github (ongoing updates)</span>
 <span class="co"># devtools::install_github("politanch/swissdd")</span>
 
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(swissdd)
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyr)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/politanch/swissdd">swissdd</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
 
 <span class="co">#get results of all votes between 2010-2019</span>
-federalvotes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_nationalvotes.html">get_nationalvotes</a></span>(<span class="dt">geolevel =</span> <span class="st">"municipality"</span>, 
-                                  <span class="dt">from_date =</span> <span class="st">"2010-03-07"</span>, 
-                                  <span class="dt">to_date =</span> <span class="st">"2019-02-10"</span>)
+<span class="va">federalvotes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_nationalvotes.html">get_nationalvotes</a></span><span class="op">(</span>geolevel <span class="op">=</span> <span class="st">"municipality"</span>, 
+                                  from_date <span class="op">=</span> <span class="st">"2010-03-07"</span>, 
+                                  to_date <span class="op">=</span> <span class="st">"2020-09-27"</span><span class="op">)</span>
 
 <span class="co">#get correlations for votes on municipal level with mei</span>
-simvotes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/similar_votes.html">similar_votes</a></span>(federalvotes, <span class="dt">id=</span><span class="dv">5800</span>, <span class="dt">from=</span>.<span class="dv">4</span>, <span class="dt">to=</span>.<span class="dv">6</span>)
-simvotes
-<span class="co">#&gt; # A tibble: 3 x 2</span>
+<span class="va">simvotes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/similar_votes.html">similar_votes</a></span><span class="op">(</span><span class="va">federalvotes</span>, id<span class="op">=</span><span class="fl">5800</span>, from<span class="op">=</span><span class="fl">.4</span>, to<span class="op">=</span><span class="fl">.6</span><span class="op">)</span>
+<span class="va">simvotes</span>
+<span class="co">#&gt; # A tibble: 4 x 2</span>
 <span class="co">#&gt;   id    correlation</span>
 <span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 5990        0.553</span>
-<span class="co">#&gt; 2 5710        0.481</span>
-<span class="co">#&gt; 3 5960        0.447</span>
+<span class="co">#&gt; 1 6350        0.577</span>
+<span class="co">#&gt; 2 5990        0.555</span>
+<span class="co">#&gt; 3 5710        0.482</span>
+<span class="co">#&gt; 4 5960        0.452</span>
 
 <span class="co">#extract names of correlated votes</span>
-ballotnames &lt;-<span class="st"> </span>federalvotes <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(name, id, mun_id)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(id<span class="op">%in%</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">5800</span>, simvotes[<span class="dv">2</span>,<span class="dv">1</span>]))<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span>()
+<span class="va">ballotnames</span> <span class="op">&lt;-</span> <span class="va">federalvotes</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">name</span>, <span class="va">id</span>, <span class="va">mun_id</span><span class="op">)</span><span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">id</span><span class="op">%in%</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5800</span>, <span class="va">simvotes</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span>
+
+
+<span class="co">#get correlations for votes on municipal level with mei</span>
+<span class="va">simvotes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/similar_votes.html">similar_votes</a></span><span class="op">(</span><span class="va">federalvotes</span>, id<span class="op">=</span><span class="fl">6310</span>, from<span class="op">=</span><span class="fl">.3</span>, to<span class="op">=</span><span class="fl">1</span><span class="op">)</span>
+<span class="va">simvotes</span>
+<span class="co">#&gt; # A tibble: 22 x 2</span>
+<span class="co">#&gt;    id    correlation</span>
+<span class="co">#&gt;    &lt;chr&gt;       &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 5800        0.910</span>
+<span class="co">#&gt;  2 5970        0.902</span>
+<span class="co">#&gt;  3 6240        0.897</span>
+<span class="co">#&gt;  4 5523        0.873</span>
+<span class="co">#&gt;  5 5521        0.870</span>
+<span class="co">#&gt;  6 5880        0.785</span>
+<span class="co">#&gt;  7 5760        0.769</span>
+<span class="co">#&gt;  8 5890        0.762</span>
+<span class="co">#&gt;  9 5610        0.711</span>
+<span class="co">#&gt; 10 5790        0.707</span>
+<span class="co">#&gt; # … with 12 more rows</span>
+
+<span class="co">#extract names of correlated votes</span>
+<span class="va">ballotnames</span> <span class="op">&lt;-</span> <span class="va">federalvotes</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">name</span>, <span class="va">id</span>, <span class="va">mun_id</span><span class="op">)</span><span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">id</span><span class="op">%in%</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6310</span>, <span class="va">simvotes</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span>
 
 <span class="co">#subset for correlated votes</span>
-corrvotes &lt;-<span class="st"> </span>federalvotes <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(id<span class="op">%in%</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">5800</span>, simvotes[<span class="dv">2</span>,<span class="dv">1</span>]))<span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(id, jaStimmenInProzent, mun_id)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">id=</span><span class="kw"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(id))
+<span class="va">corrvotes</span> <span class="op">&lt;-</span> <span class="va">federalvotes</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">id</span><span class="op">%in%</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6310</span>, <span class="va">simvotes</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">jaStimmenInProzent</span>, <span class="va">mun_id</span><span class="op">)</span><span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>id<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co">#plot</span>
-<span class="kw"><a href="https://tidyr.tidyverse.org/reference/spread.html">spread</a></span>(corrvotes , id, jaStimmenInProzent)<span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">y=</span><span class="st">`</span><span class="dt">5800</span><span class="st">`</span>, <span class="dt">x=</span><span class="st">`</span><span class="dt">5710</span><span class="st">`</span>))<span class="op">+</span>
-<span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>()<span class="op">+</span>
-<span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span>(<span class="dt">limits=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">100</span>))<span class="op">+</span>
-<span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span>(<span class="dt">limits=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">100</span>))<span class="op">+</span>
-<span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span>(<span class="dt">intercept =</span> <span class="dv">0</span>, <span class="dt">slope=</span><span class="dv">1</span>,  <span class="dt">size=</span>.<span class="dv">1</span>)<span class="op">+</span>
-<span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span>(<span class="dt">method=</span><span class="st">"lm"</span>, <span class="dt">size=</span>.<span class="dv">1</span>, <span class="dt">color=</span><span class="st">"orange"</span>)<span class="op">+</span>
-<span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="dt">y=</span><span class="st">"MEI, Yes Shares"</span>, <span class="dt">x=</span><span class="st">"Amendments to the Asylum Law, Yes Shares"</span>, <span class="dt">caption=</span><span class="st">"politan.ch"</span>)<span class="op">+</span>
-<span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span>()</code></pre></div>
+<span class="va">corrvotes</span><span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from<span class="op">=</span><span class="st">"id"</span>, values_from<span class="op">=</span><span class="st">"jaStimmenInProzent"</span><span class="op">)</span><span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">`6310`</span>, x<span class="op">=</span><span class="va">`5800`</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha<span class="op">=</span><span class="fl">.2</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>limits<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">100</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>limits<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">100</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>intercept <span class="op">=</span> <span class="fl">0</span>, slope<span class="op">=</span><span class="fl">1</span>,  size<span class="op">=</span><span class="fl">.1</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method<span class="op">=</span><span class="st">"lm"</span>, size<span class="op">=</span><span class="fl">.3</span>, color<span class="op">=</span><span class="st">"orange"</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y<span class="op">=</span><span class="st">"BGI, Yes Shares"</span>, x<span class="op">=</span><span class="st">"MEI, Yes Shares"</span>, caption<span class="op">=</span><span class="st">"politan.ch"</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></pre></div>
 <p><img src="plot_correlations_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
       <!-- codefund -->
    <!--<div id="codefund"><!-- fallback content </div> -->
 <!--  <script src="https://codefund.app/properties/148/funder.js" async="async"></script>-->
@@ -191,7 +221,7 @@ corrvotes &lt;-<span class="st"> </span>federalvotes <span class="op">%&gt;%</sp
 <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/politanch"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:5px">Buy me a coffee</span></a>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
