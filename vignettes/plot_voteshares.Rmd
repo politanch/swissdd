@@ -10,17 +10,23 @@ knitr::opts_chunk$set(
 )
 ```
 
-The function `get_geodata` allows users to download geographic information for different administrative units in Switzerland. The function returns a *spatial feature* `data.frame`. A user should specify the level of administrative units using the argument  `geolevel`. The following options are available:
+This functionality has been kindly added by [David Zumbach](https://twitter.com/davidzumbach){target="_blank"}.
 
-* `national` downloads administrative boundaries of Switzerland
-* `cantonal` downloads administrative boundaries of cantons
-* `municipality` downloads administrative boundaries of municipalities/communities
-* `zh_counting_districts` downloads administrative boundaries of *Zählkreise* for the City of Zurich
-* `lakes` downloads boundaries of major lakes
+The function `get_geodata` allows users to download geographic information for different administrative units in Switzerland. The function returns a *simple feature* `data.frame`. Users should specify the level of administrative units using the argument `geolevel`. The following options are available:
 
-An illustration of how one could utilize the function of `swissdd` to visualize resulting vote shares for any national vote is given below.
+* `national` to download administrative boundaries of Switzerland
+* `cantonal` to download administrative boundaries of cantons
+* `municipality` to download administrative boundaries of municipalities/communities
+* `zh_counting_districts` to download administrative boundaries of *Zählkreise* for the City of Zurich
+* `lakes` to download boundaries of major lakes
+
+An illustration of how one could utilize the functionionality of `swissdd` to visualize vote outcomes for any national vote is given here.
 
 ### Plot voteshares "by hand"
+
+Producing a map "by hand" allows for more flexibility. For example, you could simply download the geo-information and plot something entirely else. If you never ever want to produce a plot by hand, skip to the next sectionn.
+
+
 ```{r echo=TRUE, warning=FALSE, message=FALSE}
 # installation from CRAN (stable)
 # install.packages("swissdd")
@@ -88,5 +94,3 @@ If for some reason you don't want to create your map from scratch you could also
 ```{r echo=TRUE, warning=FALSE, message=FALSE}
 plot_nationalvotes(vote_id=6360, geolevel="canton")
 ```
-
-

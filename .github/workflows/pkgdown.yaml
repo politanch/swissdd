@@ -42,6 +42,12 @@ jobs:
       - name: Install package
         run: R CMD INSTALL .
 
+      - name: Install dev version
+        run: |
+          remotes::install_deps(dependencies = TRUE)
+          remotes::install_github("politanch/swissdd", ref="dev")
+        shell: Rscript {0}
+        
       - name: Deploy package
         run: |
           git config --local user.email "actions@github.com"
