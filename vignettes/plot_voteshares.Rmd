@@ -25,8 +25,9 @@ An illustration of how one could utilize the function of `swissdd` to visualize 
 # installation from CRAN (stable)
 # install.packages("swissdd")
 # install.packages("dplyr")
+
 # installation from github (ongoing updates)
-# devtools::install_github("politanch/swissdd", ref="dev")
+# devtools::install_github("politanch/swissdd")
 
 library(swissdd)
 packageVersion("swissdd")
@@ -38,6 +39,7 @@ library(viridis)
 #download geo information
 geo_canton <- swissdd::get_geodata(geolevel = "canton")
 geo_canton$canton_id <- as.numeric(geo_canton$canton_id)
+
 
 # download data from API on the vote calles «Swiss coalition for Corporate justice SCCJ»
 kovi_nat <- swissdd::get_nationalvotes(votedates="2020-11-29", geolevel = "canton")%>%
@@ -58,7 +60,7 @@ ggplot(can_df)+
   geom_sf(aes(fill=jaStimmenInProzent), color="white", size=.1)
 ```
 
-With this you can start prettifiyng the map. To do that you can download geo information on major lakes as well. We add those as well.
+With this you can start prettifiyng the map according to your liking. Wee add the lakes as well here:
 
 ```{r echo=TRUE, warning=FALSE, message=FALSE}
 lakes <- swissdd::get_geodata(geolevel = "lakes")
@@ -77,3 +79,14 @@ ggplot(can_df)+
   labs(title="Result for Vote on Corporate Justice SCCJ", subtitle="November 29, 2020",
        caption="data: FSO/{swissdd}")
 ```
+
+
+### Plot voteshares with built-in function
+
+If for some reason you don't want to create your map from scratch you could also rely on the function `plot_nationalvotes()` which allows you to quickly plot turnout rates or yes-shares. In order to run this function you have to specify the administrative level as well as the official identification number of the vote you're interested in. 
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+plot_nationalvotes(vote_id=6360, geolevel="canton")
+```
+
+
