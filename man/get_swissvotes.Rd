@@ -26,8 +26,6 @@ get_swissvotes - retrieve data on votes. The unit of analysis are votes.
 
 
 # See codebook only
- get_swissvotes(codebook=FALSE)
-
-
+get_swissvotes(codebook=FALSE)
 
 }

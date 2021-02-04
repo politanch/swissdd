@@ -1,3 +1,7 @@
+# swissdd 1.1.0
+
+* new functions to retrieve geodata of voting districts and plot vote results as a map have been added. 
+
 # swissdd 1.0.4
 
 * the `canton_json_to_dfr` has been adapted to work with the altered data structure of the json files provided via opendata.swiss containing the cantonal vote results.

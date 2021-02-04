@@ -1,0 +1,134 @@
+#' Get Swiss Geodata
+#'
+#' \code{get_geodata} retrieves the latest geodata provided by the Federal Statistical Office in connection with federal votes.
+#'
+#' @param geolevel geographical level. Options: "national", "canton", "district", "municipality", "zh_counting_districts" or "lakes".
+#' @param latest if \code{TRUE}, the latest data is retrieved. If \code{FALSE}, geo data from the beginning of the year is retrieved. 
+#'    The API does not support finer distinctions. For more detailed information on the exact status of the data, please use 
+#'    \code{verbode = TRUE}.
+#' @param verbose if \code{TRUE}, the date from which the data originates is displayed.
+#' @param call_res result of a previous call to the geodata API. Optional argument.
+#' 
+#' @return a simple feature collection of the desired spatial units with corresponding IDs.
+#' 
+#' @importFrom httr content
+#' @importFrom sf st_read st_layers
+#' @importFrom dplyr rename mutate select
+#' @importFrom stringr str_detect
+#' 
+#' @examples
+#' 
+#' # Get latest geodata at municipal level
+#' get_geodata()
+#' 
+#' # Get latest geodata at cantonal level
+#' get_geodata(geolevel = "canton")
+#' 
+#' @export
+get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call_res) {
+  
+  # Check input
+  check_geolevel(geolevel, available_geolevels = c("national", "canton", "district", "municipality", "zh_counting_districts", "lakes"))
+  
+  # Call geodata api
+  if (missing(call_res)) call_res <- call_api_geodata()
+  cnt <- httr::content(call_res)
+  
+  # Get info
+  if (latest) {
+    
+    gdInfo <- cnt[["result"]][["resources"]][[2]][["title"]]
+    gdUrl <- cnt[["result"]][["resources"]][[2]][["download_url"]]
+    gdLayers <- sf::st_layers(gdUrl)[1][["name"]]
+    
+  } else {
+    
+    gdInfo <- cnt[["result"]][["resources"]][[1]][["title"]] 
+    gdUrl <- cnt[["result"]][["resources"]][[1]][["download_url"]]
+    gdLayers <- sf::st_layers(gdUrl)[1][["name"]]
+    
+  }
+  if (verbose) cat(paste0(gdInfo[!gdInfo == ""], collapse = "\n"), "\n\n")
+  
+  # Load geodata and join votes
+  if (geolevel == "municipality") {
+    
+    # Load
+    gd <- sf::st_read(gdUrl, layer = gdLayers[stringr::str_detect(gdLayers, "voge_")], quiet = T)
+    
+    # Mutate if variable vogenr exists
+    if ("vogenr" %in% names(gd)) {
+      
+      gd <- gd %>% 
+        dplyr::mutate(id = vogenr) %>% 
+        dplyr::select(-vogenr) 
+      
+    }
+    
+    # Adjust variable mun_id
+    gd <- gd %>% 
+      dplyr::rename(mun_id = id) %>% 
+      dplyr::mutate(mun_id = as.character(mun_id)) %>% 
+      dplyr::select(mun_id, geometry)
+    
+    }
+  if (geolevel == "district") {
+    
+    # Load
+    gd <- sf::st_read(gdUrl, layer = gdLayers[stringr::str_detect(gdLayers, "bezk_")], quiet = T)
+    
+    # Mutate if variable vogenr exists
+    if ("bezkId" %in% names(gd)) {
+      
+      gd <- gd %>% 
+        dplyr::mutate(id = bezkId) %>% 
+        dplyr::select(-bezkId) 
+      
+    }
+    
+    # Adjust variable district_id
+    gd <- gd %>%
+      dplyr::rename(district_id = id) %>%
+      dplyr::mutate(district_id = as.character(district_id)) %>% 
+      dplyr::select(district_id, geometry)
+    
+  }
+  if (geolevel == "canton") {
+    
+    # Load
+    gd <- sf::st_read(gdUrl, layer = gdLayers[stringr::str_detect(gdLayers, "kant_")], quiet = T) %>%  
+      dplyr::rename(canton_id = id) %>% 
+      dplyr::rename(canton_name = name) %>% 
+      dplyr::mutate(canton_id = as.character(canton_id)) %>% 
+      dplyr::select(canton_id, geometry)
+    
+  }
+  if (geolevel == "zh_counting_districts") {
+    
+    gd <- sf::st_read(gdUrl, layer = gdLayers[stringr::str_detect(gdLayers, "zaelhlkreise_")], quiet = T) %>% 
+      dplyr::rename(mun_id = id) %>% 
+      dplyr::rename(mun_name = name) %>% 
+      dplyr::mutate(mun_id = as.character(mun_id)) %>% 
+      dplyr::select(mun_id, geometry)
+      
+  }
+  if (geolevel == "lakes") {
+    
+    gd <- sf::st_read(gdUrl, layer = gdLayers[stringr::str_detect(gdLayers, "seen_")], quiet = T) %>% 
+      dplyr::select(id, geometry)
+    
+  }
+  if (geolevel == "national") {
+    
+    gd <- sf::st_read(gdUrl, layer = gdLayers[stringr::str_detect(gdLayers, "suis_")], quiet = T) %>% 
+      dplyr::select(id, geometry)
+    
+    }
+  
+  # Return
+  return(gd)
+    
+}
+
+
+

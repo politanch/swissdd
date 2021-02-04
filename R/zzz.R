@@ -3,7 +3,7 @@
 .onAttach <- function(lib, pkg)
 {
   packageStartupMessage('************************************************************')
-  packageStartupMessage('*                       swissdd 1.0.4                      *')
+  packageStartupMessage('*                     swissdd 1.1.0                        *')
   packageStartupMessage('*                  developed by politan.ch                 *')
   packageStartupMessage('*                                                          *')
   packageStartupMessage('*                     Data sources:                        *')
@@ -32,7 +32,11 @@ utils::globalVariables(c("id", "resultat","res","geoid",
                          "geoLevelname",
                          "ktdata_zh",
                          "jaStimmenInProzent",
-                         "cor","cov","correlation",
+                         "cor","cov","correlation", 
+                         "text",
+                         #"ktid",
+                         "measure", "vogenr", "geometry",
+                         "bezkId", "stimmbeteiligungInProzent",
                          "text"#,"ktid"
                          ))
 
