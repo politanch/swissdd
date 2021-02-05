@@ -20,8 +20,9 @@ jobs:
      
       - name: Install gdal
         run: |
-           sudo apt install libgdal-dev
-           sudo apt install libproj-dev
+            sudo apt-get install python3.6-dev
+            sudo add-apt-repository ppa:ubuntugis/ppa
+            sudo apt-get install gdal-bin
 
       - name: Query dependencies
         run: |
