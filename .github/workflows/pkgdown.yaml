@@ -20,8 +20,8 @@ jobs:
      
       - name: Install gdal
         run: |
-           apt install libgdal-dev
-           apt install libproj-dev
+           sudo apt install libgdal-dev
+           sudo apt install libproj-dev
 
       - name: Query dependencies
         run: |
