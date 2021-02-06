@@ -16,7 +16,6 @@ Imports:
     lubridate,
     purrr,
     sf,
-    rgdal,
     stringr,
     tibble
 URL: https://github.com/politanch/swissdd
