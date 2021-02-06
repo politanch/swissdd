@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">swissdd</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -51,7 +51,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -86,7 +86,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/politanch/swissdd/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -113,6 +113,12 @@
 
     
     
+<div id="how-to-get-swissvotes-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#how-to-get-swissvotes-data" class="anchor"></a>How to get Swissvotes Data</h2>
+<p>First, you have to make sure that your machine is connected to the internet. The function <code>get_swissvotes</code> fetches all data stored within the swissvotes database. Swissvotes offers one of the most comprehensive data platforms in relation to Swiss referendums and initiatives.</p>
+<p><img src="https://swissvotes.ch/static/images/logo.svg"></p>
+</div>
 <div id="predict-vote-outcomes-with-data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#predict-vote-outcomes-with-data" class="anchor"></a>Predict vote outcomes with <img src="https://swissvotes.ch/static/images/logo.svg" width="120"> Data</h1>
@@ -132,10 +138,14 @@
 
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/politanch/swissdd">swissdd</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
-
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></code></pre></div>
+<p>By default, the function simply extracts the database provided by <a href="https://swissvotes.ch" target="_blank">Swissvotes</a>. However, you can specify that you want the codebook as well (or just the codebook for that matter). Additionally, there is a specification to save the citation. If you work with data from Swissvotes, please cite the data accordingly.</p>
+<p>We first extract the data and the select the variables we need to make predictions. For some reason we may believe that the National Council represents the people. Therefore, we hope to see a pattern between the final votes in the National Council and the actual yes shares on a voting day.</p>
+<p>We download and prettify the data. After that we calculate the share of yes votes in the National Council and create a scatterplot to inspect if our intuition about the relationship can be seen in the data.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
 <span class="co">#extract data from database</span>
-<span class="va">swissvotesDB</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_swissvotes.html">get_swissvotes</a></span><span class="op">(</span>DB<span class="op">=</span><span class="cn">T</span>, savecitation<span class="op">=</span><span class="cn">F</span>, codebook<span class="op">=</span><span class="cn">F</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">swissvotesdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_swissvotes.html">get_swissvotes</a></span><span class="op">(</span>DB<span class="op">=</span><span class="cn">T</span>, savecitation<span class="op">=</span><span class="cn">F</span>, codebook<span class="op">=</span><span class="cn">F</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co">#select variables we need</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">anr</span>, <span class="va">volkja.proz</span>, <span class="va">nrja</span>, <span class="va">nrnein</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co">#make numeric and rename variables</span>
@@ -146,10 +156,10 @@
          yesshare <span class="op">=</span> <span class="va">volkja.proz</span><span class="op">)</span>
 
 <span class="co">#clean data</span>
-<span class="va">swissvotesDB</span><span class="op">[</span><span class="va">swissvotesDB</span><span class="op">==</span><span class="st">"."</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span>
+<span class="va">swissvotesdata</span><span class="op">[</span><span class="va">swissvotesdata</span><span class="op">==</span><span class="st">"."</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span>
 
 <span class="co">#calculate share of yes votes in national council</span>
-<span class="va">swissvotesDB</span> <span class="op">&lt;-</span> <span class="va">swissvotesDB</span> <span class="op">%&gt;%</span>
+<span class="va">swissvotesdata</span> <span class="op">&lt;-</span> <span class="va">swissvotesdata</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>nr_yesshare <span class="op">=</span> <span class="va">nrja</span> <span class="op">/</span> <span class="op">(</span><span class="va">nrja</span><span class="op">+</span><span class="va">nrnein</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>By default, function extracts only the database provided by <a href="https://swissvotes.ch" target="_blank">Swissvotes</a>. However, you can specify that you want the codebook as well (or just the codebook for that matter). Additionally, there is a specification to save the citation. If you work with data from Swissvotes, please cite the data accordingly.</p>
 <p>First, we extract data from the database and select the variables we need to create our prediction. For some reason we might assume that the National Council represents the people. It this is the case, it should be reflected in a similar pattern in yes shares in the National Council and later on in the actual yes share of a popular vote.</p>
@@ -158,9 +168,9 @@
 <h2 class="hasAnchor">
 <a href="#exploratory-analysis-is-our-assumption-accurate" class="anchor"></a>2. Exploratory Analysis : is our assumption accurate?</h2>
 <p>After downloading and preparing the data, we calculate the share of yes votes in the National Council and create a scatterplot to inspect if our intuition about the relationship can be seen in the data.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
-<span class="va">plot1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">swissvotesDB</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">nr_yesshare</span>, y<span class="op">=</span> <span class="va">yesshare</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
+<span class="va">plot1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">swissvotesdata</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">nr_yesshare</span>, y<span class="op">=</span> <span class="va">yesshare</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept<span class="op">=</span><span class="fl">.5</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>, color<span class="op">=</span><span class="st">"grey70"</span><span class="op">)</span><span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>intercept <span class="op">=</span> <span class="fl">0</span>, slope<span class="op">=</span><span class="fl">1</span>, size<span class="op">=</span><span class="fl">.1</span><span class="op">)</span><span class="op">+</span>
@@ -169,18 +179,20 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method<span class="op">=</span><span class="st">"lm"</span>, se<span class="op">=</span><span class="cn">T</span>, size<span class="op">=</span><span class="fl">.5</span>, color<span class="op">=</span><span class="st">"#FF6B00"</span><span class="op">)</span><span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y<span class="op">=</span><span class="st">"Actual Outcome of Vote"</span>, x<span class="op">=</span><span class="st">"Yes Share in National Council"</span>, caption<span class="op">=</span><span class="st">"politan.ch"</span><span class="op">)</span><span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span>
+
 <span class="va">plot1</span></code></pre></div>
-<p><img src="predict_voteshare_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+<p><img src="predict_voteshare_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+<p>There seems to be a positive correlation (what a surprise!)… In a next step, we estimate a very basic model and then predict the vote shares for the two national votes on February 9th, 2020. In order to do so, we split the data into a training set and a prediction set.</p>
 <p>There seems to be a positive correlation (what a surprise!)…</p>
 </div>
 <div id="predict-the-results-of-the-upcoming-votes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#predict-the-results-of-the-upcoming-votes" class="anchor"></a>3. Predict the results of the upcoming votes</h2>
 <p>In the last step we estimate a very basic model and then predict the vote shares for the two national votes on February 9th, 2020. In order to do so, we split the data into a training set and a prediction set.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#split data</span>
-<span class="va">estimation_data</span> <span class="op">&lt;-</span> <span class="va">swissvotesDB</span><span class="op">[</span><span class="op">!</span><span class="va">swissvotesDB</span><span class="op">$</span><span class="va">bfsnr</span><span class="op">%in%</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6290</span>, <span class="fl">6300</span><span class="op">)</span>,<span class="op">]</span>
-<span class="va">prediction_data</span> <span class="op">&lt;-</span> <span class="va">swissvotesDB</span><span class="op">[</span><span class="va">swissvotesDB</span><span class="op">$</span><span class="va">bfsnr</span><span class="op">%in%</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6290</span>, <span class="fl">6300</span><span class="op">)</span>,<span class="op">]</span>
+<span class="va">estimation_data</span> <span class="op">&lt;-</span> <span class="va">swissvotesdata</span><span class="op">[</span><span class="op">!</span><span class="va">swissvotesdata</span><span class="op">$</span><span class="va">bfsnr</span><span class="op">%in%</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6290</span>, <span class="fl">6300</span><span class="op">)</span>,<span class="op">]</span>
+<span class="va">prediction_data</span> <span class="op">&lt;-</span> <span class="va">swissvotesdata</span><span class="op">[</span><span class="va">swissvotesdata</span><span class="op">$</span><span class="va">bfsnr</span><span class="op">%in%</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6290</span>, <span class="fl">6300</span><span class="op">)</span>,<span class="op">]</span>
 
 <span class="co">#estimate a model</span>
 <span class="va">fit_m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">yesshare</span> <span class="op">~</span> <span class="va">nr_yesshare</span>, data<span class="op">=</span><span class="va">estimation_data</span><span class="op">)</span>
@@ -188,8 +200,8 @@
 <span class="co">#predict</span>
 <span class="va">prediction</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">fit_m1</span>, newdata <span class="op">=</span> <span class="va">prediction_data</span>, interval<span class="op">=</span><span class="st">"predict"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">as.data.frame</span>
 <span class="va">prediction</span><span class="op">$</span><span class="va">bfsnr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6290</span>, <span class="fl">6300</span><span class="op">)</span></code></pre></div>
-<p>We can now plot the predictions for the two ballots. Note that it is crucial to correctly report uncertainty, hence, we have to include the prediction interval as well.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p>We can now plot the predictions for the two ballots. Note, it is crucial to correctly report uncertainty, hence, we have to include the prediction interval as well.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">prediction</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">bfsnr</span><span class="op">)</span>, y<span class="op">=</span><span class="va">fit</span>, ymin<span class="op">=</span><span class="va">lwr</span>, ymax<span class="op">=</span><span class="va">upr</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_pointrange</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"#FF6B00"</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
@@ -202,8 +214,8 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">"none"</span>,
         axis.ticks.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
         panel.grid.major.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="predict_voteshare_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p><img src="predict_voteshare_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co">#add the points to the previous plot</span>
 <span class="va">prediction_data</span><span class="op">$</span><span class="va">yesshare</span><span class="op">[</span><span class="va">prediction_data</span><span class="op">$</span><span class="va">bfsnr</span><span class="op">==</span><span class="fl">6290</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">prediction</span><span class="op">$</span><span class="va">fit</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
@@ -217,7 +229,7 @@
 
 <span class="va">plot1</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">prediction_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">yesshare</span>, x<span class="op">=</span><span class="va">nr_yesshare</span><span class="op">)</span>, color<span class="op">=</span><span class="st">"#FF6B00"</span>, size<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_linerange</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">prediction_data</span>,<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin<span class="op">=</span><span class="va">lwr</span>, ymax<span class="op">=</span><span class="va">upr</span><span class="op">)</span>, color<span class="op">=</span><span class="st">"#FF6B00"</span><span class="op">)</span></code></pre></div>
-<p><img src="predict_voteshare_files/figure-html/unnamed-chunk-5-2.png" width="700"></p>
+<p><img src="predict_voteshare_files/figure-html/unnamed-chunk-6-2.png" width="700"></p>
 </div>
 </div>
   </div>
@@ -228,7 +240,8 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li>
+<li><a href="#how-to-get-swissvotes-data">How to get Swissvotes Data</a></li>
+      <li>
 <a href="#predict-vote-outcomes-with-data">Predict vote outcomes with <img src="https://swissvotes.ch/static/images/logo.svg" width="120"> Data</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#retrieve-and-prepare-the-data">1. Retrieve and prepare the data</a></li>
       <li><a href="#exploratory-analysis-is-our-assumption-accurate">2. Exploratory Analysis : is our assumption accurate?</a></li>

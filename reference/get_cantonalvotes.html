@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get national results and counting status in real time or for selected dates or a time range in the past — get_cantonalvotes • swissdd</title>
+<title>Get cantonal results and counting status in real time or for selected dates or a time range in the past — get_cantonalvotes • swissdd</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Get national results and counting status in real time or for selected dates or a time range in the past — get_cantonalvotes" />
-<meta property="og:description" content="get_cantonalsvotes is one of the two main functions of swissvote package. It allows to retrieve the results and the counting status for national ballots." />
+<meta property="og:title" content="Get cantonal results and counting status in real time or for selected dates or a time range in the past — get_cantonalvotes" />
+<meta property="og:description" content="get_cantonalvotes is one of the two main functions of swissvote package. It allows to retrieve the results and the counting status for national ballots." />
 <meta name="twitter:card" content="summary" />
 
 <meta name="theme-color" content="#293c55">
@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">swissdd</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -94,7 +94,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -129,7 +129,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/politanch/swissdd/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -146,36 +146,40 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get national results and counting status in real time or for selected dates or a time range in the past</h1>
-    <small class="dont-index">Source: <a href='https://github.com/politanch/swissdd/blob/master/R/get_results.R'><code>R/get_results.R</code></a></small>
+    <h1>Get cantonal results and counting status in real time or for selected dates or a time range in the past</h1>
+    <small class="dont-index">Source: <a href='https://github.com/politanch/swissdd/blob/master/R/get_cantonalvotes.R'><code>R/get_cantonalvotes.R</code></a></small>
     <div class="hidden name"><code>get_cantonalvotes.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>get_cantonalsvotes</code> is one of the two main functions of swissvote package. It allows to retrieve the results and the counting status for national ballots.</p>
+    <p><code>get_cantonalvotes</code> is one of the two main functions of swissvote package. It allows to retrieve the results and the counting status for national ballots.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_cantonalvotes</span><span class='op'>(</span>geolevel <span class='op'>=</span> <span class='st'>"municipality"</span>, votedates <span class='op'>=</span> <span class='cn'>NULL</span>,
-  from_date <span class='op'>=</span> <span class='cn'>NULL</span>, to_date <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_cantonalvotes</span><span class='op'>(</span>
+  geolevel <span class='op'>=</span> <span class='st'>"municipality"</span>,
+  votedates <span class='op'>=</span> <span class='cn'>NULL</span>,
+  from_date <span class='op'>=</span> <span class='cn'>NULL</span>,
+  to_date <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>geolevel</th>
-      <td><p>geographical level for which the results should be loaded.  options: "canton", "district","municipality" or "zh_counting_districts"</p></td>
+      <td><p>geographical level for which the results should be loaded. Options: "canton", "district", "municipality" or "zh_counting_districts".</p></td>
     </tr>
     <tr>
       <th>votedates</th>
-      <td><p>dates of the ballots to be selected. Default: most recent ballot available. Format = "YYYY-MM-DD"</p></td>
+      <td><p>dates of the ballots to be selected. Default: most recent ballot available. Format: "YYYY-MM-DD".</p></td>
     </tr>
     <tr>
       <th>from_date</th>
-      <td><p>starting point in time from which vote-results should be retrived. Format = "YYYY-MM-DD"</p></td>
+      <td><p>starting point in time from which vote results should be retrieved. Format: "YYYY-MM-DD".</p></td>
     </tr>
     <tr>
       <th>to_date</th>
-      <td><p>end point in time to which vote-results should be retrived. Format = "YYYY-MM-DD"</p></td>
+      <td><p>end point in time to which vote results should be retrieved. Format: "YYYY-MM-DD".</p></td>
     </tr>
     </table>
 
@@ -187,12 +191,16 @@
     <p>get_cantonalvotes - retrieve vote results for cantonal ballots at district- or municipality level for selected dates or a given date range.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># select by range</span>
-<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>get_cantonalvotes</span><span class='op'>(</span>geolevel<span class='op'>=</span><span class='st'>"district"</span>,from_date <span class='op'>=</span> <span class='st'>"2019-01-01"</span>,to_date<span class='op'>=</span><span class='st'>"2019-12-31"</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'>
+<span class='co'># Select by range</span>
+<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>get_cantonalvotes</span><span class='op'>(</span>
+   geolevel <span class='op'>=</span> <span class='st'>"district"</span>, 
+   from_date <span class='op'>=</span> <span class='st'>"2019-01-01"</span>, 
+   to_date <span class='op'>=</span> <span class='st'>"2019-12-31"</span>
+   <span class='op'>)</span>
 
-<span class='co'># select specific votedate(s)</span>
- 
- <span class='fu'>get_cantonalvotes</span><span class='op'>(</span>votedates<span class='op'>=</span><span class='st'>"2019-02-10"</span><span class='op'>)</span>
+<span class='co'># Select specific votedate(s)</span>
+<span class='fu'>get_cantonalvotes</span><span class='op'>(</span>votedates <span class='op'>=</span> <span class='st'>"2019-02-10"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2,341 x 18</span><span>
 #&gt;        id canton_name mun_id mun_name geoLevelParentn… gebietAusgezaeh…
 #&gt;     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>           
@@ -211,13 +219,12 @@
 #&gt; </span><span style='color: #555555;'>#   stimmbeteiligungInProzent </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, eingelegteStimmzettel </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,</span><span>
 #&gt; </span><span style='color: #555555;'>#   anzahlStimmberechtigte </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, gueltigeStimmen </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, de </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, fr </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,</span><span>
 #&gt; </span><span style='color: #555555;'>#   it </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, rm </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, votedate </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span></div><div class='input'>
-
 <span class='co'># get the results at counting district level</span>
 <span class='co'># yields the same result as the municipality level, with the </span>
 <span class='co'># exception of Winterthur and Zurich,</span>
 <span class='co'># where detailed counting district results are returned instead.</span>
 
-<span class='fu'>get_cantonalvotes</span><span class='op'>(</span>votedate<span class='op'>=</span><span class='st'>"2019-09-22"</span>,geolevel <span class='op'>=</span> <span class='st'>"zh_counting_districts"</span><span class='op'>)</span>
+<span class='fu'>get_cantonalvotes</span><span class='op'>(</span>votedate <span class='op'>=</span> <span class='st'>"2019-09-22"</span>, geolevel <span class='op'>=</span> <span class='st'>"zh_counting_districts"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 33 x 18</span><span>
 #&gt;        id canton_name mun_id mun_name geoLevelParentn… gebietAusgezaeh…
 #&gt;     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>           
@@ -236,9 +243,6 @@
 #&gt; </span><span style='color: #555555;'>#   stimmbeteiligungInProzent </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, eingelegteStimmzettel </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,</span><span>
 #&gt; </span><span style='color: #555555;'>#   anzahlStimmberechtigte </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, gueltigeStimmen </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, de </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, fr </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,</span><span>
 #&gt; </span><span style='color: #555555;'>#   it </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, rm </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, votedate </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span></div><div class='input'>
-
-
-
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
