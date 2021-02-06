@@ -16,14 +16,6 @@ jobs:
 
       - uses: r-lib/actions/setup-r@v1
 
-      - uses: r-lib/actions/setup-pandoc@v1
-     
-      - name: Install gdal
-        run: |
-            sudo apt-get install python3.6-dev
-            sudo add-apt-repository ppa:ubuntugis/ppa
-            sudo apt-get install gdal-bin
-
       - name: Query dependencies
         run: |
           install.packages('remotes')
@@ -41,7 +33,7 @@ jobs:
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
-          install.packages(c("pkgdown", "dplyr", "tidyr", "magrittr", "tidyr","ggplot2","RSwissMaps", "knitr","sf","viridis","rgdal"), type = "binary")
+          install.packages(c("pkgdown", "dplyr", "tidyr", "magrittr", "tidyr","ggplot2","RSwissMaps", "knitr","sf","viridis"), type = "binary")
           remotes::install_github("politanch/swissdd")
         shell: Rscript {0}
 
