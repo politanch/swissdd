@@ -46,7 +46,6 @@ library(viridis)
 geo_canton <- swissdd::get_geodata(geolevel = "canton")
 geo_canton$canton_id <- as.numeric(geo_canton$canton_id)
 
-
 # download data from API on the vote calles «Swiss coalition for Corporate justice SCCJ»
 kovi_nat <- swissdd::get_nationalvotes(votedates="2020-11-29", geolevel = "canton")%>%
   dplyr::filter(id == 6360)%>%
