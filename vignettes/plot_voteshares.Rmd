@@ -92,5 +92,6 @@ ggplot(can_df)+
 If for some reason you don't want to create your map from scratch you could also rely on the function `plot_nationalvotes()` which allows you to quickly plot turnout rates or yes-shares. In order to run this function you have to specify the administrative level as well as the official identification number of the vote you're interested in. 
 
 ```{r echo=TRUE, warning=FALSE, message=FALSE}
-plot_nationalvotes(vote_id=6360, geolevel="canton")
+
+plot_nationalvotes(votedate="2020-11-29", vote_id=6360, geolevel="canton")
 ```
