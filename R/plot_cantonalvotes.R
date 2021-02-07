@@ -49,10 +49,16 @@ plot_cantonalvotes <- function(votedate = NULL, vote_id = NULL, geolevel = "muni
   # Fetch vote data
   vote_data <- get_cantonalvotes(geolevel = geolevel, votedates = votedate)
   
+  # Check whether the data does already contain at least a single result
+  
+  
   # Subset vote data
   if (is.null(vote_id)) vote_id <- unique(vote_data[["id"]])[1]
   vote_data <- vote_data[vote_data[["id"]] == vote_id,]
+  # Stop if there is no data for the chosen vote id
   if (nrow(vote_data) == 0) stop ("No data found for the specified 'vote_id'")
+  # warning if no results are available yet for the chosen vote id
+  if (all(is.na(vote_data$jaStimmenInProzent))==TRUE) warning ("No results available yet for the specified 'vote_id'")
   
   # Join geo with vote data 
   if (geolevel == "municipality") {
@@ -84,7 +90,7 @@ plot_cantonalvotes <- function(votedate = NULL, vote_id = NULL, geolevel = "muni
   }
   
   # Select relevant rows
-  pd <- pd[!is.na(pd[["jaStimmenInProzent"]]),]
+  pd <- pd[!is.na(pd[["id"]]),]
   
   # Measure
   if (measure == "result") {
