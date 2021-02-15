@@ -24,14 +24,14 @@
 #' 
 #' # Plot the most recent national vote
 #' plot_nationalvotes()
-#' 
+#' \donttest{
 #' # Plot a specific national vote at cantonal level
 #' plot_nationalvotes(
 #'     votedate = "2014-02-09",
 #'     vote_id = 5800,
 #'     geolevel = "canton"
 #'     )
-#' 
+#' }
 #' @export
 plot_nationalvotes <- function(votedate = NULL, vote_id = NULL, geolevel = "municipality", measure = "result", 
                                standardize = T, lakes = T, language = "DE", theme = "srf") {
