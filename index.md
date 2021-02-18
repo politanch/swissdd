@@ -16,7 +16,7 @@
 
 The package wraps the real time data on vote Sundays. As soon as the ballots close (from 12:00 on), the datastream is continuosly updated, until the data for all municipalities is complete and the final results are available. Additionally, it allows to access the archive and to retrieve the *harmonized* results of national votes since 1981. Additionally, it allows to access the archive and to retrieve the *harmonized* results of national votes since 1981, as well as loading data from the [swissvotes-database](https://swissvotes.ch/page/home), the most  comprehensive database on swiss popular votes.
 
-Thanks to a major contribution of [David Zumbach](https://github.com/zumbov2) the latest version contains brand new functions to retrieve geodata of administrative boundaries provided by the FSO and to plot vote results maps.
+Thanks to a major contribution of [David Zumbach](https://github.com/zumbov2) the latest version contains brand new functions to retrieve geodata of administrative boundaries provided by the FSO and to plot vote result maps.
 
 ```
 # installation from CRAN (stable)
@@ -38,7 +38,6 @@ federalvotes <- get_nationalvotes(from_date="2017-01-01",to_date="2018-01-01", g
 
 cantonalvotes <- get_cantonalvotes(votedates="2019-02-10", geolevel = "municipality")
 ```
-
 
 The webservice of the FSO is documented on opendata.swiss (language settings can be found at the bottom of the page):
 
