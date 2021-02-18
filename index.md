@@ -14,13 +14,9 @@
 * districts
 * municipalities
 
-The package wraps the real time data on vote Sundays. As soon as the ballots close (from 12:00 on), the datastream is continuosly updated, until the data for all municipalities is complete and the final results are available. Additionally, it allows to access the archive and to retrieve the *harmonized* results of national votes since 1981.
+The package wraps the real time data on vote Sundays. As soon as the ballots close (from 12:00 on), the datastream is continuosly updated, until the data for all municipalities is complete and the final results are available. Additionally, it allows to access the archive and to retrieve the *harmonized* results of national votes since 1981. Additionally, it allows to access the archive and to retrieve the *harmonized* results of national votes since 1981, as well as loading data from the [swissvotes-database](https://swissvotes.ch/page/home), the most  comprehensive database on swiss popular votes.
 
-Additionally, with the newest version available via CRAN it is now possible to retrieve data from the [swissvotes-database](https://swissvotes.ch/page/home), the most  comprehensive database on swiss popular votes. Due to the integration of this additional data source there is a __breaking change__: 
-
-1. The `get_swissvotes`-function has been modified in its use. It now allows to retrieve the data from the [swissvotes-database](https://swissvotes.ch/page/home).
-
-2. Real-time and archive-data from [opendata.swiss](https://opendata.swiss/de/) can now instead be loaded with the 'new' `get_nationalvotes`-function.
+Thanks to a major contribution of [David Zumbach](https://github.com/zumbov2) the latest version contains brand new functions to retrieve geodata of administrative boundaries provided by the FSO and to plot vote results maps.
 
 ```
 # installation from CRAN (stable)
