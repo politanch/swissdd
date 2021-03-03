@@ -10,7 +10,7 @@
 
 
 ### Installation
-To install the CRAN version use `install.packages("swissdd")` and `devtools::install_github("swissdd")` for the development version.
+To install the CRAN version use `install.packages("swissdd")`.
 
 
 `swissdd` builds upon real time data service for federal and cantonal votes provided by the __Federal Statistical Office__ via [opendata.swiss](https://opendata.swiss/de/). It brings the results of popular votes, aggregated at the geographical level of choice, straight into R. Available levels are 
