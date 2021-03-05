@@ -20,7 +20,7 @@ To install the CRAN version use `install.packages("swissdd")` or `devtools::inst
 * districts
 * municipalities
 
-The package wraps the real time data on vote Sundays. As soon as the ballot close (from 12:00 on), the datastream is continuosly updated, until the data for all municipalities is complete and the final results are available. Additionally, it allows to access the archive and to retrieve the *harmonized* results of national votes since 1981. Thanks to a major contribution of [David Zumbach](https://github.com/zumbov2) the latest version contains new functions to retrieve geodata of administrative boundaries and plot vote results maps.
+The package wraps the real time data on vote Sundays. As soon as the ballots close (from 12:00 on), the datastream is continuosly updated, until the data for all municipalities is complete and the final results are available. Additionally, it allows to access the archive and to retrieve the *harmonized* results of national votes since 1981. Thanks to a major contribution of [David Zumbach](https://github.com/zumbov2) the latest version contains new functions to retrieve geodata of administrative boundaries and plot vote results maps.
 
 It also allows to retrieve data from the [swissvotes-database](https://swissvotes.ch/page/home), the most  comprehensive database on swiss popular votes.
 
