@@ -7,6 +7,6 @@ testthat::test_that("plot_nationalvotes works", {
 })
 
 testthat::test_that("plot_cantonalvotes works", {
-  testthat::expect_s3_class(swissdd::plot_nationalvotes("2020-11-29"),"ggplot")
+  testthat::expect_s3_class(swissdd::plot_cantonalvotes(),"ggplot")
 })
 
