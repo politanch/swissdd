@@ -37,9 +37,25 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
   # Get info
   if (latest) {
     
-    gdInfo <- cnt[["result"]][["resources"]][[2]][["title"]]
-    gdUrl <- cnt[["result"]][["resources"]][[2]][["download_url"]]
+   resources <- get_vote_urls(geolevel = geolevel, call_res = call_res)
+    
+   #### Fix retrieval of latest
+   
+   max_coverage_date <-  max(as.Date(resources$date))
+    
+    # Get URL
+    urls <- get_vote_urls(geolevel = "national", call_res = call_res)
+    
+    gdUrl <- urls[urls[["date"]] == max_coverage_date,][["download_url"]]
+    
+    gdInfoLatest <- which(urls[["date"]] == max_coverage_date)
+  
+    # Titel extrahieren - fehlt noch
+    
+    gdInfo <- cnt[["result"]][["resources"]][[gdInfoLatest]][["title"]]
+    # gdUrl <- cnt[["result"]][["resources"]][[2]][["download_url"]]
     gdLayers <- sf::st_layers(gdUrl)[1][["name"]]
+    
     
   } else {
     
@@ -57,11 +73,11 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
     gd <- sf::st_read(gdUrl, layer = gdLayers[stringr::str_detect(gdLayers, "voge_")], quiet = T)
     
     # Mutate if variable vogenr exists
-    if ("vogenr" %in% names(gd)) {
+    if ("vogeId" %in% names(gd)) {
       
       gd <- gd %>% 
-        dplyr::mutate(id = vogenr) %>% 
-        dplyr::select(-vogenr) 
+        dplyr::mutate(id = vogeId) %>% 
+        dplyr::select(-vogeId) 
       
     }
     
@@ -129,6 +145,4 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
   return(gd)
     
 }
-
-
 
