@@ -104,9 +104,9 @@ get_vote_urls <- function(geolevel = "national", call_res) {
   )
   
   # check if votedates and resource-URLs can be parsed 
-  if(is.null(urls$date)) message("Votedates cannot be parsed properly. There might be an issue in the metadata on opendata.swiss.")
+  if(is.null(urls$date)) message("Votedates cannot be parsed properly. There might be an issue with the opendata.swiss-metadata API.")
   
-  if(is.null(urls$download_url)) message("The download URLs cannot be parsed properly. There might be an issue in the metadata on opendata.swiss.")
+  if(is.null(urls$download_url)) message("The download URLs cannot be parsed properly. There might be an issue with the opendata.swiss-metadata API.")
   
   
   # Return
