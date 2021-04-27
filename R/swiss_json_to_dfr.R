@@ -46,6 +46,15 @@ swiss_json_to_dfr <- function(votedate = NULL, geolevel = "municipality", dataur
     if (is.null(votedate)) votedate <- max(available_dates)
     votedate <- lubridate::ymd(votedate)
     check_votedate(votedate, available_dates)
+    
+    # Fail gracefully when available votedates cannot be parsed.
+    if(length(available_dates)<1){
+      
+      message("Available Votedates cannot be parsed. There might be a technical issue with the opendata.swiss API.")
+      
+      return(invisible(NULL))
+      
+    }
 
     # Get URL
     urls <- get_vote_urls(geolevel = "national", call_res = call_res)
@@ -59,8 +68,10 @@ swiss_json_to_dfr <- function(votedate = NULL, geolevel = "municipality", dataur
   
   # Fetch, check and extract vote data
   res <- httr::GET(dataurl)
-  check_api_call(res)
-  res_data <- suppressWarnings(jsonlite::fromJSON(httr::content(res, as = "text", encoding = "UTF-8")))
+  res_data <- check_api_call(res)
+  # res_data <- suppressWarnings(jsonlite::fromJSON(httr::content(res, as = "text", encoding = "UTF-8")))
+  
+  if(!is.null(res_data)){
   
   # Simplify data
   data_national <- res_data[["schweiz"]][["vorlagen"]]
@@ -172,5 +183,7 @@ swiss_json_to_dfr <- function(votedate = NULL, geolevel = "municipality", dataur
   
   # Return
   return(findata)
+  
+  }
   
 }
