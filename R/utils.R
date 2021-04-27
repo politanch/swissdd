@@ -3,9 +3,20 @@
 #' @noRd
 check_api_call <- function(call_res) {
   
-  if (httr::http_error(call_res)) stop("The API does not respond properly. Do you have an internet connection and an open proxy?")
+  if (httr::http_error(call_res)){
+    
+    message("The API does not respond properly. Do you have an internet connection and an open proxy?")
+    
+    return(invisible(NULL))
+    
+  } else {
+    
+   suppressWarnings(jsonlite::fromJSON(httr::content(call_res, as = "text", encoding = "UTF-8")))
+    
+  }
   
 }
+
 
 #' @noRd
 check_geolevel <- function(geolevel, available_geolevels) {
@@ -70,7 +81,7 @@ call_api_base <- function(geolevel = "national") {
 #' @importFrom httr GET http_error
 #'
 #' @noRd
-call_api_geodata <- function() {
+call_api_geodata <- function(){
   
   # Call
   res <- httr::GET("https://opendata.swiss/api/3/action/package_show?id=geodaten-zu-den-eidgenoessischen-abstimmungsvorlagen")
