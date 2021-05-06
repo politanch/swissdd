@@ -32,28 +32,46 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
   
   # Call geodata api
   if (missing(call_res)) call_res <- call_api_geodata()
+  
+  # Check if there is an error
+  if (httr::http_error(call_res)){
+
+    message("The API does not respond properly. Do you have an internet connection and an open proxy?")
+
+    return(invisible(NULL))
+
+  }
+  
+    
+# check_api_call_geo(call_res)
+  
+  # FIX in order that function fails gracefully
+  
+  # if(!is.null(call_res)){
+
   cnt <- httr::content(call_res)
+  # }  # Check
+  
   
   # Get info
   if (latest) {
     
    resources <- get_vote_urls(geolevel = geolevel, call_res = call_res)
     
-   #### Fix retrieval of latest
+   #### Fix retrieval of latest - via latest publication date
    
-   max_coverage_date <-  max(as.Date(resources$date))
+   max_issued_date <-  max(as.Date(resources$pub_date))
     
     # Get URL
     urls <- get_vote_urls(geolevel = "national", call_res = call_res)
     
-    gdUrl <- urls[urls[["date"]] == max_coverage_date,][["download_url"]]
+    gdUrl <- urls[urls[["pub_date"]] == max_issued_date,][["download_url"]]
     
-    gdInfoLatest <- which(urls[["date"]] == max_coverage_date)
+    gdInfoLatest <- which(urls[["pub_date"]] ==  max_issued_date)
   
     # Titel extrahieren - fehlt noch
     
     gdInfo <- cnt[["result"]][["resources"]][[gdInfoLatest]][["title"]]
-    # gdUrl <- cnt[["result"]][["resources"]][[2]][["download_url"]]
     gdLayers <- sf::st_layers(gdUrl)[1][["name"]]
     
     
