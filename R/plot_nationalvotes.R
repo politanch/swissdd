@@ -47,6 +47,11 @@ plot_nationalvotes <- function(votedate = NULL, vote_id = NULL, geolevel = "muni
   call_res_geodata <- call_api_geodata()
   available_dates <- available_votedates(geolevel = "national", call_res_base)
   
+  # check status of api calls /available votedates and fail gracefully in case of errors
+  if(httr::http_error(call_res_base)==FALSE &
+     httr::http_error(call_res_geodata)==FALSE&
+     is.null(available_dates)==FALSE) {
+  
   # Handle votedate
   if (!is.null(votedate)) votedate <- lubridate::ymd(votedate)
   if (is.null(votedate)) votedate <- max(available_dates)
@@ -134,7 +139,13 @@ plot_nationalvotes <- function(votedate = NULL, vote_id = NULL, geolevel = "muni
   
   # Base plot
   plot_map_national(pd, lakes = lakes_data, legend_title = legend_title, language = language, theme = theme)
-  
+} else {
+  message(paste("Data :",httr::http_status(call_res_base),
+                "Geodata :",httr::http_status(call_res_geodata),
+                "Votedates status:", !is.null(available_dates)
+  ))
+}
+
 }
 
 
