@@ -17,6 +17,21 @@ check_api_call <- function(call_res) {
   
 }
 
+#' @importFrom httr http_error
+#'
+#' @noRd
+check_api_call_geo <- function(call_res) {
+  
+  if (!httr::http_error(call_res)){
+    
+    message("The API does not respond properly. Do you have an internet connection and an open proxy?")
+    
+    return(invisible(NULL))
+    
+  } 
+  
+}
+
 
 #' @noRd
 check_geolevel <- function(geolevel, available_geolevels) {
@@ -85,12 +100,10 @@ call_api_geodata <- function(){
   
   # Call
   res <- httr::GET("https://opendata.swiss/api/3/action/package_show?id=geodaten-zu-den-eidgenoessischen-abstimmungsvorlagen")
-  
-  # Check
-  check_api_call(res)
-  
+
   # Return
   return(res)
+    
   
 }
 
@@ -111,6 +124,7 @@ get_vote_urls <- function(geolevel = "national", call_res) {
   # Extract URLs
   urls <- tibble::tibble(
     date =  unlist(purrr::map(resources, "coverage")),
+    pub_date =  unlist(purrr::map(resources, "issued")),
     download_url = unlist(purrr::map(resources, "download_url"))
   )
   
