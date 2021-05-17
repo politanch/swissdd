@@ -32,14 +32,48 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
   
   # Call geodata api
   if (missing(call_res)) call_res <- call_api_geodata()
+  
+  # Check if there is an error
+  if (httr::http_error(call_res)){
+
+    message("The API does not respond properly. Do you have an internet connection and an open proxy?")
+
+    return(invisible(NULL))
+
+  }
+  
+    
+# check_api_call_geo(call_res)
+  
+  # FIX in order that function fails gracefully
+  
+  # if(!is.null(call_res)){
+
   cnt <- httr::content(call_res)
+  # }  # Check
+  
   
   # Get info
   if (latest) {
     
-    gdInfo <- cnt[["result"]][["resources"]][[2]][["title"]]
-    gdUrl <- cnt[["result"]][["resources"]][[2]][["download_url"]]
+   resources <- get_vote_urls(geolevel = geolevel, call_res = call_res)
+    
+   #### Fix retrieval of latest - via latest publication date
+   
+   max_issued_date <-  max(as.Date(resources$pub_date))
+    
+    # Get URL
+    urls <- get_vote_urls(geolevel = "national", call_res = call_res)
+    
+    gdUrl <- urls[urls[["pub_date"]] == max_issued_date,][["download_url"]]
+    
+    gdInfoLatest <- which(urls[["pub_date"]] ==  max_issued_date)
+  
+    # Titel extrahieren - fehlt noch
+    
+    gdInfo <- cnt[["result"]][["resources"]][[gdInfoLatest]][["title"]]
     gdLayers <- sf::st_layers(gdUrl)[1][["name"]]
+    
     
   } else {
     
@@ -57,11 +91,11 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
     gd <- sf::st_read(gdUrl, layer = gdLayers[stringr::str_detect(gdLayers, "voge_")], quiet = T)
     
     # Mutate if variable vogenr exists
-    if ("vogenr" %in% names(gd)) {
+    if ("vogeId" %in% names(gd)) {
       
       gd <- gd %>% 
-        dplyr::mutate(id = vogenr) %>% 
-        dplyr::select(-vogenr) 
+        dplyr::mutate(id = vogeId) %>% 
+        dplyr::select(-vogeId) 
       
     }
     
@@ -129,6 +163,4 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
   return(gd)
     
 }
-
-
 

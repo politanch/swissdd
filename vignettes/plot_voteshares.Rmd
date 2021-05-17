@@ -10,26 +10,33 @@ knitr::opts_chunk$set(
 )
 ```
 
-The function `get_geodata` allows users to download geographic information for different administrative units in Switzerland. The function returns a *spatiel feature* `data.frame`. A user should specify the level of administrative units using the argument  `geolevel`. The following options are available:
+This functionality has been kindly added by [David Zumbach](https://twitter.com/davidzumbach){target="_blank"}.
 
-* `national` downloads administrative boundaries of Switzerland
-* `cantonal` downloads administrative boundaries of cantons
-* `municipality` downloads administrative boundaries of municipalities/communities
-* `zh_counting_districts` downloads administrative boundaries of *Zählkreise* for the City of Zurich
-* `lakes` downloads boundaries of major lakes
+The function `get_geodata` allows users to download geographic information for different administrative units in Switzerland. The function returns a *simple feature* `data.frame`. Users should specify the level of administrative units using the argument `geolevel`. The following options are available:
 
-An illustration of how one could utilize the function of `swissdd` to visualize resulting vote shares for any national vote is given below.
+* `national` to download administrative boundaries of Switzerland
+* `cantonal` to download administrative boundaries of cantons
+* `municipality` to download administrative boundaries of municipalities/communities
+* `zh_counting_districts` to download administrative boundaries of *Zählkreise* for the City of Zurich
+* `lakes` to download boundaries of major lakes
+
+An illustration of how one could utilize the functionionality of `swissdd` to visualize vote outcomes for any national vote is given here.
 
 ### Plot voteshares "by hand"
+
+Producing a map "by hand" allows for more flexibility. For example, you could simply download the geo-information and plot something entirely else. If you never ever want to produce a plot by hand, skip to the next sectionn.
+
+
 ```{r echo=TRUE, warning=FALSE, message=FALSE}
 # installation from CRAN (stable)
 # install.packages("swissdd")
 # install.packages("dplyr")
 
 # installation from github (ongoing updates)
-# devtools::install_github("politanch/swissdd",ref="dev")
+# devtools::install_github("politanch/swissdd")
 
 library(swissdd)
+packageVersion("swissdd")
 library(dplyr)
 library(ggplot2)
 library(sf)
@@ -44,7 +51,6 @@ kovi_nat <- swissdd::get_nationalvotes(votedates="2020-11-29", geolevel = "canto
   dplyr::filter(id == 6360)%>%
   dplyr::select(canton_id, jaStimmenInProzent)%>%
   mutate(canton_id=as.numeric(canton_id))
-
 ```
 
 Combine the two `data.frames`.
@@ -55,18 +61,14 @@ can_df <- left_join(geo_canton, kovi_nat, by="canton_id")
 Plot the whole thing accordingly.
 
 ```{r echo=TRUE, warning=FALSE, message=FALSE}
-
 ggplot(can_df)+
   geom_sf(aes(fill=jaStimmenInProzent), color="white", size=.1)
-
 ```
 
-With this you can start prettifiyng the map. To do that you can download geo information on major lakes as well. We add those as well.
+With this you can start prettifiyng the map according to your liking. Wee add the lakes as well here:
 
 ```{r echo=TRUE, warning=FALSE, message=FALSE}
-
-lakes <- get_geodata(geolevel = "lakes")
-
+lakes <- swissdd::get_geodata(geolevel = "lakes")
 ggplot(can_df)+
   geom_sf(aes(fill=jaStimmenInProzent), color="white", size=.1)+
   geom_sf(data=lakes, fill="aliceblue", color=NA)+
@@ -81,10 +83,14 @@ ggplot(can_df)+
   theme(legend.position="bottom")+
   labs(title="Result for Vote on Corporate Justice SCCJ", subtitle="November 29, 2020",
        caption="data: FSO/{swissdd}")
-
 ```
 
 
+### Plot voteshares with built-in function
 
+If for some reason you don't want to create your map from scratch you could also rely on the function `plot_nationalvotes()` which allows you to quickly plot turnout rates or yes-shares. In order to run this function you have to specify the administrative level as well as the official identification number of the vote you're interested in. 
 
+```{r echo=TRUE, warning=FALSE, message=FALSE}
 
+plot_nationalvotes(votedate="2020-11-29", vote_id=6360, geolevel="canton")
+```

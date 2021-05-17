@@ -18,7 +18,7 @@
 #' @return a tibble containing the results
 #' 
 #' @examples
-#' 
+#' \donttest{
 #' # Selection by range
 #' results <- get_nationalvotes(
 #'     geolevel = "district", 
@@ -28,7 +28,7 @@
 #' 
 #' # Selection by end date only
 #' get_nationalvotes(to_date = "1983-12-04")
-#'  
+#'  }
 #' # Selection of a specific vote date
 #' get_nationalvotes(votedates = "2014-02-09")
 #'

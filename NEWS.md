@@ -1,3 +1,7 @@
+# swissdd 1.1.1
+
+* minor modification to the 'plot_cantonalvotes()'-function to ensure that the function works even when there are no results yet for an upcoming vote.
+
 # swissdd 1.1.0
 
 * new functions to retrieve geodata of voting districts and plot vote results as a map have been added. 

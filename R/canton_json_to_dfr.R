@@ -41,6 +41,17 @@ canton_json_to_dfr <- function(votedate = NULL, geolevel = "municipality", datau
     
     # Handle votedate
     available_dates <- available_votedates(geolevel = "canton", call_res)
+   
+    # Fail gracefully if available votedates cannot be retrieved
+     if(length(available_dates)<1){
+       
+      message("Available Votedates cannot be parsed. There might be a technical issue with the opendata.swiss API.")
+      
+      return(invisible(NULL))
+      
+     }
+    #
+    
     if (is.null(votedate)) votedate <- max(available_dates)
     votedate <- lubridate::ymd(votedate)
     check_votedate(votedate, available_dates)
@@ -57,8 +68,10 @@ canton_json_to_dfr <- function(votedate = NULL, geolevel = "municipality", datau
   
   # Fetch, check and extract vote data
   res <- httr::GET(dataurl)
-  check_api_call(res)
-  res_data <- suppressWarnings(jsonlite::fromJSON(httr::content(res, as = "text", encoding = "UTF-8")))
+  res_data <- check_api_call(res)
+  # res_data <- suppressWarnings(jsonlite::fromJSON(httr::content(res, as = "text", encoding = "UTF-8")))
+  
+  if(!is.null(res_data)){
   
   # Simplification
   data_cantons <- res_data[["kantone"]]
@@ -147,4 +160,5 @@ canton_json_to_dfr <- function(votedate = NULL, geolevel = "municipality", datau
   # Return
   return(ktdata3)
   
+    }
   }

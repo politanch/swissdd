@@ -5,9 +5,7 @@
 [![cranlogs](https://cranlogs.r-pkg.org/badges/grand-total/swissdd)](http://cran.rstudio.com/web/packages/swissdd/index.html)
 
 ## the swiss direct democracy R package
-<p align="left">
-<img src="swissdd_sticker.png" alt="" width="100"/>
-</p>
+<p align="left"><img src="https://raw.githubusercontent.com/politanch/swissdd/master/pkgdown/swissdd_sticker.png" alt="" width="100"/></p>
 
 `swissdd` builds upon the real time data service for federal and cantonal votes provided by the __Federal Statistical Office__ via [opendata.swiss](https://opendata.swiss/de/). It brings the results of popular votes, aggregated at the geographical level of choice, straight into R. Available levels are 
 
@@ -47,8 +45,6 @@ cantonalvotes <- get_cantonalvotes(votedates="2019-02-10", geolevel = "municipal
 
 
 The webservice of the federal statistical office is documented on opendata.swiss (language settings can be found at the bottom of the page):
-
-<img src="https://handbook.opendata.swiss/images/terms_by-ask.svg" alt="" width="12%"/>
 
 https://opendata.swiss/de/dataset/echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen
 

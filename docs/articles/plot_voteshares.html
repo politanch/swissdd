@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">swissdd</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -114,52 +114,85 @@
 
     
     
-<div id="plot-voteshares-on-the-cantonal-level" class="section level3">
+<p>This functionality has been kindly added by <a href="https://twitter.com/davidzumbach" target="_blank">David Zumbach</a>.</p>
+<p>The function <code>get_geodata</code> allows users to download geographic information for different administrative units in Switzerland. The function returns a <em>simple feature</em> <code>data.frame</code>. Users should specify the level of administrative units using the argument <code>geolevel</code>. The following options are available:</p>
+<ul>
+<li>
+<code>national</code> to download administrative boundaries of Switzerland</li>
+<li>
+<code>cantonal</code> to download administrative boundaries of cantons</li>
+<li>
+<code>municipality</code> to download administrative boundaries of municipalities/communities</li>
+<li>
+<code>zh_counting_districts</code> to download administrative boundaries of <em>Zählkreise</em> for the City of Zurich</li>
+<li>
+<code>lakes</code> to download boundaries of major lakes</li>
+</ul>
+<p>An illustration of how one could utilize the functionionality of <code>swissdd</code> to visualize vote outcomes for any national vote is given here.</p>
+<div id="plot-voteshares-by-hand" class="section level3">
 <h3 class="hasAnchor">
-<a href="#plot-voteshares-on-the-cantonal-level" class="anchor"></a>plot voteshares on the cantonal level</h3>
+<a href="#plot-voteshares-by-hand" class="anchor"></a>Plot voteshares “by hand”</h3>
+<p>Producing a map “by hand” allows for more flexibility. For example, you could simply download the geo-information and plot something entirely else. If you never ever want to produce a plot by hand, skip to the next sectionn.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
 <span class="co"># installation from CRAN (stable)</span>
 <span class="co"># install.packages("swissdd")</span>
 <span class="co"># install.packages("dplyr")</span>
-<span class="co"># install.packages("RSwissMaps")</span>
 
 <span class="co"># installation from github (ongoing updates)</span>
 <span class="co"># devtools::install_github("politanch/swissdd")</span>
 
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/politanch/swissdd">swissdd</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html">packageVersion</a></span><span class="op">(</span><span class="st">"swissdd"</span><span class="op">)</span>
+<span class="co">#&gt; [1] '1.1.0'</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">RSwissMaps</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sjmgarnier/viridis">viridis</a></span><span class="op">)</span>
 
-<span class="co">#get data from API for the 2014 Swiss immigration initiative (mei)</span>
-<span class="va">mei_nat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_nationalvotes.html">get_nationalvotes</a></span><span class="op">(</span>votedates<span class="op">=</span><span class="st">"2014-02-09"</span>, geolevel <span class="op">=</span> <span class="st">"canton"</span><span class="op">)</span><span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">id</span> <span class="op">==</span> <span class="fl">5800</span><span class="op">)</span><span class="op">%&gt;%</span>
+<span class="co">#download geo information</span>
+<span class="va">geo_canton</span> <span class="op">&lt;-</span> <span class="fu">swissdd</span><span class="fu">::</span><span class="fu"><a href="../reference/get_geodata.html">get_geodata</a></span><span class="op">(</span>geolevel <span class="op">=</span> <span class="st">"canton"</span><span class="op">)</span>
+<span class="va">geo_canton</span><span class="op">$</span><span class="va">canton_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">geo_canton</span><span class="op">$</span><span class="va">canton_id</span><span class="op">)</span>
+
+
+<span class="co"># download data from API on the vote calles «Swiss coalition for Corporate justice SCCJ»</span>
+<span class="va">kovi_nat</span> <span class="op">&lt;-</span> <span class="fu">swissdd</span><span class="fu">::</span><span class="fu"><a href="../reference/get_nationalvotes.html">get_nationalvotes</a></span><span class="op">(</span>votedates<span class="op">=</span><span class="st">"2020-11-29"</span>, geolevel <span class="op">=</span> <span class="st">"canton"</span><span class="op">)</span><span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">id</span> <span class="op">==</span> <span class="fl">6360</span><span class="op">)</span><span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">canton_id</span>, <span class="va">jaStimmenInProzent</span><span class="op">)</span><span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>canton_id<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">canton_id</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co">#plot</span>
-<span class="fu"><a href="https://rdrr.io/pkg/RSwissMaps/man/can.plot.html">can.plot</a></span><span class="op">(</span><span class="va">mei_nat</span><span class="op">$</span><span class="va">canton_id</span>, <span class="va">mei_nat</span><span class="op">$</span><span class="va">jaStimmenInProzent</span>, <span class="fl">2016</span>,
-         title <span class="op">=</span> <span class="st">"2014 Swiss immigration initiative "</span>,
-         subtitle <span class="op">=</span> <span class="st">"Swiss Cantons, 2016"</span>, 
-         caption <span class="op">=</span> <span class="st">"Data:swissdd/FSO\nPlot:RSwissMaps"</span>, dpi<span class="op">=</span><span class="fl">300</span><span class="op">)</span></pre></div>
-<p><img src="plot_voteshares_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
-</div>
-<div id="plot-voteshares-on-the-municipal-level" class="section level3">
-<h3 class="hasAnchor">
-<a href="#plot-voteshares-on-the-municipal-level" class="anchor"></a>plot voteshares on the municipal level</h3>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>canton_id<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">canton_id</span><span class="op">)</span><span class="op">)</span></pre></div>
+<p>Combine the two <code>data.frames</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="co">#get data from API for the 2014 Swiss immigration initiative (mei)</span>
-<span class="va">mei_mun</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_nationalvotes.html">get_nationalvotes</a></span><span class="op">(</span>votedates<span class="op">=</span><span class="st">"2014-02-09"</span>, geolevel <span class="op">=</span> <span class="st">"municipality"</span><span class="op">)</span><span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">id</span> <span class="op">==</span> <span class="fl">5800</span><span class="op">)</span><span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">mun_id</span>, <span class="va">jaStimmenInProzent</span><span class="op">)</span><span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>mun_id<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">mun_id</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/pkg/RSwissMaps/man/mun.plot.html">mun.plot</a></span><span class="op">(</span><span class="va">mei_mun</span><span class="op">$</span><span class="va">mun_id</span>, <span class="va">mei_mun</span><span class="op">$</span><span class="va">jaStimmenInProzent</span>, <span class="fl">2016</span>,
-         color_continuous <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#c7e9c0"</span>, <span class="st">"#006d2c"</span><span class="op">)</span>,
-         boundaries_size <span class="op">=</span> <span class="fl">0.2</span>,
-         title <span class="op">=</span> <span class="st">"2014 Swiss immigration initiative "</span>,
-         subtitle <span class="op">=</span> <span class="st">"Swiss Municipalities, 2016"</span>, 
-         caption <span class="op">=</span> <span class="st">"Data:swissdd/FSO\nPlot:RSwissMaps"</span><span class="op">)</span></pre></div>
-<p><img src="plot_voteshares_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+<span class="va">can_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">geo_canton</span>, <span class="va">kovi_nat</span>, by<span class="op">=</span><span class="st">"canton_id"</span><span class="op">)</span></pre></div>
+<p>Plot the whole thing accordingly.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">can_df</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">jaStimmenInProzent</span><span class="op">)</span>, color<span class="op">=</span><span class="st">"white"</span>, size<span class="op">=</span><span class="fl">.1</span><span class="op">)</span></pre></div>
+<p><img src="plot_voteshares_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+<p>With this you can start prettifiyng the map according to your liking. Wee add the lakes as well here:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="va">lakes</span> <span class="op">&lt;-</span> <span class="fu">swissdd</span><span class="fu">::</span><span class="fu"><a href="../reference/get_geodata.html">get_geodata</a></span><span class="op">(</span>geolevel <span class="op">=</span> <span class="st">"lakes"</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">can_df</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">jaStimmenInProzent</span><span class="op">)</span>, color<span class="op">=</span><span class="st">"white"</span>, size<span class="op">=</span><span class="fl">.1</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">lakes</span>, fill<span class="op">=</span><span class="st">"aliceblue"</span>, color<span class="op">=</span><span class="cn">NA</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/viridis/man/scale_viridis.html">scale_fill_viridis</a></span><span class="op">(</span>option<span class="op">=</span><span class="st">"D"</span>, 
+                     name <span class="op">=</span> <span class="st">"Yes-Share"</span>,
+                     guide<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_colourbar.html">guide_colorbar</a></span><span class="op">(</span>title.position<span class="op">=</span><span class="st">"top"</span>, 
+                                          direction <span class="op">=</span> <span class="st">"horizontal"</span>,
+                                          barheight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">2</span>, units <span class="op">=</span> <span class="st">"mm"</span><span class="op">)</span>,
+                                          barwidth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">50</span>, units <span class="op">=</span> <span class="st">"mm"</span><span class="op">)</span>,
+                                          title.hjust <span class="op">=</span><span class="fl">0.5</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position<span class="op">=</span><span class="st">"bottom"</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Result for Vote on Corporate Justice SCCJ"</span>, subtitle<span class="op">=</span><span class="st">"November 29, 2020"</span>,
+       caption<span class="op">=</span><span class="st">"data: FSO/{swissdd}"</span><span class="op">)</span></pre></div>
+<p><img src="plot_voteshares_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+</div>
+<div id="plot-voteshares-with-built-in-function" class="section level3">
+<h3 class="hasAnchor">
+<a href="#plot-voteshares-with-built-in-function" class="anchor"></a>Plot voteshares with built-in function</h3>
+<p>If for some reason you don’t want to create your map from scratch you could also rely on the function <code><a href="../reference/plot_nationalvotes.html">plot_nationalvotes()</a></code> which allows you to quickly plot turnout rates or yes-shares. In order to run this function you have to specify the administrative level as well as the official identification number of the vote you’re interested in.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="fu"><a href="../reference/plot_nationalvotes.html">plot_nationalvotes</a></span><span class="op">(</span>vote_id<span class="op">=</span><span class="fl">6360</span>, geolevel<span class="op">=</span><span class="st">"canton"</span><span class="op">)</span></pre></div>
+<p><img src="plot_voteshares_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 </div>
   </div>
 

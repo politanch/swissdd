@@ -41,6 +41,12 @@ plot_cantonalvotes <- function(votedate = NULL, vote_id = NULL, geolevel = "muni
   call_res_geodata <- call_api_geodata()
   available_dates <- available_votedates(geolevel = "canton", call_res_base)
   
+  # check status of api calls and fail gracefully in case of errors
+  # check status of api calls /available votedates and fail gracefully in case of errors
+  if(httr::http_error(call_res_base)==FALSE &
+     httr::http_error(call_res_geodata)==FALSE&
+     is.null(available_dates)==FALSE) {
+  
   # Handle votedate
   if (!is.null(votedate)) votedate <- lubridate::ymd(votedate)
   if (is.null(votedate)) votedate <- max(available_dates)
@@ -49,10 +55,16 @@ plot_cantonalvotes <- function(votedate = NULL, vote_id = NULL, geolevel = "muni
   # Fetch vote data
   vote_data <- get_cantonalvotes(geolevel = geolevel, votedates = votedate)
   
+  # Check whether the data does already contain at least a single result
+  
+  
   # Subset vote data
   if (is.null(vote_id)) vote_id <- unique(vote_data[["id"]])[1]
   vote_data <- vote_data[vote_data[["id"]] == vote_id,]
+  # Stop if there is no data for the chosen vote id
   if (nrow(vote_data) == 0) stop ("No data found for the specified 'vote_id'")
+  # warning if no results are available yet for the chosen vote id
+  if (all(is.na(vote_data$jaStimmenInProzent))==TRUE) warning ("No results available yet for the specified 'vote_id'")
   
   # Join geo with vote data 
   if (geolevel == "municipality") {
@@ -84,7 +96,7 @@ plot_cantonalvotes <- function(votedate = NULL, vote_id = NULL, geolevel = "muni
   }
   
   # Select relevant rows
-  pd <- pd[!is.na(pd[["jaStimmenInProzent"]]),]
+  pd <- pd[!is.na(pd[["id"]]),]
   
   # Measure
   if (measure == "result") {
@@ -115,4 +127,10 @@ plot_cantonalvotes <- function(votedate = NULL, vote_id = NULL, geolevel = "muni
   # Base plot
   plot_map_cantonal(pd, legend_title = legend_title, language = language, theme = theme)
   
+ } else {
+    message(paste("Data :",httr::http_status(call_res_base),
+                  "Geodata :",httr::http_status(call_res_geodata),
+                  "Votedates status:", !is.null(available_dates)
+                   ))
+  }
 }
