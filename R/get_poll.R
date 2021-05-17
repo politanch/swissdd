@@ -6,16 +6,14 @@
 #'
 #' @param bfsnr number of identification of the vote, by default = NULL. Polls available after September 2020 (from voteid 6360 onwards). Bfsnr corresponds to anr in swissvotes data and has to be four digits (available through get_swissvotes).
 #' @param codebook by default = FALSE. If TRUE navigates your browser to the codebook if available.
-#' 
+#' @importFrom RCurl getBinaryURL
 #' @export
 #' 
 #' @return a tibble containing the results
 #' 
 #' @examples
-#'
-# results <- get_poll(bfsnr=6360, codebook=FALSE)
-#' 
-#' 
+#' results <- get_poll(bfsnr=6360, codebook=FALSE)
+
 get_poll <- function(bfsnr = NULL, codebook = F) {
 
   if(is.null(bfsnr)) stop("Identifier number of vote (voteid) has to be specified. See for the variable `anr` obtained through swissdd::get_swissvotes ")
