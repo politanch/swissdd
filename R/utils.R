@@ -108,6 +108,12 @@ get_vote_urls <- function(geolevel = "national", call_res) {
   cnt <- httr::content(call_res)
   resources <- cnt[["result"]][["resources"]]
   
+  # keep json resources only
+  
+  jsons <- which(unlist(purrr::map(resources, "format"))=="JSON")
+  
+  resources <- resources[jsons]
+  
   # Extract URLs
   urls <- tibble::tibble(
     date =  unlist(purrr::map(resources, "coverage")),
