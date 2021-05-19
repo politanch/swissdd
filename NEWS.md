@@ -4,7 +4,7 @@
 
 # swissdd 1.1.0
 
-* new functions to retrieve geodata of voting districts and plot vote results as a map have been added. 
+* major update : new functions to retrieve geodata of voting districts and plot vote results maps have been added by [David Zumbach](https://github.com/zumbov2) (Thanks a thousand David!)
 
 # swissdd 1.0.4
 
