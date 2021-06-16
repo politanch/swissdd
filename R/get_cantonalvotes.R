@@ -61,6 +61,7 @@ get_cantonalvotes <- function(geolevel = "municipality", votedates = NULL, from_
   }
   
   # Check votedates
+  # remove in order to avoid failure if votedates are lacking
   check_votedates(votedates, available_dates)
   
   # Iterate over dates and create dataframe

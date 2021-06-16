@@ -43,7 +43,7 @@ check_geolevel <- function(geolevel, available_geolevels) {
 #' @noRd
 check_votedates <- function(votedates, available_votedates) {
   
-  if (sum(!votedates %in% available_votedates) > 0) stop("One or more 'votedates' not found, please call available_votedates() to check which dates are available.")
+  if (sum(!votedates %in% available_votedates) > 0) message("One or more 'votedates' not found, please call available_votedates() to check which dates are available.")
   
 }
 
