@@ -122,12 +122,15 @@ get_vote_urls <- function(geolevel = "national", call_res) {
   resources <- cnt[["result"]][["resources"]]
   # get jsons only
   
-  jsons <- which(unlist(purrr::map(resources, "format"))=="JSON")
+  jsons <- which(unlist(purrr::map(resources, "format")) %in% c("JSON","GeoJSON"))
   
   resources <- resources[jsons]
   
+  # wrap tibble function into possibly - if a tibble cannot be created, an empty one is returned
+  posstibble = purrr::possibly(.f = tibble, otherwise = tibble())
+  
   # Extract URLs
-  urls <- tibble::tibble(
+  urls <- posstibble(
     date =  unlist(purrr::map(resources, "coverage")),
     pub_date =  unlist(purrr::map(resources, "issued")),
     download_url = unlist(purrr::map(resources, "download_url"))
