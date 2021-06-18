@@ -50,7 +50,7 @@ plot_nationalvotes <- function(votedate = NULL, vote_id = NULL, geolevel = "muni
   # check status of api calls /available votedates and fail gracefully in case of errors
   if(httr::http_error(call_res_base)==FALSE &
      httr::http_error(call_res_geodata)==FALSE&
-     is.null(available_dates)==FALSE) {
+     is.null(available_dates)==FALSE& length(available_dates)>0) {
   
   # Handle votedate
   if (!is.null(votedate)) votedate <- lubridate::ymd(votedate)
