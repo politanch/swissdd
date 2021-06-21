@@ -35,20 +35,20 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
   
   # Check if there is an error
   if (httr::http_error(call_res)){
-
+    
     message("The API does not respond properly. Do you have an internet connection and an open proxy?")
-
+    
     return(invisible(NULL))
-
+    
   }
   
-    
-# check_api_call_geo(call_res)
+  
+  # check_api_call_geo(call_res)
   
   # FIX in order that function fails gracefully
   
   # if(!is.null(call_res)){
-
+  
   cnt <- httr::content(call_res)
   # }  # Check
   
@@ -56,11 +56,11 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
   # Get info
   if (latest) {
     
-   resources <- get_vote_urls(geolevel = geolevel, call_res = call_res)
+    resources <- get_vote_urls(geolevel = geolevel, call_res = call_res)
     
-   #### Fix retrieval of latest - via latest publication date
-   
-   max_issued_date <-  max(as.Date(resources$pub_date))
+    #### Fix retrieval of latest - via latest publication date
+    
+    max_issued_date <-  max(as.Date(resources$pub_date))
     
     # Get URL
     urls <- get_vote_urls(geolevel = "national", call_res = call_res)
@@ -68,7 +68,7 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
     gdUrl <- urls[urls[["pub_date"]] == max_issued_date,][["download_url"]]
     
     gdInfoLatest <- which(urls[["pub_date"]] ==  max_issued_date)
-  
+    
     # Titel extrahieren - fehlt noch
     
     gdInfo <- cnt[["result"]][["resources"]][[gdInfoLatest]][["title"]]
@@ -105,7 +105,7 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
       dplyr::mutate(mun_id = as.character(mun_id)) %>% 
       dplyr::select(mun_id, geometry)
     
-    }
+  }
   if (geolevel == "district") {
     
     # Load
@@ -144,7 +144,7 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
       dplyr::rename(mun_name = name) %>% 
       dplyr::mutate(mun_id = as.character(mun_id)) %>% 
       dplyr::select(mun_id, geometry)
-      
+    
   }
   if (geolevel == "lakes") {
     
@@ -157,10 +157,10 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
     gd <- sf::st_read(gdUrl, layer = gdLayers[stringr::str_detect(gdLayers, "suis_")], quiet = T) %>% 
       dplyr::select(id, geometry)
     
-    }
+  }
   
   # Return
   return(gd)
-    
+  
 }
 
