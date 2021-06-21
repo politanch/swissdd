@@ -1,6 +1,7 @@
 # swissdd 1.1.3
 
-* fix for get_geodata() / plot_nationalvotes()
+* gentle failure of the swissdd-function in case of errors in the data source / problems with the API
+* bug fixes for get_geodata() / plot_nationalvotes()
 
 # swissdd 1.1.1
 
