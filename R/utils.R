@@ -11,7 +11,7 @@ check_api_call <- function(call_res) {
     
   } else {
     
-   suppressWarnings(jsonlite::fromJSON(httr::content(call_res, as = "text", encoding = "UTF-8")))
+    suppressWarnings(jsonlite::fromJSON(httr::content(call_res, as = "text", encoding = "UTF-8")))
     
   }
   
@@ -38,7 +38,7 @@ check_geolevel <- function(geolevel, available_geolevels) {
   
   if (!geolevel %in% available_geolevels) stop("Please select valid 'geolevel'.")
   
-  }
+}
 
 #' @noRd
 check_votedates <- function(votedates, available_votedates) {
@@ -100,10 +100,10 @@ call_api_geodata <- function(){
   
   # Call
   res <- httr::GET("https://opendata.swiss/api/3/action/package_show?id=geodaten-zu-den-eidgenoessischen-abstimmungsvorlagen")
-
+  
   # Return
   return(res)
-    
+  
   
 }
 
@@ -128,12 +128,6 @@ get_vote_urls <- function(geolevel = "national", call_res) {
   
   # wrap tibble function into possibly - if a tibble cannot be created, an empty one is returned
   posstibble = purrr::possibly(.f = tibble, otherwise = tibble())
-  
-  # keep json resources only
-  
-  jsons <- which(unlist(purrr::map(resources, "format"))=="JSON")
-  
-  resources <- resources[jsons]
   
   # Extract URLs
   urls <- posstibble(
@@ -214,7 +208,7 @@ plot_map_national <- function(dt, lakes, legend_title, language, theme) {
           measure >= 55 & measure < 60 ~ "55",
           measure >= 60 & measure < 65 ~ "60",
           measure >= 65 ~ "65"
-          ), levels = c("", "35", "40", "45", "50", "55", "60", "65")
+        ), levels = c("", "35", "40", "45", "50", "55", "60", "65")
         )
       )
     
@@ -225,7 +219,7 @@ plot_map_national <- function(dt, lakes, legend_title, language, theme) {
         values = c(
           "#8d0613", "#c91022", "#f1434a", "#ff9193",
           "#91cdff", "#42a2f1", "#1a7bc5", "#105182"
-          ),
+        ),
         drop = F,
         name = legend_title,
         guide = ggplot2::guide_legend(
@@ -259,7 +253,7 @@ plot_map_national <- function(dt, lakes, legend_title, language, theme) {
         plot.caption = ggplot2::element_text(hjust = 0, colour = "#6b6960")
       )
     
-    } else {
+  } else {
     
     p1 <- ggplot2::ggplot(dt) +
       ggplot2::geom_sf(ggplot2::aes(fill = measure), color = "white") +
@@ -273,8 +267,8 @@ plot_map_national <- function(dt, lakes, legend_title, language, theme) {
           title.hjust = 0.5,
           label.hjust = 0.5,
           ticks = FALSE
-          )
-        ) +
+        )
+      ) +
       ggplot2::ggtitle(unique(dt[["name"]])) +
       ggplot2::theme(
         plot.background = ggplot2::element_rect(fill = "white", color = NA),
@@ -286,7 +280,7 @@ plot_map_national <- function(dt, lakes, legend_title, language, theme) {
         legend.position = "bottom"
       )
     
-    }
+  }
   
   # Add lakes
   if (!is.null(lakes)) {
@@ -295,10 +289,10 @@ plot_map_national <- function(dt, lakes, legend_title, language, theme) {
     if (!theme == "srf") p1 <- p1 + ggplot2::geom_sf(data = lakes, fill = "#ceefff", color = "#4889c5")
     
   }
-
+  
   # Display
   p1
-      
+  
 }
 
 #' @importFrom dplyr mutate case_when
@@ -353,7 +347,7 @@ plot_map_cantonal <- function(dt, legend_title, language, theme) {
     language == "FR" ~ unique(dt[["fr"]]),
     language == "IT" ~ unique(dt[["it"]]),
     language == "RM" ~ unique(dt[["rm"]])
-    )
+  )
   
   # Remove NA
   plot_title <- plot_title[!is.na(plot_title)]
@@ -415,7 +409,7 @@ plot_map_cantonal <- function(dt, legend_title, language, theme) {
       ggplot2::labs(
         title = plot_title,
         caption = caption_text
-        ) +
+      ) +
       ggplot2::theme(
         plot.background = ggplot2::element_rect(fill = "#f5f5f2", color = NA),
         legend.background = ggplot2::element_rect(fill = "#f5f5f2", color = NA),
