@@ -26,7 +26,10 @@ available_votedates <- function(geolevel = "national", call_res) {
 
   # Retrieve dates
   resources <- get_vote_urls(geolevel = geolevel, call_res = call_res)
-  votedates <- lubridate::ymd(resources[["date"]])
+  
+  safe_ymd <- purrr::possibly(lubridate::ymd, otherwise="")
+  
+  votedates <- safe_ymd(resources[["date"]])
   
   # Return
   return(votedates)

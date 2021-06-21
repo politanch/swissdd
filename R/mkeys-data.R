@@ -5,14 +5,14 @@
 #'
 #' @docType data
 #'
-#' @usage data(mkeys)
+#' @usage data(keys)
 #'
 #' @keywords datasets
 #'
 #' @source Walder, Maxime ([Twitter](https://twitter.com/WalderMaxime))
 #'
 #' @examples
-#' data(mkeys)
-#' bsnr <- mkeys$bfsnr
-#' voxnr <- mkeys$projetx
-"mkeys"
+#' data(keys)
+#' bsnr <- keys$bfsnr
+#' voxnr <- keys$projetx
+"keys"

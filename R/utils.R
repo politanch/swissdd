@@ -17,6 +17,21 @@ check_api_call <- function(call_res) {
   
 }
 
+#' @importFrom httr http_error
+#'
+#' @noRd
+check_api_call_geo <- function(call_res) {
+  
+  if (!httr::http_error(call_res)){
+    
+    message("The API does not respond properly. Do you have an internet connection and an open proxy?")
+    
+    return(invisible(NULL))
+    
+  } 
+  
+}
+
 
 #' @noRd
 check_geolevel <- function(geolevel, available_geolevels) {
@@ -28,15 +43,15 @@ check_geolevel <- function(geolevel, available_geolevels) {
 #' @noRd
 check_votedates <- function(votedates, available_votedates) {
   
-  if (sum(!votedates %in% available_votedates) > 0) stop("One or more 'votedates' not found, please call available_votedates() to check which dates are available.")
+  if (sum(!votedates %in% available_votedates) > 0) message("One or more 'votedates' not found, please call available_votedates() to check which dates are available.")
   
 }
 
 #' @noRd
 check_votedate <- function(votedate, available_votedates) {
   
-  if (length(votedate) > 1) stop("This is not a vectorised function. Only one 'votedate' can be queried at a time.")
-  if (!votedate %in% available_votedates) stop("Please select valid 'votedate'.")
+  if (length(votedate) > 1) message("This is not a vectorised function. Only one 'votedate' can be queried at a time.")
+  if (!votedate %in% available_votedates) message("Please select valid 'votedate'.")
   
 }
 
@@ -85,12 +100,10 @@ call_api_geodata <- function(){
   
   # Call
   res <- httr::GET("https://opendata.swiss/api/3/action/package_show?id=geodaten-zu-den-eidgenoessischen-abstimmungsvorlagen")
-  
-  # Check
-  check_api_call(res)
-  
+
   # Return
   return(res)
+    
   
 }
 
@@ -107,6 +120,14 @@ get_vote_urls <- function(geolevel = "national", call_res) {
   # Extract content
   cnt <- httr::content(call_res)
   resources <- cnt[["result"]][["resources"]]
+  # get jsons only
+  
+  jsons <- which(unlist(purrr::map(resources, "format")) %in% c("JSON","GeoJSON"))
+  
+  resources <- resources[jsons]
+  
+  # wrap tibble function into possibly - if a tibble cannot be created, an empty one is returned
+  posstibble = purrr::possibly(.f = tibble, otherwise = tibble())
   
   # keep json resources only
   
@@ -115,8 +136,9 @@ get_vote_urls <- function(geolevel = "national", call_res) {
   resources <- resources[jsons]
   
   # Extract URLs
-  urls <- tibble::tibble(
+  urls <- posstibble(
     date =  unlist(purrr::map(resources, "coverage")),
+    pub_date =  unlist(purrr::map(resources, "issued")),
     download_url = unlist(purrr::map(resources, "download_url"))
   )
   
