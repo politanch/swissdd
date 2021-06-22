@@ -23,8 +23,8 @@
 #' @examples
 #' 
 #' # Plot the most recent national vote
-#' plot_nationalvotes()
 #' \donttest{
+#' plot_nationalvotes()
 #' # Plot a specific national vote at cantonal level
 #' plot_nationalvotes(
 #'     votedate = "2014-02-09",
