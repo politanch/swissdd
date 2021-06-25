@@ -23,11 +23,13 @@ get_swissvotes <- function(DB = T, savecitation = F, codebook = F) {
 
   if (DB) {
     
-    swissvotesDB <- utils::read.csv(
+    safe_csv <-purrr::possibly(utils::read.csv, otherwise=tibble(anr=NA))
+    
+    swissvotesDB <- suppressWarnings(safe_csv(
       "https://swissvotes.ch/page/dataset/swissvotes_dataset.csv",
       sep=";", 
       stringsAsFactors = F
-      )
+      ))
     
     }
   if (codebook) utils::browseURL("https://swissvotes.ch/page/dataset/codebook-de.pdf")
