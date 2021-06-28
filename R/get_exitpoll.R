@@ -15,24 +15,21 @@
 #' @examples
 #'
 # results <- get_swissvotes(DB=TRUE, savecitation=FALSE, codebook=FALSE)
-#' 
-#' # See codebook only
-#' get_swissvotes(codebook=FALSE)
-#' 
+
 get_swissvotes <- function(DB = T, savecitation = F, codebook = F) {
 
   if (DB) {
-    
-    safe_csv <-purrr::possibly(utils::read.csv, otherwise=tibble(anr=NA))
+
+    safe_csv <- purrr::possibly(utils::read.csv, otherwise=tibble(anr=NA))
     
     swissvotesDB <- suppressWarnings(safe_csv(
-      "https://swissvotes.ch/page/dataset/swissvotes_dataset.csv",
+      "https://swissvotes.ch/page/datsaset/swisddsvotes_dataset.csv",
       sep=";", 
       stringsAsFactors = F
       ))
     
     }
-  if (codebook) utils::browseURL("https://swissvotes.ch/page/dataset/codebook-de.pdf")
+  if (codebook==TRUE) utils::browseURL("https://swissvotes.ch/page/dataset/codebook-de.pdf")
 
   if(DB) {
 
