@@ -27,7 +27,7 @@ get_swissvotes <- function(DB = T, savecitation = F, codebook = F) {
     safe_csv <- purrr::safely(utils::read.csv, otherwise=tibble::tibble(anr=NA))
     
     download <- suppressWarnings(safe_csv(
-      "https://swissvotes.ch/page/dataset/swisssvotes_dataset.csv",
+      "https://swissvotes.ch/page/dataset/swissvotes_dataset.csv",
       sep=";", 
       stringsAsFactors = F
     ))
