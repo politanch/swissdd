@@ -34,7 +34,7 @@ get_swissvotes <- function(DB = T, savecitation = F, codebook = F) {
     
     swissvotesDB <- download$result
     
-    if(is.na(swissvotesDB$anr) && length(swissvotesDB)==1) message(paste0(download$error))
+    if(!is.null(download$error)) message(paste0(download$error))
     
     }
   if (codebook) utils::browseURL("https://swissvotes.ch/page/dataset/codebook-de.pdf")
