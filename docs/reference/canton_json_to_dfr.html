@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">swissdd</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
       </span>
     </div>
 
@@ -94,7 +94,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -129,7 +129,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/politanch/swissdd/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -196,28 +196,11 @@
     <pre class="examples"><div class='input'>
 <span class='co'># Get and transform the json for the most recent vote</span>
 <span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>canton_json_to_dfr</span><span class='op'>(</span><span class='op'>)</span>
-
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown or uninitialised column: `date`.</span></div><div class='output co'>#&gt; <span class='message'>Votedates cannot be parsed properly. There might be an issue with the opendata.swiss-metadata API.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown or uninitialised column: `download_url`.</span></div><div class='output co'>#&gt; <span class='message'>The download URLs cannot be parsed properly. There might be an issue with the opendata.swiss-metadata API.</span></div><div class='output co'>#&gt; <span class='message'>Available Votedates cannot be parsed. There might be a technical issue with the opendata.swiss API.</span></div><div class='input'>
 <span class='co'># Get and transform the json for a single votedate at counting district level</span>
 <span class='fu'>canton_json_to_dfr</span><span class='op'>(</span>votedate <span class='op'>=</span> <span class='st'>"2020-02-09"</span>, geolevel <span class='op'>=</span> <span class='st'>"zh_counting_districts"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2,880 x 18</span><span>
-#&gt;        id canton_name mun_id mun_name geoLevelParentn… gebietAusgezaeh…
-#&gt;     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>           
-#&gt; </span><span style='color: #555555;'> 1</span><span> </span><span style='text-decoration: underline;'>104</span><span>947 ZH          1      Aeugst … 101              TRUE            
-#&gt; </span><span style='color: #555555;'> 2</span><span> </span><span style='text-decoration: underline;'>104</span><span>947 ZH          2      Affolte… 101              TRUE            
-#&gt; </span><span style='color: #555555;'> 3</span><span> </span><span style='text-decoration: underline;'>104</span><span>947 ZH          3      Bonstet… 101              TRUE            
-#&gt; </span><span style='color: #555555;'> 4</span><span> </span><span style='text-decoration: underline;'>104</span><span>947 ZH          4      Hausen … 101              TRUE            
-#&gt; </span><span style='color: #555555;'> 5</span><span> </span><span style='text-decoration: underline;'>104</span><span>947 ZH          5      Hedingen 101              TRUE            
-#&gt; </span><span style='color: #555555;'> 6</span><span> </span><span style='text-decoration: underline;'>104</span><span>947 ZH          6      Kappel … 101              TRUE            
-#&gt; </span><span style='color: #555555;'> 7</span><span> </span><span style='text-decoration: underline;'>104</span><span>947 ZH          7      Knonau   101              TRUE            
-#&gt; </span><span style='color: #555555;'> 8</span><span> </span><span style='text-decoration: underline;'>104</span><span>947 ZH          8      Maschwa… 101              TRUE            
-#&gt; </span><span style='color: #555555;'> 9</span><span> </span><span style='text-decoration: underline;'>104</span><span>947 ZH          9      Mettmen… 101              TRUE            
-#&gt; </span><span style='color: #555555;'>10</span><span> </span><span style='text-decoration: underline;'>104</span><span>947 ZH          10     Obfelden 101              TRUE            
-#&gt; </span><span style='color: #555555;'># … with 2,870 more rows, and 12 more variables: jaStimmenInProzent </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   jaStimmenAbsolut </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, neinStimmenAbsolut </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   stimmbeteiligungInProzent </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, eingelegteStimmzettel </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   anzahlStimmberechtigte </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, gueltigeStimmen </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, de </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, fr </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   it </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, rm </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, votedate </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span></div><div class='input'>
-</div></span></pre>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown or uninitialised column: `date`.</span></div><div class='output co'>#&gt; <span class='message'>Votedates cannot be parsed properly. There might be an issue with the opendata.swiss-metadata API.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown or uninitialised column: `download_url`.</span></div><div class='output co'>#&gt; <span class='message'>The download URLs cannot be parsed properly. There might be an issue with the opendata.swiss-metadata API.</span></div><div class='output co'>#&gt; <span class='message'>Available Votedates cannot be parsed. There might be a technical issue with the opendata.swiss API.</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

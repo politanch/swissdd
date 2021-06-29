@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot Cantonal Votes — plot_cantonalvotes • swissdd</title>
+<title>Download poll data collected after a national vote by gfs.bern and the political science departements of the universities of Berne, Zurich, and Geneva. — get_poll • swissdd</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Plot Cantonal Votes — plot_cantonalvotes" />
-<meta property="og:description" content="plot_cantonalvotes plots the results of cantonal votes in a choropleth map using ggplot2." />
+<meta property="og:title" content="Download poll data collected after a national vote by gfs.bern and the political science departements of the universities of Berne, Zurich, and Geneva. — get_poll" />
+<meta property="og:description" content="get_poll downloads exit poll data Please cite data." />
 <meta name="twitter:card" content="summary" />
 
 <meta name="theme-color" content="#293c55">
@@ -146,73 +146,39 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot Cantonal Votes</h1>
-    <small class="dont-index">Source: <a href='https://github.com/politanch/swissdd/blob/master/R/plot_cantonalvotes.R'><code>R/plot_cantonalvotes.R</code></a></small>
-    <div class="hidden name"><code>plot_cantonalvotes.Rd</code></div>
+    <h1>Download poll data collected after a national vote by gfs.bern and the political science departements of the universities of Berne, Zurich, and Geneva.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/politanch/swissdd/blob/master/R/get_poll.R'><code>R/get_poll.R</code></a></small>
+    <div class="hidden name"><code>get_poll.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>plot_cantonalvotes</code> plots the results of cantonal votes in a choropleth map using ggplot2.</p>
+    <p><code>get_poll</code> downloads exit poll data Please cite data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_cantonalvotes</span><span class='op'>(</span>
-  votedate <span class='op'>=</span> <span class='cn'>NULL</span>,
-  vote_id <span class='op'>=</span> <span class='cn'>NULL</span>,
-  geolevel <span class='op'>=</span> <span class='st'>"municipality"</span>,
-  measure <span class='op'>=</span> <span class='st'>"result"</span>,
-  standardize <span class='op'>=</span> <span class='cn'>T</span>,
-  language <span class='op'>=</span> <span class='st'>"DE"</span>,
-  theme <span class='op'>=</span> <span class='st'>"srf"</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_poll</span><span class='op'>(</span>bfsnr <span class='op'>=</span> <span class='cn'>NULL</span>, codebook <span class='op'>=</span> <span class='cn'>F</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>votedate</th>
-      <td><p>date of the ballot. Default: most recent ballot available.</p></td>
+      <th>bfsnr</th>
+      <td><p>number of identification of the vote, by default = NULL. Polls available after September 2020 (from voteid 6360 onwards). Bfsnr corresponds to anr in swissvotes data and has to be four digits (available through get_swissvotes).</p></td>
     </tr>
     <tr>
-      <th>vote_id</th>
-      <td><p>id of the vote. Default: first id mentioned in the data set.</p></td>
-    </tr>
-    <tr>
-      <th>geolevel</th>
-      <td><p>geographical level. Options: district", "municipality" or "zh_counting_districts".</p></td>
-    </tr>
-    <tr>
-      <th>measure</th>
-      <td><p>measure to color the administrative units. Options: "result" for the yes vote share or "turnout"
-for the voter turnout of a given vote.</p></td>
-    </tr>
-    <tr>
-      <th>standardize</th>
-      <td><p>if <code>TRUE</code>, the scale of the measure ranges from 0 to 100 percent. Recommended for comparisons 
-between votes.</p></td>
-    </tr>
-    <tr>
-      <th>language</th>
-      <td><p>defines the language. Options: "DE" for German, "FR" for French, "IT" for Italian or "RM" for Romansh.</p></td>
-    </tr>
-    <tr>
-      <th>theme</th>
-      <td><p>defines basic appearance of the map. Five options are available: "srf" for a theme inspired by the
-plots of Swiss Radio and Television, and "A" to "E" for the viridis color scales magma, inferno, plasma, viridis and cividis.</p></td>
+      <th>codebook</th>
+      <td><p>by default = FALSE. If TRUE navigates your browser to the codebook if available.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a ggplot object</p>
+    <p>a tibble containing the results</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>get_poll - retrieve poll data on votes. The unit of analysis are individuals.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># Plot the most recent cantonal vote</span>
-<span class='fu'>plot_cantonalvotes</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown or uninitialised column: `date`.</span></div><div class='output co'>#&gt; <span class='message'>Votedates cannot be parsed properly. There might be an issue with the opendata.swiss-metadata API.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown or uninitialised column: `download_url`.</span></div><div class='output co'>#&gt; <span class='message'>The download URLs cannot be parsed properly. There might be an issue with the opendata.swiss-metadata API.</span></div><div class='output co'>#&gt; <span class='message'>Data : Success Geodata : Success Votedates status: TRUEData : OK Geodata : OK Votedates status: TRUEData : Success: (200) OK Geodata : Success: (200) OK Votedates status: TRUE</span></div><div class='input'>
-<span class='co'># Plot a specific cantonal vote</span>
-<span class='fu'>plot_cantonalvotes</span><span class='op'>(</span>votedate <span class='op'>=</span> <span class='st'>"2020-02-09"</span>, vote_id <span class='op'>=</span> <span class='fl'>104945</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown or uninitialised column: `date`.</span></div><div class='output co'>#&gt; <span class='message'>Votedates cannot be parsed properly. There might be an issue with the opendata.swiss-metadata API.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown or uninitialised column: `download_url`.</span></div><div class='output co'>#&gt; <span class='message'>The download URLs cannot be parsed properly. There might be an issue with the opendata.swiss-metadata API.</span></div><div class='output co'>#&gt; <span class='message'>Data : Success Geodata : Success Votedates status: TRUEData : OK Geodata : OK Votedates status: TRUEData : Success: (200) OK Geodata : Success: (200) OK Votedates status: TRUE</span></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>get_poll</span><span class='op'>(</span>bfsnr<span class='op'>=</span><span class='fl'>6360</span>, codebook<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

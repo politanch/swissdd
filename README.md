@@ -10,7 +10,7 @@
 
 
 ### Installation
-Swissdd can be installed from github as follows: `devtools::install_github("politanch/swissdd")`. Data for Cantonal Votes can currently not be retrieved, due to inconsistencies in the data source.
+Swissdd can be installed from CRAN `install.packages("swissdd")` (stable version) as well as from github (on going updates) `devtools::install_github("politanch/swissdd")`. Data for Cantonal Votes can currently not be retrieved, due to inconsistencies in the data source.
 
 
 `swissdd` builds upon real time data service for federal and cantonal votes provided by the __Federal Statistical Office__ via [opendata.swiss](https://opendata.swiss/de/). It brings the results of popular votes, aggregated at the geographical level of choice, straight into R. Available levels are 
