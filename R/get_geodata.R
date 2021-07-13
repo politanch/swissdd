@@ -52,11 +52,11 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
   cnt <- httr::content(call_res)
   # }  # Check
   
+  resources <- get_vote_urls(geolevel = geolevel, call_res = call_res)
   
-  # Get info
-  if (latest) {
+  # Get info and check whether resource metadata can be parsed properly
+  if (latest & is.null(resources$urls)==FALSE) {
     
-    resources <- get_vote_urls(geolevel = geolevel, call_res = call_res)
     
     #### Fix retrieval of latest - via latest publication date
     
@@ -69,19 +69,20 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
     
     gdInfoLatest <- which(urls[["pub_date"]] ==  max_issued_date)
     
-    # Titel extrahieren - fehlt noch
-    
     gdInfo <- cnt[["result"]][["resources"]][[gdInfoLatest]][["title"]]
     gdLayers <- sf::st_layers(gdUrl)[1][["name"]]
     
     
   } else {
     
+    if(is.null(resources$urls)==TRUE & latest) message("Resource metadata cannot be parsed properly. Selection of the latest resource by order instead of latest date.")
+    
     gdInfo <- cnt[["result"]][["resources"]][[1]][["title"]] 
     gdUrl <- cnt[["result"]][["resources"]][[1]][["download_url"]]
     gdLayers <- sf::st_layers(gdUrl)[1][["name"]]
     
   }
+  
   if (verbose) cat(paste0(gdInfo[!gdInfo == ""], collapse = "\n"), "\n\n")
   
   # Load geodata and join votes
