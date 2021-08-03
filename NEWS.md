@@ -1,3 +1,7 @@
+# swissdd 1.1.3
+
+* fix for get_geodata() / plot_nationalvotes()
+
 # swissdd 1.1.1
 
 * minor modification to the 'plot_cantonalvotes()'-function to ensure that the function works even when there are no results yet for an upcoming vote.

@@ -50,8 +50,8 @@ check_votedates <- function(votedates, available_votedates) {
 #' @noRd
 check_votedate <- function(votedate, available_votedates) {
   
-  if (length(votedate) > 1) stop("This is not a vectorised function. Only one 'votedate' can be queried at a time.")
-  if (!votedate %in% available_votedates) stop("Please select valid 'votedate'.")
+  if (length(votedate) > 1) message("This is not a vectorised function. Only one 'votedate' can be queried at a time.")
+  if (!votedate %in% available_votedates) message("Please select valid 'votedate'.")
   
 }
 
