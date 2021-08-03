@@ -28,14 +28,19 @@ get_poll <- function(bfsnr = NULL, codebook = F) {
   download_url <- paste0("https://swissvotes.ch/vote/", voteid, "/nachbefragung.csv")
   
   #download data
-  exitpoll <- utils::read.csv(
+  exitpoll <- try(utils::read.csv(
     file=download_url,
     sep=",", 
     header=T,
     fileEncoding="latin1",
     stringsAsFactors = F
-  )
+  ))
   
+  if(class(exitpoll)=="try-error"){
+    stop("Data is not (yet) available on swissvotes.\nFollow @swissvotes on Twitter for update information.")
+  }else{
+    message("Data is downloaded from swissvotes.")
+  }
   
   
  
