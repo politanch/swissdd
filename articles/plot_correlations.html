@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">swissdd</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
       </span>
     </div>
 
@@ -140,13 +140,13 @@
 <span class="co">#get correlations for votes on municipal level with mei</span>
 <span class="va">simvotes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/similar_votes.html">similar_votes</a></span><span class="op">(</span><span class="va">federalvotes</span>, id<span class="op">=</span><span class="fl">5800</span>, from<span class="op">=</span><span class="fl">.4</span>, to<span class="op">=</span><span class="fl">.6</span><span class="op">)</span>
 <span class="va">simvotes</span>
-<span class="co">#&gt; # A tibble: 4 x 2</span>
+<span class="co">#&gt; # A tibble: 4 × 2</span>
 <span class="co">#&gt;   id    correlation</span>
 <span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 6350        0.577</span>
+<span class="co">#&gt; 1 6350        0.580</span>
 <span class="co">#&gt; 2 5990        0.555</span>
-<span class="co">#&gt; 3 5710        0.482</span>
-<span class="co">#&gt; 4 5960        0.452</span>
+<span class="co">#&gt; 3 5710        0.485</span>
+<span class="co">#&gt; 4 5960        0.451</span>
 
 <span class="co">#extract names of correlated votes</span>
 <span class="va">ballotnames</span> <span class="op">&lt;-</span> <span class="va">federalvotes</span> <span class="op">%&gt;%</span>
@@ -158,7 +158,7 @@
 <span class="co">#get correlations for votes on municipal level with mei</span>
 <span class="va">simvotes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/similar_votes.html">similar_votes</a></span><span class="op">(</span><span class="va">federalvotes</span>, id<span class="op">=</span><span class="fl">6310</span>, from<span class="op">=</span><span class="fl">.3</span>, to<span class="op">=</span><span class="fl">1</span><span class="op">)</span>
 <span class="va">simvotes</span>
-<span class="co">#&gt; # A tibble: 22 x 2</span>
+<span class="co">#&gt; # A tibble: 22 × 2</span>
 <span class="co">#&gt;    id    correlation</span>
 <span class="co">#&gt;    &lt;chr&gt;       &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 5800        0.910</span>
@@ -169,7 +169,7 @@
 <span class="co">#&gt;  6 5880        0.785</span>
 <span class="co">#&gt;  7 5760        0.769</span>
 <span class="co">#&gt;  8 5890        0.762</span>
-<span class="co">#&gt;  9 5610        0.711</span>
+<span class="co">#&gt;  9 5610        0.710</span>
 <span class="co">#&gt; 10 5790        0.707</span>
 <span class="co">#&gt; # … with 12 more rows</span>
 
