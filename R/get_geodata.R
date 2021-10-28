@@ -139,7 +139,7 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
   }
   if (geolevel == "zh_counting_districts") {
     
-    gd <- sf::st_read(gdUrl, layer = gdLayers[stringr::str_detect(gdLayers, "zaelhlkreise_")], quiet = T) %>% 
+    gd <- sf::st_read(gdUrl, layer = gdLayers[stringr::str_detect(gdLayers, "zaelhkreise_")], quiet = T) %>% 
       dplyr::rename(mun_id = id) %>% 
       dplyr::rename(mun_name = name) %>% 
       dplyr::mutate(mun_id = as.character(mun_id)) %>% 
