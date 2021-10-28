@@ -55,7 +55,7 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
   resources <- get_vote_urls(geolevel = geolevel, call_res = call_res)
   
   # Get info and check whether resource metadata can be parsed properly
-  if (latest & is.null(resources$urls)==FALSE) {
+  if (latest & is.null(resources$download_url)==FALSE) {
     
     
     #### Fix retrieval of latest - via latest publication date
@@ -75,7 +75,7 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
     
   } else {
     
-    if(is.null(resources$urls)==TRUE & latest) message("Resource metadata cannot be parsed properly. Selection of the latest resource by order instead of latest date.")
+    if(is.null(resources$download_url)==TRUE & latest) message("Resource metadata cannot be parsed properly. Selection of the latest resource by order instead of latest date.")
     
     gdInfo <- cnt[["result"]][["resources"]][[1]][["title"]] 
     gdUrl <- cnt[["result"]][["resources"]][[1]][["download_url"]]
