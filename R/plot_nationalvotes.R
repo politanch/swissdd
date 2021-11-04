@@ -65,14 +65,19 @@ plot_nationalvotes <- function(votedate = NULL, vote_id = NULL, geolevel = "muni
   vote_data <- vote_data[vote_data[["id"]] == vote_id,]
   if (nrow(vote_data) == 0) stop ("No data found for the specified 'vote_id'")
   # warning if no results are available yet for the chosen vote id
-  if (all(is.na(vote_data$jaStimmenInProzent))==TRUE) warning ("No results available yet for the specified 'vote_id'")
+  if (all(is.na(vote_data$jaStimmenInProzent))==TRUE) message("No results available yet for the specified 'vote_id'")
   
+#fetch geodata for the requested geolevel
+geodata <-  get_geodata(geolevel = geolevel, call_res = call_res_geodata)
+
+# stop here and return an invisible null if geodata cannot be fetched
+if(is.null(geodata)) {return(invisible(NULL))}
   
   # Join geo with vote data 
   if (geolevel == "municipality") {
     
     pd <- dplyr::left_join(
-      get_geodata(geolevel = geolevel, call_res = call_res_geodata),
+      geodata ,
       vote_data,
       by = "mun_id"
       )
@@ -81,7 +86,7 @@ plot_nationalvotes <- function(votedate = NULL, vote_id = NULL, geolevel = "muni
   if (geolevel == "district") {
     
     pd <- dplyr::left_join(
-      get_geodata(geolevel = geolevel, call_res = call_res_geodata),
+      geodata ,
       vote_data,
       by = "district_id"
       )
@@ -90,7 +95,7 @@ plot_nationalvotes <- function(votedate = NULL, vote_id = NULL, geolevel = "muni
   if (geolevel == "canton") {
     
     pd <- dplyr::left_join(
-      get_geodata(geolevel = geolevel, call_res = call_res_geodata),
+      geodata ,
       vote_data,
       by = "canton_id"
       )
@@ -99,7 +104,7 @@ plot_nationalvotes <- function(votedate = NULL, vote_id = NULL, geolevel = "muni
   if (geolevel == "zh_counting_districts") {
     
     pd <- dplyr::left_join(
-      get_geodata(geolevel = geolevel, call_res = call_res_geodata),
+      geodata ,
       vote_data,
       by = "mun_id"
     )
