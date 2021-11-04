@@ -65,6 +65,11 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
     # Get URL
     urls <- get_vote_urls(geolevel = "national", call_res = call_res)
     
+    urls$download_url
+    
+    # test: broken link
+    # gdUrl <- "https://www.bfs.admin.ch/bfsstatic/dam/assets/1812413211/master"
+      
     gdUrl <- urls[urls[["pub_date"]] == max_issued_date,][["download_url"]]
     
     gdInfoLatest <- which(urls[["pub_date"]] ==  max_issued_date)
@@ -72,8 +77,14 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
     # Titel extrahieren - fehlt noch
     
     gdInfo <- cnt[["result"]][["resources"]][[gdInfoLatest]][["title"]]
-    gdLayers <- sf::st_layers(gdUrl)[1][["name"]]
     
+    # get layer names - if they are available
+    gdLayers <- suppressWarnings(tryCatch(sf::st_layers(gdUrl)[1][["name"]], 
+                         error = function(e) {gdLayers <- NULL}))
+    
+    # interrupt function (without error) if internet resource is unavailable
+    if(is.null(gdLayers )){ return(invisible(NULL))} 
+
     
   } else {
     
@@ -88,7 +99,7 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
   if (geolevel == "municipality") {
     
     # Load
-    gd <- sf::st_read(gdUrl, layer = gdLayers[stringr::str_detect(gdLayers, "voge_")], quiet = T)
+  gd <- sf::st_read(gdUrl, layer = gdLayers[stringr::str_detect(gdLayers, "voge_")], quiet = T)
     
     # Mutate if variable vogenr exists
     if ("vogeId" %in% names(gd)) {
@@ -161,6 +172,6 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
   
   # Return
   return(gd)
-    
+
 }
 
