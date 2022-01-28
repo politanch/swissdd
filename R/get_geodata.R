@@ -65,7 +65,7 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
     # Get URL
     urls <- get_vote_urls(geolevel = "national", call_res = call_res)
     
-    urls$download_url
+    # urls$download_url
     
     # test: broken link
     # gdUrl <- "https://www.bfs.admin.ch/bfsstatic/dam/assets/1812413211/master"
@@ -143,7 +143,7 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
     # Load
     gd <- sf::st_read(gdUrl, layer = gdLayers[stringr::str_detect(gdLayers, "kant_")], quiet = T) %>%  
       dplyr::rename(canton_id = id) %>% 
-      dplyr::rename(canton_name = name) %>% 
+      # dplyr::rename(canton_name = name) %>% 
       dplyr::mutate(canton_id = as.character(canton_id)) %>% 
       dplyr::select(canton_id, geometry)
     
@@ -152,7 +152,7 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
     
     gd <- sf::st_read(gdUrl, layer = gdLayers[stringr::str_detect(gdLayers, "zaelhkreise_")], quiet = T) %>% 
       dplyr::rename(mun_id = id) %>% 
-      dplyr::rename(mun_name = name) %>% 
+      # dplyr::rename(mun_name = name) %>% 
       dplyr::mutate(mun_id = as.character(mun_id)) %>% 
       dplyr::select(mun_id, geometry)
       
