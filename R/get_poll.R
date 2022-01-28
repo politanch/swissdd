@@ -30,7 +30,8 @@ get_poll <- function(bfsnr = NULL, codebook = F) {
   safe_csv <-purrr::possibly(utils::read.csv, otherwise=tibble())
   
   #download data
-  exitpoll <- suppressWarnings(safe_csv(
+
+  exitpoll <- try(utils::read.csv(
     file=download_url,
     sep=",", 
     header=T,
@@ -38,6 +39,11 @@ get_poll <- function(bfsnr = NULL, codebook = F) {
     stringsAsFactors = F
   ))
   
+  if(class(exitpoll)=="try-error"){
+    stop("Data is not (yet) available on swissvotes.\nFollow @swissvotes on Twitter for update information.")
+  }else{
+    message("Data is downloaded from swissvotes.")
+  }
   
   
  

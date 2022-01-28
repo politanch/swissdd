@@ -1,3 +1,7 @@
+# swissdd 1.1.4.999
+
+* fix for get_geodata(geolevel="zh_counting_districts") and additional checks to ensure functions fail gracefully in case of availability and connection problems.
+
 # swissdd 1.1.3
 
 * gentle failure of the swissdd-function in case of errors in the data source / problems with the API
