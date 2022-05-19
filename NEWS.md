@@ -1,8 +1,10 @@
-# swissdd 1.1.6
+
+# swissdd 1.1.5
 
 * fix for `get_geodata(geolevel="canton")` added 
 
-# swissdd 1.1.5
+# swissdd 1.1.4.999
+
 
 * fix for `get_geodata(geolevel="zh_counting_districts")` and additional checks to ensure functions fail gracefully in case of availability and connection problems.
 
@@ -10,13 +12,17 @@
 
 * fix for `get_geodata() / plot_nationalvotes()`
 
+* gentle failure of the swissdd-function in case of errors in the data source / problems with the API
+
+* bug fixes for get_geodata() / plot_nationalvotes()
+
 # swissdd 1.1.1
 
 * minor modification to the 'plot_cantonalvotes()'-function to ensure that the function works even when there are no results yet for an upcoming vote.
 
 # swissdd 1.1.0
 
-* new functions to retrieve geodata of voting districts and plot vote results as a map have been added. 
+* major update : new functions to retrieve geodata of voting districts and plot vote results maps have been added by [David Zumbach](https://github.com/zumbov2) (Thanks a thousand David!)
 
 # swissdd 1.0.4
 

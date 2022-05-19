@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">swissdd</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.5</span>
       </span>
     </div>
 
@@ -51,7 +51,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -86,7 +86,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/politanch/swissdd/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -100,8 +100,7 @@
 
       
 
-      </header><script src="plot_correlations_files/header-attrs-2.5/header-attrs.js"></script><link href="plot_correlations_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="plot_correlations_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="plot_correlations_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Find and plot correlated vote results</h1>
@@ -120,8 +119,8 @@
 <p>For the sake of illustration we are interested in the result of the 2014 vote on immigration for Swiss municipalities. The initiative was voted upon on 9th of February 2014. There are different ways to find this exact vote. One of them is using the information in the title. An other solution would be to look up the <code>id</code> provided by the FSO.</p>
 <p><code><a href="https://rdrr.io/r/base/unique.html">unique(federalvotes$name[grep("Massen", federalvotes$name)])</a></code></p>
 <p>First, we invoke the necessary packages and use the function <code>get_nationalvotes</code> to access the data. We further specify the unit of analysis as well as the range.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co"># installation from CRAN (stable)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># installation from CRAN (stable)</span>
 <span class="co"># install.packages("swissdd")</span>
 <span class="co"># install.packages("dplyr")</span>
 
@@ -130,7 +129,7 @@
 
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/politanch/swissdd">swissdd</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
 
 <span class="co">#get results of all votes between 2010-2019</span>
@@ -141,13 +140,13 @@
 <span class="co">#get correlations for votes on municipal level with mei</span>
 <span class="va">simvotes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/similar_votes.html">similar_votes</a></span><span class="op">(</span><span class="va">federalvotes</span>, id<span class="op">=</span><span class="fl">5800</span>, from<span class="op">=</span><span class="fl">.4</span>, to<span class="op">=</span><span class="fl">.6</span><span class="op">)</span>
 <span class="va">simvotes</span>
-<span class="co">#&gt; # A tibble: 4 x 2</span>
+<span class="co">#&gt; # A tibble: 4 × 2</span>
 <span class="co">#&gt;   id    correlation</span>
 <span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 6350        0.577</span>
-<span class="co">#&gt; 2 5990        0.555</span>
-<span class="co">#&gt; 3 5710        0.482</span>
-<span class="co">#&gt; 4 5960        0.452</span>
+<span class="co">#&gt; 1 6350        0.583</span>
+<span class="co">#&gt; 2 5990        0.556</span>
+<span class="co">#&gt; 3 5710        0.484</span>
+<span class="co">#&gt; 4 5960        0.451</span>
 
 <span class="co">#extract names of correlated votes</span>
 <span class="va">ballotnames</span> <span class="op">&lt;-</span> <span class="va">federalvotes</span> <span class="op">%&gt;%</span>
@@ -159,19 +158,19 @@
 <span class="co">#get correlations for votes on municipal level with mei</span>
 <span class="va">simvotes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/similar_votes.html">similar_votes</a></span><span class="op">(</span><span class="va">federalvotes</span>, id<span class="op">=</span><span class="fl">6310</span>, from<span class="op">=</span><span class="fl">.3</span>, to<span class="op">=</span><span class="fl">1</span><span class="op">)</span>
 <span class="va">simvotes</span>
-<span class="co">#&gt; # A tibble: 22 x 2</span>
+<span class="co">#&gt; # A tibble: 22 × 2</span>
 <span class="co">#&gt;    id    correlation</span>
 <span class="co">#&gt;    &lt;chr&gt;       &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 5800        0.910</span>
-<span class="co">#&gt;  2 5970        0.902</span>
-<span class="co">#&gt;  3 6240        0.897</span>
+<span class="co">#&gt;  2 5970        0.903</span>
+<span class="co">#&gt;  3 6240        0.896</span>
 <span class="co">#&gt;  4 5523        0.873</span>
-<span class="co">#&gt;  5 5521        0.870</span>
-<span class="co">#&gt;  6 5880        0.785</span>
-<span class="co">#&gt;  7 5760        0.769</span>
-<span class="co">#&gt;  8 5890        0.762</span>
-<span class="co">#&gt;  9 5610        0.711</span>
-<span class="co">#&gt; 10 5790        0.707</span>
+<span class="co">#&gt;  5 5521        0.871</span>
+<span class="co">#&gt;  6 5880        0.783</span>
+<span class="co">#&gt;  7 5760        0.768</span>
+<span class="co">#&gt;  8 5890        0.761</span>
+<span class="co">#&gt;  9 5610        0.710</span>
+<span class="co">#&gt; 10 5790        0.706</span>
 <span class="co">#&gt; # … with 12 more rows</span>
 
 <span class="co">#extract names of correlated votes</span>
@@ -196,7 +195,7 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>intercept <span class="op">=</span> <span class="fl">0</span>, slope<span class="op">=</span><span class="fl">1</span>,  size<span class="op">=</span><span class="fl">.1</span><span class="op">)</span><span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method<span class="op">=</span><span class="st">"lm"</span>, size<span class="op">=</span><span class="fl">.3</span>, color<span class="op">=</span><span class="st">"orange"</span><span class="op">)</span><span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y<span class="op">=</span><span class="st">"BGI, Yes Shares"</span>, x<span class="op">=</span><span class="st">"MEI, Yes Shares"</span>, caption<span class="op">=</span><span class="st">"politan.ch"</span><span class="op">)</span><span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="plot_correlations_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 </div>
   </div>

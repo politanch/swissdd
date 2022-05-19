@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">swissdd</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.5</span>
       </span>
     </div>
 
@@ -51,7 +51,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -86,7 +86,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/politanch/swissdd/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -100,8 +100,7 @@
 
       
 
-      </header><script src="use_SwissvotesDB_files/header-attrs-2.5/header-attrs.js"></script><link href="use_SwissvotesDB_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="use_SwissvotesDB_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="use_SwissvotesDB_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Retrieve Swissvotes-Data</h1>
@@ -118,8 +117,8 @@
 <h3 class="hasAnchor">
 <a href="#how-to-use-swissvotes-data" class="anchor"></a>How to Use Swissvotes Data</h3>
 <p>First, you have to make sure that your machine is connected to the internet.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co"># installation from CRAN (stable)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># installation from CRAN (stable)</span>
 <span class="co"># install.packages("swissdd")</span>
 <span class="co"># install.packages("dplyr")</span>
 
@@ -130,20 +129,20 @@
 <span class="co">#&gt; [1] "LC_CTYPE=C;LC_NUMERIC=C;LC_TIME=C;LC_COLLATE=C;LC_MONETARY=C;LC_MESSAGES=en_US.UTF-8;LC_PAPER=en_US.UTF-8;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=en_US.UTF-8;LC_IDENTIFICATION=C"</span>
 
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/politanch/swissdd">swissdd</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></code></pre></div>
 <p>By default, function extracts only the database provided by <a href="https://swissvotes.ch" target="_blank">Swissvotes</a>. However, you can specify that you want the codebook as well (or just the codebook for that matter). Additionally, there is a specification to save the citation. If you work with data from Swissvotes, we recommend to save the citation.</p>
 <p>If you don’t specify anything the function will be executed with the following specifications.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="co">#default</span>
-<span class="va">swissvotesDB</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_swissvotes.html">get_swissvotes</a></span><span class="op">(</span>DB<span class="op">=</span><span class="cn">T</span>, savecitation<span class="op">=</span><span class="cn">F</span>, codebook<span class="op">=</span><span class="cn">F</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#default</span>
+<span class="va">swissvotesDB</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_swissvotes.html">get_swissvotes</a></span><span class="op">(</span>DB<span class="op">=</span><span class="cn">T</span>, savecitation<span class="op">=</span><span class="cn">F</span>, codebook<span class="op">=</span><span class="cn">F</span><span class="op">)</span></code></pre></div>
 <p>If you use the parameter <code>codebook=T</code> the function will download the data and direct your browser automatically to the codebook. If you’re only interested in the codebook (you accessed the data already, for example), set the parameter <code>DB</code> to <code>FALSE</code>.</p>
 <p>Since we loaded the data already, there is no need to download it again.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-
-<span class="fu"><a href="../reference/get_swissvotes.html">get_swissvotes</a></span><span class="op">(</span>DB<span class="op">=</span><span class="cn">F</span>, codebook<span class="op">=</span><span class="cn">T</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="fu"><a href="../reference/get_swissvotes.html">get_swissvotes</a></span><span class="op">(</span>DB<span class="op">=</span><span class="cn">F</span>, codebook<span class="op">=</span><span class="cn">T</span><span class="op">)</span></code></pre></div>
 <p>For illustration, we are interested in the upcoming vote on affordable housing (date of vote 9th of February, 2020). The variable <code>titel_kurz_d</code> or <code>titel_kurz_f</code> contains the title of a vote (shorter version than the official title <code>titel_off_d</code> or <code>titel_off_f</code>). Please note that the letter <code>d</code> indicates the German title, while the letter <code>f</code> gives you the French title. Since we don’t know too much about the initiative we can read about it as well. First, we find the position in the data and then use the hyperlink provided to read about it.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
 <span class="co">#get position in dataset</span>
 <span class="va">pos_ah</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">grep</a></span><span class="op">(</span><span class="st">"bezahlbare Wohnungen"</span>, <span class="va">swissvotesDB</span><span class="op">$</span><span class="va">titel_kurz_d</span><span class="op">)</span>
 
@@ -151,10 +150,10 @@
 <span class="va">mei_url</span> <span class="op">&lt;-</span> <span class="va">swissvotesDB</span><span class="op">$</span><span class="va">anneepolitique</span><span class="op">[</span><span class="va">pos_ah</span><span class="op">]</span>
 
 <span class="co">#mei_url</span>
-<span class="co">#"https://anneepolitique.swiss/prozesse/56996-volksinitiative-mehr-bezahlbare-wohnungen"</span></pre></div>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="co">#access url</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/browseURL.html">browseURL</a></span><span class="op">(</span><span class="va">mei_url</span><span class="op">)</span></pre></div>
+<span class="co">#"https://anneepolitique.swiss/prozesse/56996-volksinitiative-mehr-bezahlbare-wohnungen"</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#access url</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/browseURL.html">browseURL</a></span><span class="op">(</span><span class="va">mei_url</span><span class="op">)</span></code></pre></div>
 </div>
   </div>
 

@@ -34,7 +34,7 @@ Producing a map "by hand" allows for more flexibility. For example, you could si
 # install.packages("dplyr")
 
 # installation from github (ongoing updates)
-devtools::install_github("politanch/swissdd")
+# devtools::install_github("politanch/swissdd")
 
 
 library(swissdd)

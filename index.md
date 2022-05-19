@@ -7,20 +7,16 @@
 ## the swiss direct democracy R package
 <p align="left"><img src="https://raw.githubusercontent.com/politanch/swissdd/master/pkgdown/swissdd_sticker.png" alt="" width="100"/></p>
 
-`swissdd` builds upon the real time data service for federal and cantonal votes provided by the __Federal Statistical Office__ via [opendata.swiss](https://opendata.swiss/de/). It brings the results of popular votes, aggregated at the geographical level of choice, straight into R. Available levels are 
+`swissdd` builds upon the real time data service for federal and cantonal votes provided by the __Federal Statistical Office__ (FSO) via [opendata.swiss](https://opendata.swiss/de/). It brings the results of popular votes, aggregated at the geographical level of choice, straight into R. Available levels are 
 
 * national
 * cantons
 * districts
 * municipalities
 
-The package wraps the real time data on vote Sundays. As soon as the ballots close (from 12:00 on), the datastream is continuosly updated, until the data for all municipalities is complete and the final results are available. Additionally, it allows to access the archive and to retrieve the *harmonized* results of national votes since 1981.
+The package wraps the real time data on vote Sundays. As soon as the ballots close (from 12:00 on), the datastream is continuosly updated, until the data for all municipalities is complete and the final results are available. Additionally, it allows to access the archive and to retrieve the *harmonized* results of national votes since 1981. Additionally, it allows to access the archive and to retrieve the *harmonized* results of national votes since 1981, as well as loading data from the [swissvotes-database](https://swissvotes.ch/page/home), the most  comprehensive database on swiss popular votes.
 
-Additionally, with the newest version available via CRAN it is now possible to retrieve data from the [swissvotes-database](https://swissvotes.ch/page/home), the most  comprehensive database on swiss popular votes. Due to the integration of this additional data source there is a __breaking change__: 
-
-1. The `get_swissvotes`-function has been modified in its use. It now allows to retrieve the data from the [swissvotes-database](https://swissvotes.ch/page/home).
-
-2. Real-time and archive-data from [opendata.swiss](https://opendata.swiss/de/) can now instead be loaded with the 'new' `get_nationalvotes`-function.
+Thanks to a major contribution of [David Zumbach](https://github.com/zumbov2) the latest version contains brand new functions to retrieve geodata of administrative boundaries provided by the FSO and to plot vote result maps.
 
 ```
 # installation from CRAN (stable)
@@ -43,12 +39,15 @@ federalvotes <- get_nationalvotes(from_date="2017-01-01",to_date="2018-01-01", g
 cantonalvotes <- get_cantonalvotes(votedates="2019-02-10", geolevel = "municipality")
 ```
 
-
-The webservice of the federal statistical office is documented on opendata.swiss (language settings can be found at the bottom of the page):
+The webservice of the FSO is documented on opendata.swiss (language settings can be found at the bottom of the page):
 
 https://opendata.swiss/de/dataset/echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen
 
 https://opendata.swiss/de/dataset/echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen
+
+The geodata for the administrative boundaries can be found here:
+
+https://opendata.swiss/de/dataset/geodaten-zu-den-eidgenoessischen-abstimmungsvorlagen
 
 ## More data on Swiss politics 
 - [DigDemLab](https://digdemlab.io/)  

@@ -27,7 +27,10 @@ get_poll <- function(bfsnr = NULL, codebook = F) {
   if(nchar(bfsnr/10)==5) voteid <- paste0((bfsnr/10),"0")
   download_url <- paste0("https://swissvotes.ch/vote/", voteid, "/nachbefragung.csv")
   
+  safe_csv <-purrr::possibly(utils::read.csv, otherwise=tibble())
+  
   #download data
+
   exitpoll <- try(utils::read.csv(
     file=download_url,
     sep=",", 

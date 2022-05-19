@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • swissdd</title>
+<title>Merge data — keys • swissdd</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,7 +42,10 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Merge data — keys" />
+<meta property="og:description" content="Merge keys that allow to easily combine aggregate data from 
+swissvotes with post-ballot surveys (VOX)." />
+<meta name="twitter:card" content="summary" />
 
 <meta name="theme-color" content="#293c55">
 
@@ -71,7 +74,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -144,105 +147,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/politanch/swissdd/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Merge data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/politanch/swissdd/blob/master/R/mkeys-data.R'><code>R/mkeys-data.R</code></a></small>
+    <div class="hidden name"><code>keys.Rd</code></div>
     </div>
 
-    <div id="swissdd-115" class="section level1">
-<h1 class="page-header" data-toc-text="1.1.5">
-<a href="#swissdd-115" class="anchor"></a>swissdd 1.1.5<small> Unreleased </small>
-</h1>
-<ul>
-<li>fix for <code><a href="../reference/get_geodata.html">get_geodata(geolevel="canton")</a></code> added</li>
-</ul>
-</div>
-    <div id="swissdd-114999" class="section level1">
-<h1 class="page-header" data-toc-text="1.1.4.999">
-<a href="#swissdd-114999" class="anchor"></a>swissdd 1.1.4.999<small> Unreleased </small>
-</h1>
-<ul>
-<li>fix for <code><a href="../reference/get_geodata.html">get_geodata(geolevel="zh_counting_districts")</a></code> and additional checks to ensure functions fail gracefully in case of availability and connection problems.</li>
-</ul>
-</div>
-    <div id="swissdd-113" class="section level1">
-<h1 class="page-header" data-toc-text="1.1.3">
-<a href="#swissdd-113" class="anchor"></a>swissdd 1.1.3<small> 2021-06-29 </small>
-</h1>
-<ul>
-<li><p>fix for <code>get_geodata() / plot_nationalvotes()</code></p></li>
-<li><p>gentle failure of the swissdd-function in case of errors in the data source / problems with the API</p></li>
-<li><p>bug fixes for get_geodata() / plot_nationalvotes()</p></li>
-</ul>
-</div>
-    <div id="swissdd-111" class="section level1">
-<h1 class="page-header" data-toc-text="1.1.1">
-<a href="#swissdd-111" class="anchor"></a>swissdd 1.1.1<small> 2021-02-15 </small>
-</h1>
-<ul>
-<li>minor modification to the ‘plot_cantonalvotes()’-function to ensure that the function works even when there are no results yet for an upcoming vote.</li>
-</ul>
-</div>
-    <div id="swissdd-110" class="section level1">
-<h1 class="page-header" data-toc-text="1.1.0">
-<a href="#swissdd-110" class="anchor"></a>swissdd 1.1.0<small> 2021-02-03 </small>
-</h1>
-<ul>
-<li>major update : new functions to retrieve geodata of voting districts and plot vote results maps have been added by <a href="https://github.com/zumbov2">David Zumbach</a> (Thanks a thousand David!)</li>
-</ul>
-</div>
-    <div id="swissdd-104" class="section level1">
-<h1 class="page-header" data-toc-text="1.0.4">
-<a href="#swissdd-104" class="anchor"></a>swissdd 1.0.4<small> 2020-10-25 </small>
-</h1>
-<ul>
-<li>the <code>canton_json_to_dfr</code> has been adapted to work with the altered data structure of the json files provided via opendata.swiss containing the cantonal vote results.</li>
-</ul>
-</div>
-    <div id="swissdd-103" class="section level1">
-<h1 class="page-header" data-toc-text="1.0.3">
-<a href="#swissdd-103" class="anchor"></a>swissdd 1.0.3<small> 2020-05-15 </small>
-</h1>
-<ul>
-<li>broken examples fixed</li>
-</ul>
-</div>
-    <div id="swissdd-102" class="section level1">
-<h1 class="page-header" data-toc-text="1.0.2">
-<a href="#swissdd-102" class="anchor"></a>swissdd 1.0.2<small> 2020-01-19 </small>
-</h1>
-<ul>
-<li><p>Functions renamed (<em><em>breaking change</em></em>): to retrieve real time or archive results data via opendata.swiss, the function <code>get_nationalvotes</code> must be used. <code>get_swissvotes</code> is turned into the function that allows to get Swissvotes-Data.</p></li>
-<li><p>New function that allows to retrieve Swissvotes-Data added (<code>get_swissvotes</code>)</p></li>
-<li><p>option to retrieve counting district level data with the <code><a href="../reference/get_nationalvotes.html">get_nationalvotes()</a></code>- and <code><a href="../reference/get_cantonalvotes.html">get_cantonalvotes()</a></code>-functions added (affects Zurich and Winterthur only)</p></li>
-<li><p>functions adapted to new tidyr API, the package now depends on tidyr &gt;= 1.0.0.</p></li>
-</ul>
-</div>
-    <div id="swissdd-101" class="section level1">
-<h1 class="page-header" data-toc-text="1.0.1">
-<a href="#swissdd-101" class="anchor"></a>swissdd 1.0.1<small> 2019-08-30 </small>
-</h1>
-<ul>
-<li>Added parent level ids to district and municipality level results (canton / district)</li>
-<li>New function that calculates correlations between votes added: <code><a href="../reference/similar_votes.html">similar_votes()</a></code>
-</li>
-<li>Better error handling with fallback if votedate information provided on opendata.swiss is corrupt</li>
-<li>Improved speed of data-retrieval. Comparison:</li>
-</ul>
-<p><code><a href="https://rdrr.io/r/base/system.time.html">system.time(get_swissvotes(to_date="1983-12-04"))</a></code></p>
-<p>user system elapsed</p>
-<p>2.492 0.160 47.024</p>
-<p><em>comparison with swissdd version 1.0.0</em></p>
-<p>user system elapsed</p>
-<p>3.120 0.276 64.693</p>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>Merge keys that allow to easily combine aggregate data from 
+swissvotes with post-ballot surveys (VOX).</p>
+    </div>
 
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>keys</span><span class='op'>)</span></pre>
+
+
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>An object of class <code>data.frame</code> with 297 rows and 3 columns.</p>
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p>Walder, Maxime ([Twitter](https://twitter.com/WalderMaxime))</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>keys</span><span class='op'>)</span>
+<span class='va'>bsnr</span> <span class='op'>&lt;-</span> <span class='va'>keys</span><span class='op'>$</span><span class='va'>bfsnr</span>
+<span class='va'>voxnr</span> <span class='op'>&lt;-</span> <span class='va'>keys</span><span class='op'>$</span><span class='va'>projetx</span>
+</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 

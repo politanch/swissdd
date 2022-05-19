@@ -16,5 +16,3 @@
 ^inst$
 ^\.pkgdown\.yml$
 ^.github$
-^git_history.R
-^.gitsum$
