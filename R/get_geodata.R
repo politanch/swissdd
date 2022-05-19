@@ -142,7 +142,7 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
     
     # Load
     gd <- sf::st_read(gdUrl, layer = gdLayers[stringr::str_detect(gdLayers, "kant_")], quiet = T) %>%  
-      dplyr::rename(canton_id = id) %>% 
+      dplyr::rename(canton_id = kantId) %>% 
       # dplyr::rename(canton_name = name) %>% 
       dplyr::mutate(canton_id = as.character(canton_id)) %>% 
       dplyr::select(canton_id, geometry)
