@@ -1,5 +1,13 @@
-testthat::test_that("geodata retrieval works", {
+testthat::test_that("geodata retrieval at the municipal level works", {
   testthat::expect_s3_class(swissdd::get_geodata(),"sf")
+})
+
+testthat::test_that("geodata retrieval at the district level works", {
+  testthat::expect_s3_class(swissdd::get_geodata(geolevel="district"),"sf")
+})
+
+testthat::test_that("geodata retrieval at the cantonal level works", {
+  testthat::expect_s3_class(swissdd::get_geodata(geolevel="canton"),"sf")
 })
 
 testthat::test_that("plot_nationalvotes works", {
