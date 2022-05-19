@@ -1,9 +1,17 @@
 # package startup-message (data source displayed)
 
+#' Title
+#'
+#' @param lib 
+#' @param pkg 
+#' @importFrom utils packageVersion
+#'
+#' @examples
+
 .onAttach <- function(lib, pkg)
 {
   packageStartupMessage('************************************************************')
-  packageStartupMessage(paste('*                     swissdd',packageVersion("swissdd"),'                       *'))
+  packageStartupMessage(paste('*                     swissdd',utils::packageVersion("swissdd"),'                       *'))
   packageStartupMessage('*                  developed by politan.ch                 *')
   packageStartupMessage('*                                                          *')
   packageStartupMessage('*                     Data sources:                        *')
@@ -19,6 +27,7 @@
 # suppress notes
 
 utils::globalVariables(c("id", "resultat","res","geoid",
+                         "kantId",
                          "canton_id","canton_name",
                          "district_id","district_name",
                          "mun_id","mun_name",
@@ -36,7 +45,8 @@ utils::globalVariables(c("id", "resultat","res","geoid",
                          "text",
                          "measure", "vogeId", "geometry",
                          "bezkId", "stimmbeteiligungInProzent",
-                         "text"#,"ktid"
+                         "text",#,"ktid"
+                         "packageVersion"
                          ))
 
 
