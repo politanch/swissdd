@@ -19,10 +19,7 @@ The package wraps the real time data on vote Sundays. As soon as the ballots clo
 Thanks to a major contribution of [David Zumbach](https://github.com/zumbov2) the latest version contains brand new functions to retrieve geodata of administrative boundaries provided by the FSO and to plot vote result maps.
 
 ```
-# installation from CRAN (stable)
-install.packages("swissdd")
-
-# installation from github (ongoing updates)
+# installation from github
 devtools::install_github("politanch/swissdd")
 
 #realtimedata on vote-sundays or the data of the last votations
