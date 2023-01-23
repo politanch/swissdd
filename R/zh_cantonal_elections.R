@@ -1,4 +1,4 @@
-#' Title
+#' Get Cantonal Election Results
 #'
 #' @param geolevel 
 #'
@@ -13,7 +13,6 @@ get_cantonalelection <- function(geolevel=""){
 # 1. results canton
 resource <- "https://app-prod-static-voteinfo.s3.eu-central-1.amazonaws.com/v1/ogd/wahlen_resultate_2023_02_12.json"
 
-# Simplification
 res_data <-  suppressWarnings(jsonlite::fromJSON(httr::content(resource, as = "text", encoding = "UTF-8")))
 
 # Simplification
@@ -69,7 +68,6 @@ extract_data(data_cantons, "wahlkreise")
 if (geolevel == "gemeinden") {
   
 extract_data(data_cantons, "gemeinden")
-
   
 }
 
