@@ -1,31 +1,18 @@
-#' Utility function to extract district, municipality or counting district level data from the result-Json
-#'
-#' @param data_cantons data slot of the json 
-#' @param geovar label of the slot in the json for the geographical level for which the results should be loaded. Options: "national", "canton", "district", "municipality" or "zh_counting_districts". 
-#'
-#' @return tibble
-#' @noRd
-
-extract_election_data <- function(data_cantons, geovar) {
-  
-  dataset <- tibble::tibble(
-    id = purrr::map(data_cantons[["vorlagen"]], 1),
-    canton_name = data_cantons[["geoLevelname"]],
-    res = purrr::map(data_cantons[["vorlagen"]], geovar)) %>% 
-    tidyr::unnest(c(id, res)) %>% 
-    tidyr::unnest(res) %>% 
-    tidyr::unpack(resultat) %>% 
-    tidyr::unnest(listen)
-  
-  dataset
-  
-}
-
 #' Get Cantonal Election Results
+#' 
+#' \code{get_cantonalvotes} Retrieves cantonal election results
 #'
 #' @param geolevel geographical level for which the results should be loaded. Options: "national", "canton", "district", "municipality" or "zh_counting_districts". 
 #'
+#' @importFrom httr GET http_error content
+#' @importFrom jsonlite fromJSON
+#' @importFrom tibble tibble
+#' @importFrom purrr map
+#' @importFrom dplyr "%>%" filter bind_rows rename left_join
+#' @importFrom tidyr unnest unpack
+#' 
 #' @return tibble
+#' 
 #' @export
 #'
 #' @examples
@@ -36,8 +23,7 @@ extract_election_data <- function(data_cantons, geovar) {
 #' get_cantonalelection(geolevel="district")
 
 
-get_cantonalelection <- function(geolevel="district"){
-  
+get_cantonalelections <- function(geolevel="canton"){
   
   check_geolevel(geolevel=geolevel, 
                  available_geolevels = c("canton","district","municipality","zh_counting_districts"))
@@ -73,35 +59,50 @@ get_cantonalelection <- function(geolevel="district"){
     dataset <-kt_results %>% 
       dplyr::left_join(zeitreihen, by=c("listeNummer","listeCode"))
     
-    
-  } 
+   } 
   
-  if (geolevel == "district"){
+  if (!(geolevel == "canton")) {
     
-    dataset <- extract_election_data(datajson, geovar="wahlkreise")
+  switch(
+      geolevel,
+      municipality = {geoindex <- "gemeinden"},
+      zh_counting_districts = {geoindex <- "gemeinden"},
+      district = {geoindex <- "wahlkreise"}
+    )
     
-  } 
+    
+  dataset <- tibble::tibble(
+      id = purrr::map(datajson[["vorlagen"]], 1),
+      canton_name = datajson[["geoLevelname"]],
+      res = purrr::map(datajson[["vorlagen"]], geoindex)) %>% 
+      tidyr::unnest(c(id,res)) %>% 
+      tidyr::unnest(res) %>% 
+      tidyr::unpack(resultat) %>% 
+      tidyr::unnest(listen)
+    
   
-  if (geolevel == "municipality") {
+ if (geolevel == "zh_counting_districts") {
+
     
-    dataset <- extract_election_data(datajson, geovar="gemeinden")
+zaehlkreis_data <- tibble::tibble(
+  id = purrr::map(datajson[["vorlagen"]], 1),
+  canton_name = datajson[["geoLevelname"]],
+  res = purrr::map(datajson[["vorlagen"]], "zaehlkreise")) %>% 
+  tidyr::unnest(c(id, res)) %>% 
+  tidyr::unnest(res) %>% 
+  tidyr::unpack(resultat) %>% 
+  tidyr::unnest(listen)
+
     
-  } 
-  
-  if (geolevel == "zh_counting_districts") {
-    
-    gemeinde_data <- extract_election_data(datajson, geovar="gemeinden") %>% 
-      dplyr::filter(!geoLevelnummer %in% c(261,230))
-    
-    zaehlkreis_data <- extract_election_data(datajson, geovar="zaehlkreise") 
-    
-    dataset <- gemeinde_data %>% 
+dataset <-dataset %>% 
       dplyr::bind_rows(zaehlkreis_data)
     
     
+      }
+  
   }
   
-  return(dataset)
+return(dataset)
   
 }
 

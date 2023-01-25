@@ -2,6 +2,8 @@
 
 export(available_votedates)
 export(canton_json_to_dfr)
+export(get_cantonalelection)
+export(get_cantonalelections)
 export(get_cantonalvotes)
 export(get_geodata)
 export(get_nationalvotes)
@@ -56,3 +58,4 @@ importFrom(tibble,tibble)
 importFrom(tidyr,spread)
 importFrom(tidyr,unnest)
 importFrom(tidyr,unpack)
+importFrom(utils,packageVersion)
