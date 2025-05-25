@@ -8,7 +8,7 @@
 #' @param index selection by index of the resource (last published = 1).
 #' @param call_res result of a previous call to the base API. Optional argument.
 #' 
-#' @importFrom httr GET http_error content
+#' @importFrom httr add_headers GET http_error content
 #' @importFrom jsonlite fromJSON
 #' @importFrom tibble tibble
 #' @importFrom purrr map
@@ -67,7 +67,7 @@ canton_json_to_dfr <- function(votedate = NULL, geolevel = "municipality", datau
   if (length(dataurl) > 1) stop("This is not a vectorised function. Only one URL can be queried at a time.")
   
   # Fetch, check and extract vote data
-  res <- httr::GET(dataurl)
+  res <- httr::GET(dataurl, httr::add_headers(`User-Agent` = "Mozilla/5.0"))
   res_data <- check_api_call(res)
   # res_data <- suppressWarnings(jsonlite::fromJSON(httr::content(res, as = "text", encoding = "UTF-8")))
   
