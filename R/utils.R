@@ -76,14 +76,14 @@ check_theme <- function(theme, available_themes) {
   
 }
 
-#' @importFrom httr GET
+#' @importFrom httr add_headers GET
 #'
 #' @noRd
 call_api_base <- function(geolevel = "national") {
   
   # Call
-  if (geolevel == "national") res <- httr::GET("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen")
-  if (geolevel == "canton") res <- httr::GET("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen")
+  if (geolevel == "national") res <- httr::GET("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen", httr::add_headers(`User-Agent` = "Mozilla/5.0"))
+  if (geolevel == "canton") res <- httr::GET("https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen", httr::add_headers(`User-Agent` = "Mozilla/5.0"))
   
   # Check
   check_api_call(res)
@@ -93,13 +93,13 @@ call_api_base <- function(geolevel = "national") {
   
 }
 
-#' @importFrom httr GET http_error
+#' @importFrom httr add_headers GET http_error
 #'
 #' @noRd
 call_api_geodata <- function(){
   
   # Call
-  res <- httr::GET("https://opendata.swiss/api/3/action/package_show?id=geodaten-zu-den-eidgenoessischen-abstimmungsvorlagen")
+  res <- httr::GET("https://opendata.swiss/api/3/action/package_show?id=geodaten-zu-den-eidgenoessischen-abstimmungsvorlagen", httr::add_headers(`User-Agent` = "Mozilla/5.0"))
   
   # Return
   return(res)
