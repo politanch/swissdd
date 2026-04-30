@@ -16,3 +16,6 @@
 ^inst$
 ^\.pkgdown\.yml$
 ^.github$
+^\.positai$
+^\.claude$
+^\.github$
