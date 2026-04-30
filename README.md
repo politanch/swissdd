@@ -1,6 +1,6 @@
 [![Licence](https://img.shields.io/badge/licence-GPL--2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.en.html)
 [![cranlogs](https://cranlogs.r-pkg.org/badges/grand-total/swissdd)](http://cran.rstudio.com/web/packages/swissdd/index.html)
-[![R build status](https://github.com/politanch/swissdd/workflows/R-CMD-check/badge.svg)](https://github.com/politanch/swissdd/actions?workflow=R-CMD-check)
+[![R-CMD-check](https://github.com/politanch/swissdd/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/politanch/swissdd/actions/workflows/R-CMD-check.yaml)
 
 # swissdd
 
