@@ -17,12 +17,13 @@
 #' @importFrom stringr str_detect
 #' 
 #' @examples
-#' 
+#' \dontrun{
 #' # Get latest geodata at municipal level
 #' get_geodata()
 #' 
 #' # Get latest geodata at cantonal level
 #' get_geodata(geolevel = "canton")
+#' }
 #' 
 #' @export
 get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call_res) {
@@ -52,49 +53,43 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
   cnt <- httr::content(call_res)
   # }  # Check
   
-  resources <- get_vote_urls(geolevel = geolevel, call_res = call_res)
+  # Extract coverage dates and download URLs from all resources.
+  # The format tag is unreliable (empty for most resources), so we use all resources
+  # and select by coverage date rather than issued date.
+  all_res_list   <- cnt[["result"]][["resources"]]
+  coverage_dates <- as.Date(unlist(purrr::map(all_res_list, "coverage")))
+  download_urls  <- unlist(purrr::map(all_res_list, "download_url"))
   
-  # Get info and check whether resource metadata can be parsed properly
-  if (latest & is.null(resources$download_url)==FALSE) {
-    
-    
-    #### Fix retrieval of latest - via latest publication date
-    
-    max_issued_date <-  max(as.Date(resources$pub_date))
-    
-    # Get URL
-    urls <- get_vote_urls(geolevel = "national", call_res = call_res)
-    
-    # urls$download_url
-    
-    # test: broken link
-    # gdUrl <- "https://www.bfs.admin.ch/bfsstatic/dam/assets/1812413211/master"
-      
-    gdUrl <- urls[urls[["pub_date"]] == max_issued_date,][["download_url"]]
-    
-    gdInfoLatest <- which(urls[["pub_date"]] ==  max_issued_date)
-    
-    gdInfo <- cnt[["result"]][["resources"]][[gdInfoLatest]][["title"]]
-    
-    # get layer names - if they are available
-    gdLayers <- suppressWarnings(tryCatch(sf::st_layers(gdUrl)[1][["name"]], 
-                         error = function(e) {gdLayers <- NULL}))
-    
-    # interrupt function (without error) if internet resource is unavailable
-    if(is.null(gdLayers )){ return(invisible(NULL))} 
-
-    
-  } else {
-    
-    if(is.null(resources$download_url)==TRUE & latest) message("Resource metadata cannot be parsed properly. Selection of the latest resource by order instead of latest date.")
-    
-    gdInfo <- cnt[["result"]][["resources"]][[1]][["title"]] 
-    gdUrl <- cnt[["result"]][["resources"]][[1]][["download_url"]]
-    gdLayers <- sf::st_layers(gdUrl)[1][["name"]]
-    
+  if (any(is.na(coverage_dates)) || length(download_urls) == 0) {
+    message("Resource metadata cannot be parsed properly. There might be an issue with the opendata.swiss-metadata API.")
+    return(invisible(NULL))
   }
   
+  if (latest) {
+    # Pick the resource with the most recent boundary state
+    best_idx <- which(coverage_dates == max(coverage_dates, na.rm = TRUE))[1]
+  } else {
+    # Pick the resource whose boundary state is closest to Jan 1 of the current year
+    jan1 <- as.Date(paste0(format(Sys.Date(), "%Y"), "-01-01"))
+    best_idx <- which(coverage_dates == jan1)[1]
+    if (is.na(best_idx)) {
+      message("No boundary state found for January 1 of this year. Using the latest instead.")
+      best_idx <- which(coverage_dates == max(coverage_dates, na.rm = TRUE))[1]
+    }
+  }
+  
+  gdUrl  <- download_urls[best_idx]
+  gdInfo <- unlist(all_res_list[[best_idx]][["title"]])
+  
   if (verbose) cat(paste0(gdInfo[!gdInfo == ""], collapse = "\n"), "\n\n")
+  
+  # Get layer names; return NULL silently if the resource is unavailable
+  gdLayers <- suppressWarnings(tryCatch(
+    sf::st_layers(gdUrl)[1][["name"]],
+    error = function(e) NULL
+  ))
+  
+  if (is.null(gdLayers)) { return(invisible(NULL)) }
   
   # Load geodata and join votes
   if (geolevel == "municipality") {
@@ -151,7 +146,7 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
   }
   if (geolevel == "zh_counting_districts") {
     
-    gd <- sf::st_read(gdUrl, layer = gdLayers[stringr::str_detect(gdLayers, "zaelhkreise_")], quiet = T) %>% 
+    gd <- sf::st_read(gdUrl, layer = gdLayers[stringr::str_detect(gdLayers, "zaehlkreise_")], quiet = T) %>% 
       dplyr::rename(mun_id = id) %>% 
       # dplyr::rename(mun_name = name) %>% 
       dplyr::mutate(mun_id = as.character(mun_id)) %>% 
