@@ -64,17 +64,26 @@ get_geodata <- function(geolevel = "municipality", latest = T, verbose = F, call
     
     # Get URL
     urls <- get_vote_urls(geolevel = "national", call_res = call_res)
-    
+
     # urls$download_url
-    
+
     # test: broken link
     # gdUrl <- "https://www.bfs.admin.ch/bfsstatic/dam/assets/1812413211/master"
-      
-    gdUrl <- urls[urls[["pub_date"]] == max_issued_date,][["download_url"]]
-    
-    gdInfoLatest <- which(urls[["pub_date"]] ==  max_issued_date)
-    
-    gdInfo <- cnt[["result"]][["resources"]][[gdInfoLatest]][["title"]]
+
+    # Take first matching URL (guard against multiple entries with same pub_date)
+    gdUrl <- urls[urls[["pub_date"]] == max_issued_date,][["download_url"]][1]
+
+    # Look up title by URL match in the full (unfiltered) resources list,
+    # rather than using which() on the filtered urls tibble — those indices diverge.
+    all_resources <- cnt[["result"]][["resources"]]
+    matched_resource <- which(vapply(all_resources,
+                                     function(x) identical(x[["download_url"]], gdUrl),
+                                     logical(1)))
+    gdInfo <- if (length(matched_resource) > 0) {
+      all_resources[[matched_resource[1]]][["title"]]
+    } else {
+      ""
+    }
     
     # get layer names - if they are available
     gdLayers <- suppressWarnings(tryCatch(sf::st_layers(gdUrl)[1][["name"]], 
