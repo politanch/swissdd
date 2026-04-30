@@ -1,3 +1,7 @@
+# swissdd 1.1.6
+
+* minor fixes for bugs in `get_geodata()` 
+
 
 # swissdd 1.1.5
 
