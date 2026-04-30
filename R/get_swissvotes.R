@@ -29,7 +29,8 @@ get_swissvotes <- function(DB = T, savecitation = F, codebook = F) {
     download <- suppressWarnings(safe_csv(
       "https://swissvotes.ch/page/dataset/swissvotes_dataset.csv",
       sep=";", 
-      stringsAsFactors = F
+      stringsAsFactors = F,
+      fileEncoding = "UTF-8-BOM"
     ))
     
     swissvotesDB <- download$result
