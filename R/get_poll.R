@@ -17,7 +17,7 @@
 get_poll <- function(bfsnr = NULL, codebook = F) {
 
   if(is.null(bfsnr)) stop("Identifier number of vote (voteid) has to be specified. See for the variable `anr` obtained through swissdd::get_swissvotes ")
-  if(class(bfsnr)=="numeric"){
+  if(is.numeric(bfsnr)){
     if(nchar(bfsnr)<4) stop("vote identifier has to have four digits, for example 6360")
     if(bfsnr<6360) stop("Polls are available from November 2020 onwards. Hence, bfsnr cannot be smaller than 6360.")
   }
@@ -39,7 +39,7 @@ get_poll <- function(bfsnr = NULL, codebook = F) {
     stringsAsFactors = F
   ))
   
-  if(class(exitpoll)=="try-error"){
+  if(inherits(exitpoll, "try-error")){
     stop("Data is not (yet) available on swissvotes.\nFollow @swissvotes on Twitter for update information.")
   }else{
     message("Data is downloaded from swissvotes.")
