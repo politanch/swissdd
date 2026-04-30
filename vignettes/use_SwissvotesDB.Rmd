@@ -1,6 +1,10 @@
 ---
 title: "Retrieve Swissvotes-Data"
 output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Retrieve Swissvotes-Data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
@@ -21,8 +25,6 @@ First, you have to make sure that your machine is connected to the internet.
 
 # installation from github (ongoing updates)
 # devtools::install_github("politanch/swissdd")
-
-Sys.setlocale('LC_ALL','C')
 
 library(swissdd)
 library(dplyr)

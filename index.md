@@ -3,6 +3,7 @@
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/swissdd)](https://cran.r-project.org/package=swissdd)
 [![Licence](https://img.shields.io/badge/licence-GPL--2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.en.html)
 [![cranlogs](https://cranlogs.r-pkg.org/badges/grand-total/swissdd)](http://cran.rstudio.com/web/packages/swissdd/index.html)
+[![R-CMD-check](https://github.com/politanch/swissdd/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/politanch/swissdd/actions/workflows/R-CMD-check.yaml)
 
 ## the swiss direct democracy R package
 <p align="left"><img src="https://raw.githubusercontent.com/politanch/swissdd/master/pkgdown/swissdd_sticker.png" alt="" width="100"/></p>

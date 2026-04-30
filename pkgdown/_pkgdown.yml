@@ -1,4 +1,71 @@
+url: https://politanch.github.io/swissdd/
+
 template:
-  path: pkgdown/templates
-  params:
-    bootswatch: lumen
+  bootstrap: 5
+  bootswatch: lux
+  bslib:
+    primary: "#FF6B00"
+    navbar-bg: "#FF6B00"
+    link-color: "#293c55"
+    headings-color: "#293c55"
+    pkgdown-nav-height: 40px
+
+navbar:
+  bg: primary
+  structure:
+    left:  [intro, reference, articles, news]
+    right: [search, github]
+  components:
+    github:
+      icon: fab fa-github fa-lg
+      href: https://github.com/politanch/swissdd
+      aria-label: GitHub
+
+home:
+  links:
+  - text: Browse source code
+    href: https://github.com/politanch/swissdd
+  - text: Report a bug
+    href: https://github.com/politanch/swissdd/issues
+
+reference:
+- title: "Retrieve vote results"
+  desc: "Download federal and cantonal vote results from opendata.swiss."
+  contents:
+  - get_nationalvotes
+  - get_cantonalvotes
+  - available_votedates
+- title: "Parse JSON"
+  desc: "Convert raw API JSON to tidy data frames."
+  contents:
+  - swiss_json_to_dfr
+  - canton_json_to_dfr
+- title: "Geodata & maps"
+  desc: "Retrieve administrative boundaries and plot vote result maps."
+  contents:
+  - get_geodata
+  - plot_nationalvotes
+  - plot_cantonalvotes
+- title: "Swissvotes database"
+  desc: "Access the Swissvotes database and post-vote survey data."
+  contents:
+  - get_swissvotes
+  - get_poll
+- title: "Analysis"
+  contents:
+  - similar_votes
+- title: "Data"
+  contents:
+  - keys
+
+articles:
+- title: "Visualization"
+  contents:
+  - plot_voteshares
+  - plot_correlations
+- title: "Modelling & prediction"
+  contents:
+  - predict_voteshare
+- title: "Data access"
+  contents:
+  - use_SwissvotesDB

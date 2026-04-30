@@ -1,10 +1,12 @@
-pandoc: 2.14.0.3
-pkgdown: 1.6.1
+pandoc: 3.8.3
+pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   plot_correlations: plot_correlations.html
   plot_voteshares: plot_voteshares.html
   predict_voteshare: predict_voteshare.html
   use_SwissvotesDB: use_SwissvotesDB.html
-last_built: 2022-05-19T17:59Z
-
+last_built: 2026-04-30T23:40Z
+urls:
+  reference: https://politanch.github.io/swissdd/reference
+  article: https://politanch.github.io/swissdd/articles

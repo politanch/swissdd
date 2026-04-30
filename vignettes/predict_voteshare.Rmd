@@ -1,6 +1,10 @@
 ---
 title: "Predict vote shares"
 output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Predict vote shares}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
@@ -14,9 +18,9 @@ knitr::opts_chunk$set(
 
 First, you have to make sure that your machine is connected to the internet. The function `get_swissvotes` fetches all data stored within the swissvotes database. Swissvotes offers one of the most comprehensive data platforms in relation to Swiss referendums and initiatives.
 
-![](https://swissvotes.ch/static/images/logo.svg)
+![Swissvotes logo](https://swissvotes.ch/static/images/logo.svg)
 
-# Predict vote outcomes with ![](https://swissvotes.ch/static/images/logo.svg){width=120px} Data
+# Predict vote outcomes with ![Swissvotes logo](https://swissvotes.ch/static/images/logo.svg){width=120px} Data
 
 This blogpost shows how to perform a simple prediction of vote outcomes based on Swissvotes data in just a few steps.
 
