@@ -2,13 +2,12 @@ url: https://politanch.github.io/swissdd/
 
 template:
   bootstrap: 5
-  bootswatch: lux
+  bootswatch: cosmo
   bslib:
     primary: "#FF6B00"
     navbar-bg: "#FF6B00"
     link-color: "#293c55"
     headings-color: "#293c55"
-    pkgdown-nav-height: 40px
 
 navbar:
   bg: primary
